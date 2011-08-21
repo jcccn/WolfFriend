@@ -34,5 +34,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSHasLocalizedDisplayName</key>
+	<true/>
+	<key>UIPrerenderedIcon</key>
+	<false/>
 </dict>
 </plist>
