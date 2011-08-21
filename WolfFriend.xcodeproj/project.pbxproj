@@ -1,0 +1,309 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		90FD7C3C1400B56F00D33B25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3B1400B56F00D33B25 /* UIKit.framework */; };
+		90FD7C3E1400B56F00D33B25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3D1400B56F00D33B25 /* Foundation.framework */; };
+		90FD7C401400B56F00D33B25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3F1400B56F00D33B25 /* CoreGraphics.framework */; };
+		90FD7C461400B56F00D33B25 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 90FD7C441400B56F00D33B25 /* InfoPlist.strings */; };
+		90FD7C481400B56F00D33B25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7C471400B56F00D33B25 /* main.m */; };
+		90FD7C4C1400B56F00D33B25 /* WolfFriendAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7C4B1400B56F00D33B25 /* WolfFriendAppDelegate.m */; };
+		90FD7C4F1400B56F00D33B25 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90FD7C4D1400B56F00D33B25 /* MainWindow.xib */; };
+		90FD7C521400B56F00D33B25 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7C511400B56F00D33B25 /* FirstViewController.m */; };
+		90FD7C551400B56F00D33B25 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FD7C541400B56F00D33B25 /* SecondViewController.m */; };
+		90FD7C581400B56F00D33B25 /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90FD7C561400B56F00D33B25 /* FirstView.xib */; };
+		90FD7C5B1400B56F00D33B25 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90FD7C591400B56F00D33B25 /* SecondView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		90FD7C371400B56F00D33B25 /* WolfFriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WolfFriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90FD7C3B1400B56F00D33B25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		90FD7C3D1400B56F00D33B25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		90FD7C3F1400B56F00D33B25 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		90FD7C431400B56F00D33B25 /* WolfFriend-Info.plist */ = {isa = PBXFileReference; path = "WolfFriend-Info.plist"; sourceTree = "<group>"; };
+		90FD7C451400B56F00D33B25 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		90FD7C471400B56F00D33B25 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		90FD7C491400B56F00D33B25 /* WolfFriend-Prefix.pch */ = {isa = PBXFileReference; path = "WolfFriend-Prefix.pch"; sourceTree = "<group>"; };
+		90FD7C4A1400B56F00D33B25 /* WolfFriendAppDelegate.h */ = {isa = PBXFileReference; path = WolfFriendAppDelegate.h; sourceTree = "<group>"; };
+		90FD7C4B1400B56F00D33B25 /* WolfFriendAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WolfFriendAppDelegate.m; sourceTree = "<group>"; };
+		90FD7C4E1400B56F00D33B25 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		90FD7C501400B56F00D33B25 /* FirstViewController.h */ = {isa = PBXFileReference; path = FirstViewController.h; sourceTree = "<group>"; };
+		90FD7C511400B56F00D33B25 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		90FD7C531400B56F00D33B25 /* SecondViewController.h */ = {isa = PBXFileReference; path = SecondViewController.h; sourceTree = "<group>"; };
+		90FD7C541400B56F00D33B25 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		90FD7C571400B56F00D33B25 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstView.xib; sourceTree = "<group>"; };
+		90FD7C5A1400B56F00D33B25 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		90FD7C341400B56F00D33B25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90FD7C3C1400B56F00D33B25 /* UIKit.framework in Frameworks */,
+				90FD7C3E1400B56F00D33B25 /* Foundation.framework in Frameworks */,
+				90FD7C401400B56F00D33B25 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		90FD7C2C1400B56F00D33B25 = {
+			isa = PBXGroup;
+			children = (
+				90FD7C411400B56F00D33B25 /* WolfFriend */,
+				90FD7C3A1400B56F00D33B25 /* Frameworks */,
+				90FD7C381400B56F00D33B25 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		90FD7C381400B56F00D33B25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90FD7C371400B56F00D33B25 /* WolfFriend.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90FD7C3A1400B56F00D33B25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90FD7C3B1400B56F00D33B25 /* UIKit.framework */,
+				90FD7C3D1400B56F00D33B25 /* Foundation.framework */,
+				90FD7C3F1400B56F00D33B25 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		90FD7C411400B56F00D33B25 /* WolfFriend */ = {
+			isa = PBXGroup;
+			children = (
+				90FD7C4A1400B56F00D33B25 /* WolfFriendAppDelegate.h */,
+				90FD7C4B1400B56F00D33B25 /* WolfFriendAppDelegate.m */,
+				90FD7C4D1400B56F00D33B25 /* MainWindow.xib */,
+				90FD7C501400B56F00D33B25 /* FirstViewController.h */,
+				90FD7C511400B56F00D33B25 /* FirstViewController.m */,
+				90FD7C531400B56F00D33B25 /* SecondViewController.h */,
+				90FD7C541400B56F00D33B25 /* SecondViewController.m */,
+				90FD7C561400B56F00D33B25 /* FirstView.xib */,
+				90FD7C591400B56F00D33B25 /* SecondView.xib */,
+				90FD7C421400B56F00D33B25 /* Supporting Files */,
+			);
+			path = WolfFriend;
+			sourceTree = "<group>";
+		};
+		90FD7C421400B56F00D33B25 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				90FD7C431400B56F00D33B25 /* WolfFriend-Info.plist */,
+				90FD7C441400B56F00D33B25 /* InfoPlist.strings */,
+				90FD7C471400B56F00D33B25 /* main.m */,
+				90FD7C491400B56F00D33B25 /* WolfFriend-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		90FD7C361400B56F00D33B25 /* WolfFriend */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90FD7C5E1400B56F00D33B25 /* Build configuration list for PBXNativeTarget "WolfFriend" */;
+			buildPhases = (
+				90FD7C331400B56F00D33B25 /* Sources */,
+				90FD7C341400B56F00D33B25 /* Frameworks */,
+				90FD7C351400B56F00D33B25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WolfFriend;
+			productName = WolfFriend;
+			productReference = 90FD7C371400B56F00D33B25 /* WolfFriend.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		90FD7C2E1400B56F00D33B25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = SenseForce;
+			};
+			buildConfigurationList = 90FD7C311400B56F00D33B25 /* Build configuration list for PBXProject "WolfFriend" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 90FD7C2C1400B56F00D33B25;
+			productRefGroup = 90FD7C381400B56F00D33B25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				90FD7C361400B56F00D33B25 /* WolfFriend */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		90FD7C351400B56F00D33B25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90FD7C461400B56F00D33B25 /* InfoPlist.strings in Resources */,
+				90FD7C4F1400B56F00D33B25 /* MainWindow.xib in Resources */,
+				90FD7C581400B56F00D33B25 /* FirstView.xib in Resources */,
+				90FD7C5B1400B56F00D33B25 /* SecondView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		90FD7C331400B56F00D33B25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90FD7C481400B56F00D33B25 /* main.m in Sources */,
+				90FD7C4C1400B56F00D33B25 /* WolfFriendAppDelegate.m in Sources */,
+				90FD7C521400B56F00D33B25 /* FirstViewController.m in Sources */,
+				90FD7C551400B56F00D33B25 /* SecondViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		90FD7C441400B56F00D33B25 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90FD7C451400B56F00D33B25 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		90FD7C4D1400B56F00D33B25 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90FD7C4E1400B56F00D33B25 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		90FD7C561400B56F00D33B25 /* FirstView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90FD7C571400B56F00D33B25 /* en */,
+			);
+			name = FirstView.xib;
+			sourceTree = "<group>";
+		};
+		90FD7C591400B56F00D33B25 /* SecondView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90FD7C5A1400B56F00D33B25 /* en */,
+			);
+			name = SecondView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		90FD7C5C1400B56F00D33B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		90FD7C5D1400B56F00D33B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		90FD7C5F1400B56F00D33B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WolfFriend/WolfFriend-Prefix.pch";
+				INFOPLIST_FILE = "WolfFriend/WolfFriend-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		90FD7C601400B56F00D33B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WolfFriend/WolfFriend-Prefix.pch";
+				INFOPLIST_FILE = "WolfFriend/WolfFriend-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		90FD7C311400B56F00D33B25 /* Build configuration list for PBXProject "WolfFriend" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90FD7C5C1400B56F00D33B25 /* Debug */,
+				90FD7C5D1400B56F00D33B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90FD7C5E1400B56F00D33B25 /* Build configuration list for PBXNativeTarget "WolfFriend" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90FD7C5F1400B56F00D33B25 /* Debug */,
+				90FD7C601400B56F00D33B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 90FD7C2E1400B56F00D33B25 /* Project object */;
+}
