@@ -34,7 +34,7 @@
     UINavigationController *novelNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[NovelListViewController alloc] init] autorelease]];
     novelNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"小说阅读" image:[UIImage imageNamed:@"IconNovel.png"] tag:TagTabBarItemNovel] autorelease];
     
-    UINavigationController *toolNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[ToolViewController alloc] init] autorelease]];
+    UINavigationController *toolNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[ToolViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease]];
     toolNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"工具箱" image:[UIImage imageNamed:@"IconTool.png"] tag:TagTabBarItemTool] autorelease];
     
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:pictureNavigationController, novelNavigationController, toolNavigationController, nil];

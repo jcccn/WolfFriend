@@ -46,9 +46,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ( ! self.tableView.tableFooterView) {
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        self.tableView.tableFooterView = footView;
+        [footView release];
+        UIButton *prePageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        prePageButton.frame = CGRectMake(30, 5, 100, 40 );
+        [prePageButton setTitle:@"上一页" forState:UIControlStateNormal];
+        [prePageButton addTarget:self action:@selector(preButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView.tableFooterView addSubview:prePageButton];
+        UIButton *nextPageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        nextPageButton.frame = CGRectMake(190, 5, 100, 40 );
+        [nextPageButton setTitle:@"下一页" forState:UIControlStateNormal];
+        [nextPageButton addTarget:self action:@selector(nextButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView.tableFooterView addSubview:nextPageButton];
+        self.tableView.tableFooterView.hidden = YES;
+    }
     
     if (self.sectionObject) {
-        self.title = [self.sectionObject.title stringByAppendingString:@" - 1/∞"];
+//        self.title = [self.sectionObject.title stringByAppendingString:@" - 0/∞"];
         
         if ( ! activityIndicator) {
             activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -58,26 +74,79 @@
             [self.view addSubview:activityIndicator];
         }
         
-        if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
+//        if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
+////            [activityIndicator startAnimating];
+////            self.view.userInteractionEnabled = NO;
+//            [self.sectionObject refreshDataWithDeledate:nil];
+//        }
+//        
+//        self.pageObject = [[PageObject alloc] initWithUrlString:[self.sectionObject.url stringByAppendingString:@"/index.html"]];
+//        if ([[self.pageObject itemsArray] count] <= 0) {
 //            [activityIndicator startAnimating];
 //            self.view.userInteractionEnabled = NO;
-            [self.sectionObject refreshDataWithDeledate:self];
-        }
-        
-        self.pageObject = [[PageObject alloc] initWithUrlString:[self.sectionObject.url stringByAppendingString:@"/index.html"]];
-        if ([[self.pageObject itemsArray] count] <= 0) {
-            [activityIndicator startAnimating];
-            self.view.userInteractionEnabled = NO;
-            [self.pageObject refreshDataWithDeledate:self];
-        }
-        
+//            [self.pageObject refreshDataWithDeledate:self];
+//        }
+//        [self performSelectorInBackground:@selector(startLoadItemList) withObject:nil];
+        [self startLoadItemList];
     }
     
+    self.tableView.scrollsToTop = YES;
 
 //    self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)startLoadItemList {
+    if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
+        [activityIndicator startAnimating];
+        self.view.userInteractionEnabled = NO;
+        [self.sectionObject refreshDataWithDeledate:self];
+    }
+    else {
+        self.pageObject = [self.sectionObject currentPageObject];
+        self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
+        self.tableView.tableFooterView.hidden = NO;
+        if ([[self.pageObject itemsArray] count] <= 0) {
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            [self.pageObject refreshDataWithDeledate:self];
+        }
+    }
+}
+
+- (void)startLoadNextItemList {
+    self.pageObject = [self.sectionObject nextPageObject];
+    if ([[self.pageObject itemsArray] count] <= 0) {
+        [activityIndicator startAnimating];
+        self.view.userInteractionEnabled = NO;
+        [self.pageObject refreshDataWithDeledate:self];
+    }
+}
+
+- (void)nextButtonClicked:(id)sender {
+    PageObject *nextPageObject = [self.sectionObject nextPageObject];
+    if (nextPageObject) {
+        self.pageObject = nextPageObject;
+        if ([[self.pageObject itemsArray] count] <= 0) {
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            [self.pageObject refreshDataWithDeledate:self];
+        }
+    }
+}
+
+- (void)preButtonClicked:(id)sender {
+    PageObject *prePageObject = [self.sectionObject prePageObject];
+    if (prePageObject) {
+        self.pageObject = prePageObject;
+        if ([[self.pageObject itemsArray] count] <= 0) {
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            [self.pageObject refreshDataWithDeledate:self];
+        }
+    }
 }
 
 - (void)viewDidUnload
@@ -99,6 +168,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+//    if (self.pageObject) {
+//        [self.pageObject stopRefreshDataWithDeledate:self];
+//    }
     [super viewWillDisappear:animated];
 }
 
@@ -130,7 +202,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40.0f;
+    return 50.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -152,9 +224,9 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         cell.textLabel.textColor = [UIColor blueColor];
         cell.textLabel.font = [UIFont systemFontOfSize:12];
-        cell.textLabel.text = [(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.textLabel.text = [(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title];
     
     // Configure the cell...
     
@@ -216,23 +288,33 @@
 #pragma mark - SectionObjectDelegate
 
 - (void)sectionDataFectchedSuccess {
-//    [activityIndicator stopAnimating];
-//    self.view.userInteractionEnabled = YES;
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
     self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
+    [self startLoadItemList];
 }
 
 - (void)sectionDataFectchedFailed {
-//    [activityIndicator stopAnimating];
-//    self.view.userInteractionEnabled = YES;
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
 }
 
 - (void)pageDataFectchedSuccess {
+    if (!self.view) {
+        return;
+    }
     [activityIndicator stopAnimating];
     self.view.userInteractionEnabled = YES;
+    self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
     [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    self.tableView.tableFooterView.hidden = NO;
 }
 
 - (void)pageDataFectchedFailed {
+    if (!self.view) {
+        return;
+    }
     [activityIndicator stopAnimating];
     self.view.userInteractionEnabled = YES;
 }

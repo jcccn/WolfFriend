@@ -24,6 +24,6 @@
 @property (nonatomic, retain) ItemObject *itemObject;
 
 - (id)initWithSection:(SectionObject *)section item:(ItemObject *)item;
-
+- (void)startLoadWebPage;
 
 @end

@@ -27,10 +27,19 @@
 
 
 - (void)startFetchDataWithURLString:(NSString *)aString {
-    NSLog(@"aString:%@",aString);
+//    NSLog(@"aString:%@",aString);
     self.bufferData = [NSMutableData data];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:aString]];
     urlConnection = [NSURLConnection connectionWithRequest:request delegate:self];
+}
+
+- (void)cancelConnection {
+    if (urlConnection) {
+        [urlConnection cancel];
+    }
+    if (self.delegate) {
+        [self.delegate httpDataFetchedFailed:@"Canceled"];
+    }
 }
 
 #pragma mark -
@@ -54,7 +63,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     if (self.delegate) {
-        [self.delegate httpDataFetchedFailed:[error description]];
+        [self.delegate httpDataFetchedFailed:(error == nil)?@"":[error description]];
         self.bufferData = nil;
         urlConnection = nil;
     }

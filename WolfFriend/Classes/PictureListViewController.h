@@ -24,5 +24,6 @@
 @property (nonatomic, retain) PageObject *pageObject;
 
 - (id)initWithSectionObject:(SectionObject *)aSectionObject;
+- (void)startLoadItemList;
 
 @end

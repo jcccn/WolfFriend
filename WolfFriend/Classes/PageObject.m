@@ -52,7 +52,18 @@
 
 - (void)refreshDataWithDeledate:(id<PageObjectDelegate>)aDelegate {
     self.delegate = aDelegate;
-    [[[[HTTPTool alloc] initWithDelegate:self] autorelease] startFetchDataWithURLString:self.url];
+    httpTool = [[[HTTPTool alloc] initWithDelegate:self] autorelease];
+    [httpTool startFetchDataWithURLString:self.url];
+//    NSLog(@"page url:%@",self.url);
+}
+
+- (void)stopRefreshDataWithDeledate:(id<PageObjectDelegate>)aDelegate {
+//    if (httpTool) {
+//        [httpTool cancelConnection];
+//    }
+//    if (self.delegate) {
+//        [self.delegate pageDataFectchedFailed];
+//    }
 }
 
 - (NSMutableArray *)itemsArray {

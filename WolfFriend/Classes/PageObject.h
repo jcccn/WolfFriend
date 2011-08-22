@@ -21,9 +21,11 @@
 
 @interface PageObject : NSObject <HTTPToolDelegate> {
 //    NSString *title;
+//    NSInteger pageId;
     NSString *url;
     NSMutableArray *itemsArray;
     id<PageObjectDelegate> delegate;
+    HTTPTool *httpTool;
 }
 
 //@property (nonatomic, retain) NSString *title;
@@ -34,5 +36,7 @@
 - (id)initWithUrlString:(NSString *)aUrlString;
 - (NSMutableArray *)itemsArray;
 - (void)refreshDataWithDeledate:(id<PageObjectDelegate>)aDelegate;
+- (void)stopRefreshDataWithDeledate:(id<PageObjectDelegate>)aDelegate;
+//- (NSString *)nextPageURL:
 
 @end

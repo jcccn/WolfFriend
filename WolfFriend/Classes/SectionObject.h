@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HTMLTool.h"
 #import "HTTPTool.h"
+@class PageObject;
 
 @protocol SectionObjectDelegate
 
@@ -23,6 +24,7 @@
 //    NSMutableArray *pages;
     NSInteger pageCount;
     NSInteger currentPageIndex;
+    PageObject *currentPageObject;
     
     id<SectionObjectDelegate> delegate;
 }
@@ -36,6 +38,11 @@
 - (NSInteger)pageCount;
 - (NSInteger)currentPageIndex;
 - (void)refreshDataWithDeledate:(id<SectionObjectDelegate>)aDelegate;
+
+- (PageObject *)prePageObject;
+- (PageObject *)currentPageObject;
+- (PageObject *)nextPageObject;
+- (void)fetchPageCount;
 
 
 @end

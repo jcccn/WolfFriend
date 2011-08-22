@@ -79,16 +79,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    NSInteger numberOfRows = 0;
+    switch (section) {
+        case 0:
+            numberOfRows = 2;
+            break;
+        case 1:
+            numberOfRows = 1;
+            break;
+        case 2:
+            numberOfRows = 2;
+            break;
+        case 3:
+            numberOfRows = 1;
+            break;
+        case 4:
+            numberOfRows = 1;
+            break;
+        default:
+            break;
+    }
+    return numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,6 +115,72 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        switch (indexPath.section) {
+            case 0: {
+                switch (indexPath.row) {
+                    case 0:
+                        cell.textLabel.text = @"选择背景颜色";
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        break;
+                    case 1:
+                        cell.textLabel.text = @"选择文字颜色";
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        break;       
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            case 1: {
+                cell.textLabel.text = @"屏幕方向";
+                if ( ! cell.accessoryView) {
+                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"竖屏", @"自动", @"横屏", nil]];
+                    segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
+                    segmentedControl.selectedSegmentIndex = 0;
+                    cell.accessoryView = segmentedControl;
+                    [segmentedControl release];
+                }
+            }
+                break;
+            case 2: {
+                switch (indexPath.row) {
+                    case 0: {
+                        cell.textLabel.text = @"本地保存";
+                        if ( ! cell.accessoryView) {
+                            UISwitch *aSwitch = [[UISwitch alloc] init];
+                            aSwitch.frame = CGRectInset(aSwitch.frame, 0, 5);
+                            [aSwitch setOn:NO];
+                            cell.accessoryView = aSwitch;
+                            [aSwitch release];
+                        }
+                    }
+                        break;
+                    case 1:
+                        cell.textLabel.text = @"清除本地文件";
+                        cell.textLabel.textAlignment = UITextAlignmentCenter;
+//                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        break;       
+                    default:
+                        break;
+                }
+            }
+                break; 
+            case 3: {
+                cell.textLabel.text = @"分享";
+                cell.textLabel.textAlignment = UITextAlignmentCenter;
+            }
+                break;
+            case 4: {
+                cell.textLabel.text = @"免责声明";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+                break;
+            default:
+                break;
+        }
+        
     }
     
     // Configure the cell...
@@ -148,6 +231,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

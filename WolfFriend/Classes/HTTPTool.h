@@ -28,6 +28,7 @@
 
 - (id)initWithDelegate:(id<HTTPToolDelegate>)aDelegate;
 - (void)startFetchDataWithURLString:(NSString *)aString;
+- (void)cancelConnection;
 
 
 @end
