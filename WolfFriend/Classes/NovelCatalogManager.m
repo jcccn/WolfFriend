@@ -1,27 +1,27 @@
 //
-//  PictureCatalogManager.m
+//  NovelCatalogManager.m
 //  WolfFriend
 //
-//  Created by Jiang Chuncheng on 8/21/11.
+//  Created by Jiang Chuncheng on 8/23/11.
 //  Copyright 2011 SenseForce. All rights reserved.
 //
 
-#import "PictureCatalogManager.h"
+#import "NovelCatalogManager.h"
 #import "SectionObject.h"
 
-static PictureCatalogManager *sharedPictureCatalogManager = nil;
+static NovelCatalogManager *sharedNovelCatalogManager = nil;
 
-@implementation PictureCatalogManager
+@implementation NovelCatalogManager
 
 @synthesize sectionList;
 
-+ (PictureCatalogManager *)sharedManager {
++ (NovelCatalogManager *)sharedManager {
     @synchronized(self) {
-        if (sharedPictureCatalogManager == nil) {
-            sharedPictureCatalogManager = [[PictureCatalogManager alloc] init];
+        if (sharedNovelCatalogManager == nil) {
+            sharedNovelCatalogManager = [[NovelCatalogManager alloc] init];
         }
     }
-    return sharedPictureCatalogManager;
+    return sharedNovelCatalogManager;
 }
 
 - (id)init
@@ -39,8 +39,8 @@ static PictureCatalogManager *sharedPictureCatalogManager = nil;
 }
 
 - (void)refresh {
-    NSArray *titles = [NSArray arrayWithObjects:@"偷窥自拍", @"亚洲色图", @"欧美色图", @"明星裸照", @"清纯美女", @"美腿丝袜", @"乱伦熟女", @"情色另类", nil];
-    NSArray *urls = [NSArray arrayWithObjects:@"Piclist2", @"Piclist1", @"Piclist3", @"Piclist6", @"Piclist5", @"Piclist7", @"Piclist8",@"Piclist9",  nil];
+    NSArray *titles = [NSArray arrayWithObjects:@"激情文学", @"乱伦文学", @"淫色人妻", @"武侠古典", @"迷情校园", @"黄色笑话", @"意淫强奸", @"交通色狼", nil];
+    NSArray *urls = [NSArray arrayWithObjects:@"Novellist1", @"Novellist2", @"Novellist3", @"Novellist6", @"Novellist4", @"Novellist7", @"Novellist5",@"Novellist8",  nil];
     for (int index = 0; index < 8; index++) {
         SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[@"http://www.34eee.com/htm/" stringByAppendingString:[urls objectAtIndex:index]]];
         [self.sectionList addObject:sectionObject];

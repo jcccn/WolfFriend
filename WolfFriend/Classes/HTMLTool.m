@@ -104,7 +104,23 @@
         [aScanner scanUpToString:@"<div id=\"MyContent\">" intoString:NULL];
         [aScanner scanUpToString:@"</div>" intoString:&resultText];
     }
-    resultText = [[@"<html xml:lang=\"zh-CN\" lang=\"zh-CN\" xmlns=\"http://www.w3.org/1999/xhtml\"><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>123</title></head><body>"
+    resultText = [[@"<html xml:lang=\"zh-CN\" lang=\"zh-CN\" xmlns=\"http://www.w3.org/1999/xhtml\"><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>WolfFriend</title></head><body>"
+                   stringByAppendingString:resultText] stringByAppendingString:@"</body></html>"];
+    return resultText;
+}
+
++ (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml {
+    NSScanner *aScanner;
+    NSString *resultText = @"";
+    aScanner = [NSScanner scannerWithString:aHtml];
+    [aScanner scanUpToString:@"<div id=\"MyContent\">" intoString:NULL];
+    [aScanner scanUpToString:@"</div>" intoString:&resultText];
+    if ([resultText length] <= 0) {
+        aScanner = [NSScanner scannerWithString:aHtml];
+        [aScanner scanUpToString:@"<td id=" intoString:NULL];
+        [aScanner scanUpToString:@"</td>" intoString:&resultText];
+    }
+    resultText = [[@"<html xml:lang=\"zh-CN\" lang=\"zh-CN\" xmlns=\"http://www.w3.org/1999/xhtml\"><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>WolfFriend</title></head><body>"
                    stringByAppendingString:resultText] stringByAppendingString:@"</body></html>"];
     return resultText;
 }

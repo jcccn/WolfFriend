@@ -2,20 +2,33 @@
 //  NovelListViewController.m
 //  WolfFriend
 //
-//  Created by Jiang Chuncheng on 8/21/11.
+//  Created by Jiang Chuncheng on 8/23/11.
 //  Copyright 2011 SenseForce. All rights reserved.
 //
 
 #import "NovelListViewController.h"
-
+#import "NovelBrowserViewController.h"
+#import "NovelCatalogManager.h"
+#import "SectionObject.h"
+#import "ItemObject.h"
 
 @implementation NovelListViewController
+
+@synthesize sectionObject, pageObject;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithSectionObject:(SectionObject *)aSectionObject {
+    self = [super init];
+    if (self) {
+        self.sectionObject = aSectionObject;
     }
     return self;
 }
@@ -33,13 +46,107 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.title = @"青涩小说";
+    if ( ! self.tableView.tableFooterView) {
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        self.tableView.tableFooterView = footView;
+        [footView release];
+        UIButton *prePageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        prePageButton.frame = CGRectMake(30, 5, 100, 40 );
+        [prePageButton setTitle:@"上一页" forState:UIControlStateNormal];
+        [prePageButton addTarget:self action:@selector(preButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView.tableFooterView addSubview:prePageButton];
+        UIButton *nextPageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        nextPageButton.frame = CGRectMake(190, 5, 100, 40 );
+        [nextPageButton setTitle:@"下一页" forState:UIControlStateNormal];
+        [nextPageButton addTarget:self action:@selector(nextButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView.tableFooterView addSubview:nextPageButton];
+        self.tableView.tableFooterView.hidden = YES;
+    }
     
-    self.clearsSelectionOnViewWillAppear = NO;
- 
+    if (self.sectionObject) {
+        //        self.title = [self.sectionObject.title stringByAppendingString:@" - 0/∞"];
+        
+        if ( ! activityIndicator) {
+            activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            //                activityIndicator.center = self.view.center;
+            activityIndicator.center = CGPointMake(160, 200);
+            activityIndicator.hidesWhenStopped = YES;
+            [self.view addSubview:activityIndicator];
+        }
+        
+        //        if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
+        ////            [activityIndicator startAnimating];
+        ////            self.view.userInteractionEnabled = NO;
+        //            [self.sectionObject refreshDataWithDeledate:nil];
+        //        }
+        //        
+        //        self.pageObject = [[PageObject alloc] initWithUrlString:[self.sectionObject.url stringByAppendingString:@"/index.html"]];
+        //        if ([[self.pageObject itemsArray] count] <= 0) {
+        //            [activityIndicator startAnimating];
+        //            self.view.userInteractionEnabled = NO;
+        //            [self.pageObject refreshDataWithDeledate:self];
+        //        }
+        //        [self performSelectorInBackground:@selector(startLoadItemList) withObject:nil];
+        [self startLoadItemList];
+    }
+    
+    self.tableView.scrollsToTop = YES;
+    
+    //    self.clearsSelectionOnViewWillAppear = NO;
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)startLoadItemList {
+    if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
+        [activityIndicator startAnimating];
+        self.view.userInteractionEnabled = NO;
+        [self.sectionObject refreshDataWithDeledate:self];
+    }
+    else {
+        self.pageObject = [self.sectionObject currentPageObject];
+        self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
+        self.tableView.tableFooterView.hidden = NO;
+        if ([[self.pageObject itemsArray] count] <= 0) {
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            [self.pageObject refreshDataWithDeledate:self];
+        }
+    }
+}
+
+- (void)startLoadNextItemList {
+    self.pageObject = [self.sectionObject nextPageObject];
+    if ([[self.pageObject itemsArray] count] <= 0) {
+        [activityIndicator startAnimating];
+        self.view.userInteractionEnabled = NO;
+        [self.pageObject refreshDataWithDeledate:self];
+    }
+}
+
+- (void)nextButtonClicked:(id)sender {
+    PageObject *nextPageObject = [self.sectionObject nextPageObject];
+    if (nextPageObject) {
+        self.pageObject = nextPageObject;
+        if ([[self.pageObject itemsArray] count] <= 0) {
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            [self.pageObject refreshDataWithDeledate:self];
+        }
+    }
+}
+
+- (void)preButtonClicked:(id)sender {
+    PageObject *prePageObject = [self.sectionObject prePageObject];
+    if (prePageObject) {
+        self.pageObject = prePageObject;
+        if ([[self.pageObject itemsArray] count] <= 0) {
+            [activityIndicator startAnimating];
+            self.view.userInteractionEnabled = NO;
+            [self.pageObject refreshDataWithDeledate:self];
+        }
+    }
 }
 
 - (void)viewDidUnload
@@ -61,6 +168,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    //    if (self.pageObject) {
+    //        [self.pageObject stopRefreshDataWithDeledate:self];
+    //    }
     [super viewWillDisappear:animated];
 }
 
@@ -75,30 +185,48 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    if (activityIndicator) {
+        [activityIndicator stopAnimating];
+        [activityIndicator release];
+        activityIndicator = nil;
+    }
+    [super dealloc];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    NSInteger count = 0;
+    if (self.pageObject) {
+        //        count = [[self.sectionObject pages] count];
+        count = [[self.pageObject itemsArray] count];
+    }
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CellNovelList";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.textLabel.textColor = [UIColor blueColor];
+        cell.textLabel.font = [UIFont systemFontOfSize:12];
+        //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.textLabel.text = [(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title];
     
     // Configure the cell...
     
@@ -106,56 +234,90 @@
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }   
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }   
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    
+    NovelBrowserViewController *novelBrowserViewController = [[NovelBrowserViewController alloc] initWithSection:self.sectionObject item:(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row]];
+    novelBrowserViewController.title = [NSString stringWithString:[(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title]];
+    [self.navigationController pushViewController:novelBrowserViewController animated:YES];
+    [novelBrowserViewController release];
+    
+}
+
+#pragma mark - SectionObjectDelegate
+
+- (void)sectionDataFectchedSuccess {
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
+    self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
+    [self startLoadItemList];
+}
+
+- (void)sectionDataFectchedFailed {
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
+}
+
+- (void)pageDataFectchedSuccess {
+    if (!self.view) {
+        return;
+    }
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
+    self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
+    [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    self.tableView.tableFooterView.hidden = NO;
+}
+
+- (void)pageDataFectchedFailed {
+    if (!self.view) {
+        return;
+    }
+    [activityIndicator stopAnimating];
+    self.view.userInteractionEnabled = YES;
 }
 
 @end

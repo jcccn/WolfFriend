@@ -110,82 +110,100 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CellTool";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        
-        switch (indexPath.section) {
-            case 0: {
-                switch (indexPath.row) {
-                    case 0:
-                        cell.textLabel.text = @"选择背景颜色";
-                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                        break;
-                    case 1:
-                        cell.textLabel.text = @"选择文字颜色";
-                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                        break;       
-                    default:
-                        break;
-                }
+    }
+    // Configure the cell...
+    switch (indexPath.section) {
+        case 0: {
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"选择背景颜色";
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                case 1:
+                    cell.textLabel.text = @"选择文字颜色";
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;       
+                default:
+                    break;
             }
-                break;
-                
-            case 1: {
-                cell.textLabel.text = @"屏幕方向";
-                if ( ! cell.accessoryView) {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"竖屏", @"自动", @"横屏", nil]];
-                    segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
-                    segmentedControl.selectedSegmentIndex = 0;
-                    cell.accessoryView = segmentedControl;
-                    [segmentedControl release];
-                }
-            }
-                break;
-            case 2: {
-                switch (indexPath.row) {
-                    case 0: {
-                        cell.textLabel.text = @"本地保存";
-                        if ( ! cell.accessoryView) {
-                            UISwitch *aSwitch = [[UISwitch alloc] init];
-                            aSwitch.frame = CGRectInset(aSwitch.frame, 0, 5);
-                            [aSwitch setOn:NO];
-                            cell.accessoryView = aSwitch;
-                            [aSwitch release];
-                        }
-                    }
-                        break;
-                    case 1:
-                        cell.textLabel.text = @"清除本地文件";
-                        cell.textLabel.textAlignment = UITextAlignmentCenter;
-//                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                        break;       
-                    default:
-                        break;
-                }
-            }
-                break; 
-            case 3: {
-                cell.textLabel.text = @"分享";
-                cell.textLabel.textAlignment = UITextAlignmentCenter;
-            }
-                break;
-            case 4: {
-                cell.textLabel.text = @"免责声明";
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
-                break;
-            default:
-                break;
         }
-        
+            break;
+            
+        case 1: {
+            cell.textLabel.text = @"屏幕方向";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if ( ! cell.accessoryView) {
+                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"竖屏", @"自动", @"横屏", nil]];
+                segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
+                segmentedControl.selectedSegmentIndex = 0;
+                cell.accessoryView = segmentedControl;
+                [segmentedControl release];
+            }
+        }
+            break;
+        case 2: {
+            switch (indexPath.row) {
+                case 0: {
+                    cell.textLabel.text = @"本地保存";
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    if ( ! cell.accessoryView) {
+                        UISwitch *aSwitch = [[UISwitch alloc] init];
+                        aSwitch.frame = CGRectInset(aSwitch.frame, 0, 5);
+                        [aSwitch setOn:NO];
+                        cell.accessoryView = aSwitch;
+                        [aSwitch release];
+                    }
+                }
+                    break;
+                case 1:
+                    cell.textLabel.text = @"清除本地文件";
+                    cell.textLabel.textAlignment = UITextAlignmentCenter;
+                    //                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;       
+                default:
+                    break;
+            }
+        }
+            break; 
+        case 3: {
+            cell.textLabel.text = @"分享";
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+        }
+            break;
+        case 4: {
+            cell.textLabel.text = @"免责声明";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+            break;
+        default:
+            break;
     }
     
-    // Configure the cell...
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *titleHeader = @"";
+    switch (section) {
+        case 0:
+            titleHeader = @"主题自定义";
+            break;
+        case 1:
+            titleHeader = @"屏幕设置";
+            break;
+        case 2:
+            titleHeader = @"缓存设置";
+            break;
+        default:
+            break;
+    }
+    return titleHeader;
 }
 
 /*

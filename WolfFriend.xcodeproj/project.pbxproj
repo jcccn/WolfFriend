@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9035F2A81403D79200007A5A /* NovelCatalogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2A71403D79100007A5A /* NovelCatalogManager.m */; };
+		9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2AB1403DF1B00007A5A /* NovelListViewController.m */; };
+		9035F3241403F29C00007A5A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9035F3231403F29C00007A5A /* MainWindow.xib */; };
 		90F2424E1401032A00E1B284 /* PictureListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F2424C1401032A00E1B284 /* PictureListViewController.m */; };
 		90F242521401038300E1B284 /* PictureBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242511401038300E1B284 /* PictureBrowserViewController.m */; };
-		90F24255140103B000E1B284 /* NovelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F24254140103B000E1B284 /* NovelListViewController.m */; };
+		90F24255140103B000E1B284 /* NovelSectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F24254140103B000E1B284 /* NovelSectionListViewController.m */; };
 		90F24258140103C400E1B284 /* NovelBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F24257140103C400E1B284 /* NovelBrowserViewController.m */; };
 		90F2425A140103F200E1B284 /* Constant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90F24259140103F200E1B284 /* Constant.plist */; };
 		90F242631401041800E1B284 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F2425C1401041800E1B284 /* Default.png */; };
@@ -38,12 +41,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9035F2A61403D79100007A5A /* NovelCatalogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelCatalogManager.h; sourceTree = "<group>"; };
+		9035F2A71403D79100007A5A /* NovelCatalogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelCatalogManager.m; sourceTree = "<group>"; };
+		9035F2AA1403DF1B00007A5A /* NovelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelListViewController.h; sourceTree = "<group>"; };
+		9035F2AB1403DF1B00007A5A /* NovelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelListViewController.m; sourceTree = "<group>"; };
+		9035F3231403F29C00007A5A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		90F2424B1401032A00E1B284 /* PictureListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureListViewController.h; sourceTree = "<group>"; };
 		90F2424C1401032A00E1B284 /* PictureListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureListViewController.m; sourceTree = "<group>"; };
 		90F242501401038300E1B284 /* PictureBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureBrowserViewController.h; sourceTree = "<group>"; };
 		90F242511401038300E1B284 /* PictureBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureBrowserViewController.m; sourceTree = "<group>"; };
-		90F24253140103B000E1B284 /* NovelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelListViewController.h; sourceTree = "<group>"; };
-		90F24254140103B000E1B284 /* NovelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelListViewController.m; sourceTree = "<group>"; };
+		90F24253140103B000E1B284 /* NovelSectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelSectionListViewController.h; sourceTree = "<group>"; };
+		90F24254140103B000E1B284 /* NovelSectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelSectionListViewController.m; sourceTree = "<group>"; };
 		90F24256140103C400E1B284 /* NovelBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelBrowserViewController.h; sourceTree = "<group>"; };
 		90F24257140103C400E1B284 /* NovelBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelBrowserViewController.m; sourceTree = "<group>"; };
 		90F24259140103F200E1B284 /* Constant.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Constant.plist; sourceTree = "<group>"; };
@@ -72,7 +80,7 @@
 		90F242901401167A00E1B284 /* HTMLTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTool.m; sourceTree = "<group>"; };
 		90F242921401169000E1B284 /* HTTPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPTool.h; sourceTree = "<group>"; };
 		90F242931401169000E1B284 /* HTTPTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPTool.m; sourceTree = "<group>"; };
-		90F242A114012FF600E1B284 /* PictureSectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PictureSectionListViewController.h; sourceTree = "<group>"; };
+		90F242A114012FF600E1B284 /* PictureSectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureSectionListViewController.h; sourceTree = "<group>"; };
 		90F242A214012FF600E1B284 /* PictureSectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureSectionListViewController.m; sourceTree = "<group>"; };
 		90FD7C371400B56F00D33B25 /* WolfFriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WolfFriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90FD7C3B1400B56F00D33B25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -125,8 +133,10 @@
 				90F2424C1401032A00E1B284 /* PictureListViewController.m */,
 				90F242501401038300E1B284 /* PictureBrowserViewController.h */,
 				90F242511401038300E1B284 /* PictureBrowserViewController.m */,
-				90F24253140103B000E1B284 /* NovelListViewController.h */,
-				90F24254140103B000E1B284 /* NovelListViewController.m */,
+				90F24253140103B000E1B284 /* NovelSectionListViewController.h */,
+				90F24254140103B000E1B284 /* NovelSectionListViewController.m */,
+				9035F2AA1403DF1B00007A5A /* NovelListViewController.h */,
+				9035F2AB1403DF1B00007A5A /* NovelListViewController.m */,
 				90F24256140103C400E1B284 /* NovelBrowserViewController.h */,
 				90F24257140103C400E1B284 /* NovelBrowserViewController.m */,
 				90F2426A1401045600E1B284 /* ToolViewController.h */,
@@ -142,6 +152,8 @@
 			children = (
 				90F242751401155D00E1B284 /* PictureCatalogManager.h */,
 				90F242761401155D00E1B284 /* PictureCatalogManager.m */,
+				9035F2A61403D79100007A5A /* NovelCatalogManager.h */,
+				9035F2A71403D79100007A5A /* NovelCatalogManager.m */,
 				90F24280140115FC00E1B284 /* SectionObject.h */,
 				90F24281140115FC00E1B284 /* SectionObject.m */,
 				90F242831401160700E1B284 /* PageObject.h */,
@@ -198,6 +210,7 @@
 		90FD7C421400B56F00D33B25 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9035F3231403F29C00007A5A /* MainWindow.xib */,
 				90FD7C431400B56F00D33B25 /* WolfFriend-Info.plist */,
 				90FD7C441400B56F00D33B25 /* InfoPlist.strings */,
 				90FD7C471400B56F00D33B25 /* main.m */,
@@ -285,6 +298,7 @@
 				90F242671401041800E1B284 /* IconNovel.png in Resources */,
 				90F242681401041800E1B284 /* IconPicture.png in Resources */,
 				90F242691401041800E1B284 /* IconTool.png in Resources */,
+				9035F3241403F29C00007A5A /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +313,7 @@
 				90FD7C6C1400B64300D33B25 /* WolfFriendAppDelegate.m in Sources */,
 				90F2424E1401032A00E1B284 /* PictureListViewController.m in Sources */,
 				90F242521401038300E1B284 /* PictureBrowserViewController.m in Sources */,
-				90F24255140103B000E1B284 /* NovelListViewController.m in Sources */,
+				90F24255140103B000E1B284 /* NovelSectionListViewController.m in Sources */,
 				90F24258140103C400E1B284 /* NovelBrowserViewController.m in Sources */,
 				90F2426C1401045700E1B284 /* ToolViewController.m in Sources */,
 				90F242771401155D00E1B284 /* PictureCatalogManager.m in Sources */,
@@ -311,6 +325,8 @@
 				90F242911401167A00E1B284 /* HTMLTool.m in Sources */,
 				90F242941401169100E1B284 /* HTTPTool.m in Sources */,
 				90F242A314012FF700E1B284 /* PictureSectionListViewController.m in Sources */,
+				9035F2A81403D79200007A5A /* NovelCatalogManager.m in Sources */,
+				9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

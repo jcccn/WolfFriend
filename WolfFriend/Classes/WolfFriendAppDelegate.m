@@ -9,7 +9,7 @@
 #import "WolfFriendAppDelegate.h"
 #import "PictureSectionListViewController.h"
 #import "PictureBrowserViewController.h"
-#import "NovelListViewController.h"
+#import "NovelSectionListViewController.h"
 #import "NovelBrowserViewController.h"
 #import "ToolViewController.h"
 
@@ -29,12 +29,15 @@
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     
     UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[PictureSectionListViewController alloc] init] autorelease]];
+    pictureNavigationController.navigationBar.barStyle = UIBarStyleBlack;
     pictureNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"美图浏览" image:[UIImage imageNamed:@"IconPicture.png"] tag:TagTabBarItemPicture] autorelease];
     
-    UINavigationController *novelNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[NovelListViewController alloc] init] autorelease]];
+    UINavigationController *novelNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[NovelSectionListViewController alloc] init] autorelease]];
+    novelNavigationController.navigationBar.barStyle = UIBarStyleBlack;
     novelNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"小说阅读" image:[UIImage imageNamed:@"IconNovel.png"] tag:TagTabBarItemNovel] autorelease];
     
     UINavigationController *toolNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[ToolViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease]];
+    toolNavigationController.navigationBar.barStyle = UIBarStyleBlack;
     toolNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"工具箱" image:[UIImage imageNamed:@"IconTool.png"] tag:TagTabBarItemTool] autorelease];
     
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:pictureNavigationController, novelNavigationController, toolNavigationController, nil];

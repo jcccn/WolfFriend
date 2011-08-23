@@ -1,17 +1,17 @@
 //
-//  PictureSectionViewController.m
+//  NovelSectionListViewController.m
 //  WolfFriend
 //
 //  Created by Jiang Chuncheng on 8/21/11.
 //  Copyright 2011 SenseForce. All rights reserved.
 //
 
-#import "PictureSectionListViewController.h"
-#import "PictureListViewController.h"
-#import "PictureCatalogManager.h"
+#import "NovelSectionListViewController.h"
+#import "NovelListViewController.h"
+#import "NovelCatalogManager.h"
 
 
-@implementation PictureSectionListViewController
+@implementation NovelSectionListViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,11 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.title = @"激情图区";
+
+    self.title = @"情色小说";
     
     self.clearsSelectionOnViewWillAppear = NO;
-    
+ 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -92,12 +92,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[PictureCatalogManager sharedManager] sectionCount];
+    return [[NovelCatalogManager sharedManager] sectionCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CellPictureSection";
+    static NSString *CellIdentifier = @"CellNovelSection";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -105,7 +105,7 @@
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = [(SectionObject *)[(NSArray *)[[PictureCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row] title];
+    cell.textLabel.text = [(SectionObject *)[(NSArray *)[[NovelCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row] title];
 
     // Configure the cell...
     
@@ -113,43 +113,43 @@
 }
 
 /*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
 
 /*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
 
 /*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
 
 /*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
 
 #pragma mark - Table view delegate
 
@@ -158,10 +158,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
     
-    PictureListViewController *pictureListViewController = [[PictureListViewController alloc] initWithSectionObject:(SectionObject *)[(NSArray *)[[PictureCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:pictureListViewController animated:YES];
-    [pictureListViewController release];
-    
+    NovelListViewController *novelListViewController = [[NovelListViewController alloc] initWithSectionObject:(SectionObject *)[(NSArray *)[[NovelCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:novelListViewController animated:YES];
+    [novelListViewController release];
 }
 
 @end

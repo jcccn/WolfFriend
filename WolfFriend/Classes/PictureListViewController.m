@@ -217,7 +217,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CellPictureList";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -280,6 +280,7 @@
     // Navigation logic may go here. Create and push another view controller.
     
     PictureBrowserViewController *pictureBrowserViewController = [[PictureBrowserViewController alloc] initWithSection:self.sectionObject item:(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row]];
+    pictureBrowserViewController.title = [NSString stringWithString:[(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title]];
     [self.navigationController pushViewController:pictureBrowserViewController animated:YES];
     [pictureBrowserViewController release];
      
