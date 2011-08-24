@@ -99,14 +99,19 @@
     aScanner = [NSScanner scannerWithString:aHtml];
     [aScanner scanUpToString:@"<td id=" intoString:NULL]; //你要找的起始字串
     [aScanner scanUpToString:@"</td>" intoString:&resultText]; //你要找的束结字串，中间的文字会放到text中
-    if ([resultText length] <= 0) {
+    if ([resultText length] > 0) {
+        resultText = [resultText stringByAppendingString:@"</td>"];
+        
+    }
+    else {
         aScanner = [NSScanner scannerWithString:aHtml];
         [aScanner scanUpToString:@"<div id=\"MyContent\">" intoString:NULL];
         [aScanner scanUpToString:@"</div>" intoString:&resultText];
+        if ([resultText length] > 0) {
+            resultText = [resultText stringByAppendingString:@"</div>"];
+        }
     }
-    resultText = [[@"<html xml:lang=\"zh-CN\" lang=\"zh-CN\" xmlns=\"http://www.w3.org/1999/xhtml\"><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>WolfFriend</title></head><body>"
-                   stringByAppendingString:resultText] stringByAppendingString:@"</body></html>"];
-    return resultText;
+    return [self formatHTML:resultText withFontColor:@"blue"];
 }
 
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml {
@@ -115,14 +120,44 @@
     aScanner = [NSScanner scannerWithString:aHtml];
     [aScanner scanUpToString:@"<div id=\"MyContent\">" intoString:NULL];
     [aScanner scanUpToString:@"</div>" intoString:&resultText];
-    if ([resultText length] <= 0) {
+    if ([resultText length] > 0) {
+        resultText = [resultText stringByAppendingString:@"</div>"];
+        
+    }
+    else {
         aScanner = [NSScanner scannerWithString:aHtml];
         [aScanner scanUpToString:@"<td id=" intoString:NULL];
         [aScanner scanUpToString:@"</td>" intoString:&resultText];
+        if ([resultText length] > 0) {
+            resultText = [resultText stringByAppendingString:@"</td>"];
+        }
     }
-    resultText = [[@"<html xml:lang=\"zh-CN\" lang=\"zh-CN\" xmlns=\"http://www.w3.org/1999/xhtml\"><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>WolfFriend</title></head><body>"
-                   stringByAppendingString:resultText] stringByAppendingString:@"</body></html>"];
-    return resultText;
+    
+    return [self formatHTML:resultText withFontColor:@"blue"];
 }
+
++ (NSString *)formatHTML:(NSString *)aHtml withFontColor:(NSString *)aFontColor {
+    return [NSString stringWithFormat:@"<html xml:lang=\"zh-CN\" xmlns=\"http://www.w3.org/1999/xhtml\"><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>WolfFriend</title><style type=\"text/css\">body {background-color:%@; font-family: \"%@\"; font-size: %d; color: %@;}</style></head><body>%@</body></html>", @"white", @"Arial", 30, aFontColor, [HTMLTool flattenHTML:aHtml withLabel:@"font"]];
+}
+
++ (NSString *)flattenHTML:(NSString *)aHtml withLabel:(NSString *)aLabel {
+    
+    NSScanner *theScanner;
+    NSString *text = nil;
+    
+    theScanner = [NSScanner scannerWithString:aHtml];
+    
+    while ([theScanner isAtEnd] == NO) {
+        [theScanner scanUpToString:[NSString stringWithFormat:@"<%@",aLabel] intoString:NULL] ; 
+        [theScanner scanUpToString:@">" intoString:&text] ;
+        aHtml = [aHtml stringByReplacingOccurrencesOfString:
+                [ NSString stringWithFormat:@"%@>", text]
+                                               withString:@""];
+        
+    } // while //
+    
+    return aHtml;
+    
+} 
 
 @end

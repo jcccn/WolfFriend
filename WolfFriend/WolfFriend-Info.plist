@@ -37,6 +37,8 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
-	<false/>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
 </dict>
 </plist>

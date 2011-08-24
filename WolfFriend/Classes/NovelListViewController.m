@@ -64,38 +64,29 @@
     }
     
     if (self.sectionObject) {
-        //        self.title = [self.sectionObject.title stringByAppendingString:@" - 0/∞"];
         
         if ( ! activityIndicator) {
             activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            //                activityIndicator.center = self.view.center;
             activityIndicator.center = CGPointMake(160, 200);
             activityIndicator.hidesWhenStopped = YES;
             [self.view addSubview:activityIndicator];
         }
-        
-        //        if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
-        ////            [activityIndicator startAnimating];
-        ////            self.view.userInteractionEnabled = NO;
-        //            [self.sectionObject refreshDataWithDeledate:nil];
-        //        }
-        //        
-        //        self.pageObject = [[PageObject alloc] initWithUrlString:[self.sectionObject.url stringByAppendingString:@"/index.html"]];
-        //        if ([[self.pageObject itemsArray] count] <= 0) {
-        //            [activityIndicator startAnimating];
-        //            self.view.userInteractionEnabled = NO;
-        //            [self.pageObject refreshDataWithDeledate:self];
-        //        }
-        //        [self performSelectorInBackground:@selector(startLoadItemList) withObject:nil];
         [self startLoadItemList];
     }
     
     self.tableView.scrollsToTop = YES;
     
-    //    self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if ( ! self.navigationItem.rightBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)] autorelease];
+    }
+}
+
+- (void)refresh:(id)sender {
+    if (activityIndicator && ![activityIndicator isAnimating]) {
+        [[self.pageObject itemsArray] removeAllObjects];
+        [self startLoadItemList];
+    }
 }
 
 - (void)startLoadItemList {
@@ -298,6 +289,7 @@
 - (void)sectionDataFectchedFailed {
     [activityIndicator stopAnimating];
     self.view.userInteractionEnabled = YES;
+    [self showAlert];
 }
 
 - (void)pageDataFectchedSuccess {
@@ -318,6 +310,29 @@
     }
     [activityIndicator stopAnimating];
     self.view.userInteractionEnabled = YES;
+    [self showAlert];
+}
+
+- (void)showAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"很遗憾" 
+                                                    message:@"您没有得到想要的" 
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"重试", nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 1: {
+            [self refresh:nil];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

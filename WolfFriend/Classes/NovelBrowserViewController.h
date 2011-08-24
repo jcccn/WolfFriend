@@ -10,7 +10,7 @@
 @class SectionObject;
 @class ItemObject;
 
-@interface NovelBrowserViewController : UIViewController {
+@interface NovelBrowserViewController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate> {
     
     UIWebView *webView;
     
@@ -25,5 +25,6 @@
 
 - (id)initWithSection:(SectionObject *)section item:(ItemObject *)item;
 - (void)startLoadWebPage;
+- (void)showAlert;
 
 @end

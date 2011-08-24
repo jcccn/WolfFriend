@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ThemeManager : NSObject
+@interface ThemeObject : NSObject {
+    
+}
+@end
+
+@interface ThemeManager : NSObject {
+    NSString *backgroudColor;
+}
+@property (nonatomic, retain) NSString *backgroudColor;
+
++ (ThemeManager *)sharedManager;
+
+- (UIColor *)uiColorWithWebColor:(NSString *)aWebColor;
+- (NSString *)webColorWithUIColor:(UIColor *)aUIColor;
 
 @end

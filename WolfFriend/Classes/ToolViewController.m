@@ -7,6 +7,9 @@
 //
 
 #import "ToolViewController.h"
+#import "ThemeDIYViewController.h"
+#import "ThemeChooseViewController.h"
+#import "DisclaimerViewController.h"
 
 
 @implementation ToolViewController
@@ -121,13 +124,13 @@
         case 0: {
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"选择背景颜色";
+                    cell.textLabel.text = @"自定义主题";
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 case 1:
-                    cell.textLabel.text = @"选择文字颜色";
+                    cell.textLabel.text = @"使用内置主题";
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;       
+                    break;
                 default:
                     break;
             }
@@ -192,7 +195,7 @@
     NSString *titleHeader = @"";
     switch (section) {
         case 0:
-            titleHeader = @"主题自定义";
+            titleHeader = @"主题切换";
             break;
         case 1:
             titleHeader = @"屏幕设置";
@@ -250,14 +253,67 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    switch (indexPath.section) {
+        case 0: {
+            switch (indexPath.row) {
+                case 0: {
+                    //选择背景颜色、字体颜色、字体大小
+                    ThemeDIYViewController *themeDIYViewController = [[ThemeDIYViewController alloc] init];
+                    [self.navigationController pushViewController:themeDIYViewController animated:YES];
+                    [themeDIYViewController release];
+                }
+                    break;
+                case 1: {
+                    //选择背内置主题
+                    ThemeChooseViewController *themeChooseViewController = [[ThemeChooseViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                    [self.navigationController pushViewController:themeChooseViewController animated:YES];
+                    [themeChooseViewController release];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+            
+        case 1: {
+            //屏幕方向
+        }
+            break;
+        case 2: {
+            switch (indexPath.row) {
+                case 0: {
+                    //本地保存开关
+                }
+                    break;
+                case 1: {
+                   //清理缓存
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"谢谢惠待" message:@"此版本没有本地文件，无需清除" delegate:self cancelButtonTitle:@"知道啦" otherButtonTitles: nil];
+                    [alert show];
+                    [alert release];
+                }
+                    break;       
+                default:
+                    break;
+            }
+        }
+            break;
+        case 3: {
+            //分享
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不能随便传播哟" delegate:self cancelButtonTitle:@"知道啦，我很老实" otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+        }
+            break;
+        case 4: {
+            DisclaimerViewController *disclaimerViewController = [[DisclaimerViewController alloc] init];
+            [self.navigationController pushViewController:disclaimerViewController animated:YES];
+            [disclaimerViewController release];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

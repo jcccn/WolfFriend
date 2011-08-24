@@ -1,0 +1,15 @@
+//
+//  DisclaimerViewController.h
+//  WolfFriend
+//
+//  Created by Jiang Chuncheng on 8/25/11.
+//  Copyright 2011 SenseForce. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface DisclaimerViewController : UIViewController {
+    UILabel *disclaimerLabel;
+}
+
+@end

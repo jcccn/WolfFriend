@@ -14,7 +14,7 @@
 @class ItemObject;
 @class SectionObject;
 
-@interface NovelListViewController : UITableViewController <SectionObjectDelegate, PageObjectDelegate> {
+@interface NovelListViewController : UITableViewController <SectionObjectDelegate, PageObjectDelegate, UIAlertViewDelegate> {
     SectionObject *sectionObject;
     PageObject *pageObject;
     UIActivityIndicatorView *activityIndicator;
@@ -25,5 +25,6 @@
 
 - (id)initWithSectionObject:(SectionObject *)aSectionObject;
 - (void)startLoadItemList;
+- (void)showAlert;
 
 @end
