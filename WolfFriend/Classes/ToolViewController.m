@@ -260,11 +260,12 @@
                     //选择背景颜色、字体颜色、字体大小
                     ThemeDIYViewController *themeDIYViewController = [[ThemeDIYViewController alloc] init];
                     [self.navigationController pushViewController:themeDIYViewController animated:YES];
+//                    [self presentModalViewController:themeDIYViewController animated:YES];
                     [themeDIYViewController release];
                 }
                     break;
                 case 1: {
-                    //选择背内置主题
+                    //选择内置主题
                     ThemeChooseViewController *themeChooseViewController = [[ThemeChooseViewController alloc] initWithStyle:UITableViewStyleGrouped];
                     [self.navigationController pushViewController:themeChooseViewController animated:YES];
                     [themeChooseViewController release];
