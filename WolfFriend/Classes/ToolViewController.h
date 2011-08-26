@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
 
-@interface ToolViewController : UITableViewController
+@interface ToolViewController : UITableViewController {
+    
+}
+
+- (void)resetUI:(id)arg;
 
 @end

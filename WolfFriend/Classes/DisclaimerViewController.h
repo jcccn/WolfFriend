@@ -13,4 +13,6 @@
     UILabel *disclaimerLabel;
 }
 
+- (void)resetUI:(id)arg;
+
 @end

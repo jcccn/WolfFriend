@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
 
-@interface PictureSectionListViewController : UITableViewController
+@interface PictureSectionListViewController : UITableViewController {
+    
+}
+
+- (void)resetUI:(id)arg;
 
 @end

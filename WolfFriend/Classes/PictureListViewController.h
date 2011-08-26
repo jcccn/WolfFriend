@@ -27,4 +27,6 @@
 - (void)startLoadItemList;
 - (void)showAlert;
 
+- (void)resetUI:(id)arg;
+
 @end

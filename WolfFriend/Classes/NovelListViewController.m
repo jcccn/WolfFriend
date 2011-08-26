@@ -150,11 +150,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self resetUI:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)resetUI:(id)arg {
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -213,11 +220,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        cell.textLabel.textColor = [UIColor blueColor];
         cell.textLabel.font = [UIFont systemFontOfSize:12];
         //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.textLabel.text = [(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title];
+    cell.textLabel.textColor = [[ThemeManager sharedManager] colorUIText];
     
     // Configure the cell...
     
@@ -264,6 +271,16 @@
  */
 
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

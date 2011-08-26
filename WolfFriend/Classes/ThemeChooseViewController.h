@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
 
-@interface ThemeChooseViewController : UITableViewController
+@interface ThemeChooseViewController : UITableViewController {
+    
+}
+
+- (void)resetUI:(id)arg;
 
 @end

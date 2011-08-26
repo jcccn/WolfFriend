@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RColorUIText</key>
+	<integer>0</integer>
+	<key>GColorUIText</key>
+	<integer>0</integer>
+	<key>BColorUIText</key>
+	<integer>0</integer>
+	<key>RColorUIBackground</key>
+	<integer>0</integer>
+	<key>GColorUIBackground</key>
+	<integer>0</integer>
+	<key>BColorUIBackground</key>
+	<integer>1</integer>
+	<key>RColorUIFrame</key>
+	<integer>0</integer>
+	<key>GColorUIFrame</key>
+	<integer>0</integer>
+	<key>BColorUIFrame</key>
+	<integer>0</integer>
+	<key>RColorReadText</key>
+	<integer>0</integer>
+	<key>GColorReadText</key>
+	<integer>0</integer>
+	<key>BColorReadText</key>
+	<integer>0</integer>
+	<key>RColorReadBackground</key>
+	<integer>1</integer>
+	<key>GColorReadBackground</key>
+	<integer>1</integer>
+	<key>BColorReadBackground</key>
+	<integer>1</integer>
+	<key>Brightness</key>
+	<integer>1</integer>
+	<key>FontSizeRead</key>
+	<integer>14</integer>
+</dict>
+</plist>

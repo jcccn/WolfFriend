@@ -7,17 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ThemeManager.h"
+
 
 @interface UIViewController (Extension)
 
-- (void)setLightPercent:(NSInteger)aLightPercent;
-- (void)setTabBarBackroundColor:(UIColor *)aColor;
+- (void)setBrightness:(CGFloat)aBrightness;   //0-1.0
+- (void)setBarBackroundColor:(UIColor *)aColor;
 
 @end
 
 @interface UITableViewController (Extension)
 
-- (void)setLightPercent:(NSInteger)aLightPercent;
-- (void)setTabBarBackroundColor:(UIColor *)aColor;
+- (void)setBrightness:(CGFloat)aBrightness;
+- (void)setBarBackroundColor:(UIColor *)aColor;
+
 
 @end

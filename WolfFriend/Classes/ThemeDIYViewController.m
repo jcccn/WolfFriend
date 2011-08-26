@@ -47,7 +47,7 @@
 {
     [super viewDidLoad];
     self.title = @"DIY主题";
-    self.view.backgroundColor = [[ThemeManager sharedManager] uiColorWithWebColor:[[ThemeManager sharedManager] backgroudColor]];
+    self.view.backgroundColor = [[ThemeManager sharedManager] colorUIBackground];
      
     if ( ! scrollView) {
         scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
@@ -55,7 +55,7 @@
         
         colorHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 30)];
         colorHintLabel.backgroundColor = [UIColor clearColor];
-        colorHintLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        colorHintLabel.textColor = [[ThemeManager sharedManager] colorUIText];
         colorHintLabel.text = @"颜色设置";
         [scrollView addSubview:colorHintLabel];
         [colorHintLabel release];
@@ -63,14 +63,14 @@
         colorTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"界面文字", @"界面背景", @"界面边框", @"阅读文字", @"阅读背景", nil]];
         colorTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
         colorTypeSegmentedControl.frame = CGRectMake(10, 50, 300, 20);
-        colorTypeSegmentedControl.tintColor = [UIColor colorWithRed:0 green:0 blue:100 alpha:0.5];
+        colorTypeSegmentedControl.tintColor = [[ThemeManager sharedManager] colorUIFrame];
         colorTypeSegmentedControl.selectedSegmentIndex = 0;
         [colorTypeSegmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:colorTypeSegmentedControl];
         
         rColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 80, 30, 30)];
         rColorLabel.backgroundColor = [UIColor clearColor];
-        rColorLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        rColorLabel.textColor = [[ThemeManager sharedManager] colorUIText];
         rColorLabel.textAlignment = UITextAlignmentCenter;
         rColorLabel.adjustsFontSizeToFitWidth = YES;
         rColorLabel.text = @"R";
@@ -79,7 +79,7 @@
         
         gColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 110, 30, 30)];
         gColorLabel.backgroundColor = [UIColor clearColor];
-        gColorLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        gColorLabel.textColor = [[ThemeManager sharedManager] colorUIText];
         gColorLabel.textAlignment = UITextAlignmentCenter;
         gColorLabel.text = @"G";
         [scrollView addSubview:gColorLabel];
@@ -87,7 +87,7 @@
         
         bColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 140, 30, 30)];
         bColorLabel.backgroundColor = [UIColor clearColor];
-        bColorLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        bColorLabel.textColor = [[ThemeManager sharedManager] colorUIText];
         bColorLabel.textAlignment = UITextAlignmentCenter;
         bColorLabel.text = @"B";
         [scrollView addSubview:bColorLabel];
@@ -117,39 +117,39 @@
         [scrollView addSubview:bSlider];
         [bSlider release];
         
-        lightHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 180, 80, 30)];
-        lightHintLabel.backgroundColor = [UIColor clearColor];
-        lightHintLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-        lightHintLabel.text = @"亮度调节";
-        [scrollView addSubview:lightHintLabel];
-        [lightHintLabel release];
+        brightnessHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 180, 80, 30)];
+        brightnessHintLabel.backgroundColor = [UIColor clearColor];
+        brightnessHintLabel.textColor = [[ThemeManager sharedManager] colorUIText];
+        brightnessHintLabel.text = @"亮度调节";
+        [scrollView addSubview:brightnessHintLabel];
+        [brightnessHintLabel release];
 
-        lightSlider = [[UISlider alloc] initWithFrame:CGRectMake(90, lightHintLabel.center.y - 15, 220, 30)];
-        lightSlider.minimumValue = 20;
-        lightSlider.maximumValue = 100;
-        lightSlider.value = 100;
-        [lightSlider  addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [scrollView addSubview:lightSlider];
-        [lightSlider release];
+        brightnessSlider = [[UISlider alloc] initWithFrame:CGRectMake(90, brightnessHintLabel.center.y - 15, 220, 30)];
+        brightnessSlider.minimumValue = 0.2;
+        brightnessSlider.maximumValue = 1.0;
+        brightnessSlider.value = [[ThemeManager sharedManager] brightness];
+        [brightnessSlider  addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:brightnessSlider];
+        [brightnessSlider release];
         
         fontSizeHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 220, 80, 30)];
         fontSizeHintLabel.backgroundColor = [UIColor clearColor];
-        fontSizeHintLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        fontSizeHintLabel.textColor = [[ThemeManager sharedManager] colorUIText];
         fontSizeHintLabel.text = @"字体大小";
         [scrollView addSubview:fontSizeHintLabel];
         [fontSizeHintLabel release];
         
         fontSizeSlider = [[UISlider alloc] initWithFrame:CGRectMake(90, fontSizeHintLabel.center.y - 15, 220, 30)];
-        fontSizeSlider.minimumValue = 12;
-        fontSizeSlider.maximumValue = 30;
-        fontSizeSlider.value = 18;
+        fontSizeSlider.minimumValue = 20;
+        fontSizeSlider.maximumValue = 80;
+        fontSizeSlider.value = [[ThemeManager sharedManager] fontSizeRead];
         [fontSizeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:fontSizeSlider];
         [fontSizeSlider release];
         
         textExampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 260, 300, 50)];
         textExampleLabel.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-        textExampleLabel.textColor = [UIColor blueColor];
+        textExampleLabel.textColor = [[ThemeManager sharedManager] colorReadText];
         textExampleLabel.font = [UIFont systemFontOfSize:18];
         textExampleLabel.text = @"这是示例文字";
         [scrollView addSubview:textExampleLabel];
@@ -174,7 +174,33 @@
     scrollView.frame = CGRectMake(0, 0, screenRect.size.width, contentHeight);
     scrollView.contentSize = CGSizeMake(screenRect.size.width, 360);  //a test value
     
+    [self changeTempColor:[[ThemeManager sharedManager] colorUIText] forTypeIndex:0];
+    [self changeTempColor:[[ThemeManager sharedManager] colorUIBackground] forTypeIndex:1];
+    [self changeTempColor:[[ThemeManager sharedManager] colorUIFrame] forTypeIndex:2];
+    [self changeTempColor:[[ThemeManager sharedManager] colorReadText] forTypeIndex:3];
+    [self changeTempColor:[[ThemeManager sharedManager] colorReadBackground] forTypeIndex:4];
+    [self changeTempFontSize:[[ThemeManager sharedManager] fontSizeRead]];
+    [self changetempBrightness:[[ThemeManager sharedManager] brightness]];
+    [self changetempBrightness:[[ThemeManager sharedManager] brightness]];
+    [self performSelector:@selector(segmentedControlValueChanged:) withObject:colorTypeSegmentedControl];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self resetUI:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)resetUI:(id)arg {
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
@@ -220,8 +246,8 @@
     if ((sender == rSlider) || (sender == gSlider) || (sender == bSlider)) {
         [self changeTempColor:[UIColor colorWithRed:rSlider.value green:gSlider.value blue:bSlider.value alpha:1] forTypeIndex:colorTypeSegmentedControl.selectedSegmentIndex];
     }
-    else if (sender == lightSlider) {
-        [self changetempLight:lightSlider.value];
+    else if (sender == brightnessSlider) {
+        [self changetempBrightness:brightnessSlider.value];
     }
     else if (sender == fontSizeSlider) {
         [self changeTempFontSize:fontSizeSlider.value];
@@ -234,7 +260,7 @@
         case 0: {
             colorHintLabel.textColor = aColor;
             rColorLabel.textColor = gColorLabel.textColor = bColorLabel.textColor = aColor;
-            lightHintLabel.textColor = aColor;
+            brightnessHintLabel.textColor = aColor;
             fontSizeHintLabel.textColor = aColor;
         }
             break;
@@ -246,7 +272,7 @@
             //界面边框
         case 2: {
             self.navigationController.navigationBar.tintColor = aColor;
-            [self setTabBarBackroundColor:aColor];
+            [self setBarBackroundColor:aColor];
             colorTypeSegmentedControl.tintColor = aColor;
         }
             break;
@@ -266,14 +292,14 @@
     }
 }
 
-- (void)changetempLight:(CGFloat)floatLight {
-    [self setLightPercent:(NSInteger)floatLight];
-    self.navigationController.navigationBar.alpha = floatLight/100;
+- (void)changetempBrightness:(CGFloat)floatBrightness {
+    [self setBrightness:floatBrightness];
+//    self.navigationController.navigationBar.alpha = floatBrightness;
 //    self.tabBarController.tabBar.alpha = 0;
 }
 
 - (void)changeTempFontSize:(CGFloat)floatFontSize {
-    textExampleLabel.font = [UIFont systemFontOfSize:floatFontSize];
+    textExampleLabel.font = [UIFont systemFontOfSize:floatFontSize * 0.4];
 }
 
 - (void)saveClicked:(id)sender {
@@ -338,7 +364,18 @@
 }
 
 - (void)saveTheme {
-    
+    [[ThemeManager sharedManager] setColorUIText:colorHintLabel.textColor];
+    [[ThemeManager sharedManager] setColorUIBackground:self.view.backgroundColor];
+    UIColor *aColor = self.navigationController.navigationBar.tintColor;
+    if ( ! aColor) {
+        aColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    }
+    [[ThemeManager sharedManager] setColorUIFrame:aColor];
+    [[ThemeManager sharedManager] setColorReadText:textExampleLabel.textColor];
+    [[ThemeManager sharedManager] setColorReadBackground:textExampleLabel.backgroundColor];
+    [[ThemeManager sharedManager] setBrightness:brightnessSlider.value];
+    [[ThemeManager sharedManager] setFontSizeRead:fontSizeSlider.value];
+    [[ThemeManager sharedManager] saveTheme];
 }
 
 - (void)cancel {

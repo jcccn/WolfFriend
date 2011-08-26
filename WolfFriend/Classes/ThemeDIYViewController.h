@@ -23,8 +23,8 @@
     UISlider *gSlider;
     UISlider *bSlider;
     
-    UILabel *lightHintLabel;
-    UISlider *lightSlider;
+    UILabel *brightnessHintLabel;
+    UISlider *brightnessSlider;
     
     UILabel *fontSizeHintLabel;
     UISlider *fontSizeSlider;
@@ -36,10 +36,12 @@
 }
 
 - (void)changeTempColor:(UIColor *)aColor forTypeIndex:(NSInteger)anIndex;
-- (void)changetempLight:(CGFloat)floatLight; 
+- (void)changetempBrightness:(CGFloat)floatBrightness; 
 - (void)changeTempFontSize:(CGFloat)floatFontSize;
 
 - (void)saveTheme;
 - (void)cancel;
+
+- (void)resetUI:(id)arg;
 
 @end

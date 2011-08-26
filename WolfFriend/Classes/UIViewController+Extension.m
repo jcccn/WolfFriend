@@ -11,11 +11,12 @@
 #define TagLightMaskView    1000
 #define TagTabBarBackground 1505
 #define TagTabBarMaskView   1506
+#define TagNavBarMaskView   1507
 
 
 @implementation UIViewController (Extension)
 
-- (void)setLightPercent:(NSInteger)aLightPercent {
+- (void)setBrightness:(CGFloat)aBrightness {
     if (self.view) {
         UIView *lightMaskView = [self.view viewWithTag:TagLightMaskView];
         if ( ! lightMaskView) {
@@ -28,15 +29,15 @@
             [self.view bringSubviewToFront:lightMaskView];
             [lightMaskView release];
         }
-        NSInteger lightPercent = aLightPercent;
-        if (aLightPercent < 0) {
-            lightPercent = 0;
+        CGFloat brightness = aBrightness;
+        if (brightness < 0) {
+            brightness = 0;
         }
-        else if(aLightPercent > 100) {
-            lightPercent = 100;
+        else if(brightness > 1.0) {
+            brightness = 1.0;
         }
 //        lightMaskView.alpha = (100 - lightPercent) * 0.01;
-        lightMaskView.alpha = 1.0f - 0.01f*lightPercent;
+        lightMaskView.alpha = 1.0f - brightness;
         
         UITabBarController *tabBarController = self.tabBarController;
         if (tabBarController) {
@@ -53,10 +54,29 @@
             [tabBar bringSubviewToFront:lightTabBarMaskView];
             lightTabBarMaskView.alpha = lightMaskView.alpha;
         }
+//        UINavigationController *navigationController = self.navigationController;
+//        if (navigationController) {
+//            navigationController.navigationBar.alpha = lightMaskView.alpha;
+//        }
+        UINavigationController *navigationController = self.navigationController;
+        if (navigationController) {
+            UINavigationBar *navBar = navigationController.navigationBar;
+            UIView *lightNavBarMaskView = [navBar viewWithTag:TagNavBarMaskView];
+            if ( ! lightNavBarMaskView) {
+                UIView *lightNavBarMaskView = [[UIView alloc] initWithFrame:navBar.bounds];
+                lightNavBarMaskView.tag = TagNavBarMaskView;
+                lightNavBarMaskView.backgroundColor = [UIColor blackColor];;
+                lightNavBarMaskView.userInteractionEnabled = NO;
+                [navBar addSubview:lightNavBarMaskView];
+                [lightNavBarMaskView release];
+            }
+            [navBar bringSubviewToFront:lightNavBarMaskView];
+            lightNavBarMaskView.alpha = lightMaskView.alpha;
+        }
     }
 }
 
-- (void)setTabBarBackroundColor:(UIColor *)aColor {
+- (void)setBarBackroundColor:(UIColor *)aColor {
     UITabBarController *tabBarController = self.tabBarController;
     if (tabBarController) {
         UITabBar *tabBar = tabBarController.tabBar;
@@ -69,6 +89,10 @@
         }
         tabBarBackgroundView.backgroundColor = aColor;
     }
+    UINavigationController *navigationController = self.navigationController;
+    if (navigationController) {
+        navigationController.navigationBar.tintColor = aColor;
+    }
 }
 
 @end
@@ -76,7 +100,7 @@
 
 @implementation UITableViewController (Extension)
 
-- (void)setLightPercent:(NSInteger)aLightPercent {
+- (void)setBrightness:(CGFloat)aBrightness {
     if (self.view) {
         if ( ! [self.view viewWithTag:TagLightMaskView]) {
             CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
@@ -89,14 +113,14 @@
             [lightMaskView release];
         }
         UIView *lightMaskView = [self.view viewWithTag:TagLightMaskView];
-        NSInteger lightPercent = aLightPercent;
-        if (aLightPercent < 0) {
-            lightPercent = 0;
+        CGFloat brightness = aBrightness;
+        if (brightness < 0) {
+            brightness = 0;
         }
-        else if(aLightPercent > 100) {
-            lightPercent = 100;
+        else if(brightness > 1.0) {
+            brightness = 1.0;
         }
-        lightMaskView.alpha = 1.0f - 0.01f*lightPercent;
+        lightMaskView.alpha = 1.0f - brightness;
         
         UITabBarController *tabBarController = self.tabBarController;
         if (tabBarController) {
@@ -113,10 +137,30 @@
             [tabBar bringSubviewToFront:lightTabBarMaskView];
             lightTabBarMaskView.alpha = lightMaskView.alpha;
         }
+        
+//        UINavigationController *navigationController = self.navigationController;
+//        if (navigationController) {
+//            navigationController.navigationBar.alpha = lightMaskView.alpha;
+//        }
+        UINavigationController *navigationController = self.navigationController;
+        if (navigationController) {
+            UINavigationBar *navBar = navigationController.navigationBar;
+            UIView *lightNavBarMaskView = [navBar viewWithTag:TagNavBarMaskView];
+            if ( ! lightNavBarMaskView) {
+                UIView *lightNavBarMaskView = [[UIView alloc] initWithFrame:navBar.bounds];
+                lightNavBarMaskView.tag = TagNavBarMaskView;
+                lightNavBarMaskView.backgroundColor = [UIColor blackColor];;
+                lightNavBarMaskView.userInteractionEnabled = NO;
+                [navBar addSubview:lightNavBarMaskView];
+                [lightNavBarMaskView release];
+            }
+            [navBar bringSubviewToFront:lightNavBarMaskView];
+            lightNavBarMaskView.alpha = lightMaskView.alpha;
+        }
     }
 }
 
-- (void)setTabBarBackroundColor:(UIColor *)aColor {
+- (void)setBarBackroundColor:(UIColor *)aColor {
     UITabBarController *tabBarController = self.tabBarController;
     if (tabBarController) {
         UITabBar *tabBar = tabBarController.tabBar;
@@ -129,6 +173,11 @@
         }
         tabBarBackgroundView.backgroundColor = aColor;
     }
+    UINavigationController *navigationController = self.navigationController;
+    if (navigationController) {
+        navigationController.navigationBar.tintColor = aColor;
+    }
 }
+
 
 @end

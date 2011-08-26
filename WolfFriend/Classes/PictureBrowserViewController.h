@@ -28,4 +28,6 @@
 - (void)startLoadWebPage;
 - (void)showAlert;
 
+- (void)resetUI:(id)arg;
+
 @end

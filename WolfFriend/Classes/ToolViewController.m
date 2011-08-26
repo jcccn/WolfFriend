@@ -55,11 +55,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self resetUI:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)resetUI:(id)arg {
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -186,28 +193,28 @@
         default:
             break;
     }
-    
+    cell.textLabel.textColor = [[ThemeManager sharedManager] colorUIText];
     
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *titleHeader = @"";
-    switch (section) {
-        case 0:
-            titleHeader = @"主题切换";
-            break;
-        case 1:
-            titleHeader = @"屏幕设置";
-            break;
-        case 2:
-            titleHeader = @"缓存设置";
-            break;
-        default:
-            break;
-    }
-    return titleHeader;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    NSString *titleHeader = @"";
+//    switch (section) {
+//        case 0:
+//            titleHeader = @"主题切换";
+//            break;
+//        case 1:
+//            titleHeader = @"屏幕设置";
+//            break;
+//        case 2:
+//            titleHeader = @"缓存设置";
+//            break;
+//        default:
+//            break;
+//    }
+//    return titleHeader;
+//}
 
 /*
 // Override to support conditional editing of the table view.
@@ -249,6 +256,32 @@
 */
 
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30.0f;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *titleHeader = @"";
+    switch (section) {
+        case 0:
+            titleHeader = @"  主题切换";
+            break;
+        case 1:
+            titleHeader = @"  屏幕设置";
+            break;
+        case 2:
+            titleHeader = @"  缓存设置";
+            break;
+        default:
+            break;
+    }
+    UILabel *headerView = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    headerView.text = titleHeader;
+    headerView.textColor = [[ThemeManager sharedManager] colorUIText];
+    return headerView;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

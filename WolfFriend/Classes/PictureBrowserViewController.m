@@ -143,6 +143,23 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self resetUI:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)resetUI:(id)arg {
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

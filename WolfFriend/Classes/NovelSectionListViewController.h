@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
 
-@interface NovelSectionListViewController : UITableViewController
+@interface NovelSectionListViewController : UITableViewController {
+    
+}
+
+- (void)resetUI:(id)arg;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900F618F1407E38200874A68 /* default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 900F618E1407E38200874A68 /* default.plist */; };
 		9035F2A81403D79200007A5A /* NovelCatalogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2A71403D79100007A5A /* NovelCatalogManager.m */; };
 		9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2AB1403DF1B00007A5A /* NovelListViewController.m */; };
 		9035F3241403F29C00007A5A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9035F3231403F29C00007A5A /* MainWindow.xib */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		900F618E1407E38200874A68 /* default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = default.plist; sourceTree = "<group>"; };
 		9035F2A61403D79100007A5A /* NovelCatalogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelCatalogManager.h; sourceTree = "<group>"; };
 		9035F2A71403D79100007A5A /* NovelCatalogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelCatalogManager.m; sourceTree = "<group>"; };
 		9035F2AA1403DF1B00007A5A /* NovelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelListViewController.h; sourceTree = "<group>"; };
@@ -122,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900F618C1407E34100874A68 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				900F618E1407E38200874A68 /* default.plist */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
 		90F2425B1401041800E1B284 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				90F2425B1401041800E1B284 /* Images */,
+				900F618C1407E34100874A68 /* Themes */,
 				90F24259140103F200E1B284 /* Constant.plist */,
 			);
 			path = Resources;
@@ -319,6 +330,7 @@
 				90F242681401041800E1B284 /* IconPicture.png in Resources */,
 				90F242691401041800E1B284 /* IconTool.png in Resources */,
 				9035F3241403F29C00007A5A /* MainWindow.xib in Resources */,
+				900F618F1407E38200874A68 /* default.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

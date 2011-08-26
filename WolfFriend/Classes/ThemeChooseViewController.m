@@ -55,11 +55,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self resetUI:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)resetUI:(id)arg {
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBrightness:[[ThemeManager sharedManager] brightness]];
+    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

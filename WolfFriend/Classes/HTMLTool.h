@@ -18,6 +18,6 @@
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml;
 
 + (NSString *)flattenHTML:(NSString *)aHtml withLabel:(NSString *)aLabel;
-+ (NSString *)formatHTML:(NSString *)aHtml withFontColor:(NSString *)aFontColor;    //添加更多参数
++ (NSString *)formatHTML:(NSString *)aHtml withFontColor:(NSString *)aFontColor backgroundColor:(NSString *)aBackgroundColor fontSize:(CGFloat)aFontSize;    //添加更多参数
 
 @end
