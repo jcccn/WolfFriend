@@ -63,8 +63,6 @@
 }
 
 - (void)resetUI:(id)arg {
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
@@ -113,7 +111,6 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.textLabel.text = [(SectionObject *)[(NSArray *)[[NovelCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row] title];
-    cell.textLabel.textColor = [[ThemeManager sharedManager] colorUIText];
 
     // Configure the cell...
     

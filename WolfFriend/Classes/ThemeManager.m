@@ -10,12 +10,6 @@
 
 #define DEFAULT_VOID_COLOR ([UIColor whiteColor])
 
-#define KeyRColorUIText         @"RColorUIText"
-#define KeyGColorUIText         @"GColorUIText"
-#define KeyBColorUIText         @"BColorUIText"
-#define KeyRColorUIBackground   @"RColorUIBackground"
-#define KeyGColorUIBackground   @"GColorUIBackground"
-#define KeyBColorUIBackground   @"BColorUIBackground"
 #define KeyRColorUIFrame        @"RColorUIFrame"
 #define KeyGColorUIFrame        @"GColorUIFrame"
 #define KeyBColorUIFrame        @"BColorUIFrame"
@@ -25,7 +19,6 @@
 #define KeyRColorReadBackground @"RColorReadBackground"
 #define KeyGColorReadBackground @"GColorReadBackground"
 #define KeyBColorReadBackground @"BColorReadBackground"
-#define KeyBrightness           @"Brightness"
 #define KeyFontSizeRead         @"FontSizeRead"
 
 
@@ -34,7 +27,7 @@ static ThemeManager *sharedThemeManager = nil;
 @implementation ThemeManager
 
 @synthesize theme;
-@synthesize colorUIText, colorReadBackground, colorUIFrame, colorReadText, colorUIBackground, brightness, fontSizeRead;
+@synthesize colorReadBackground, colorUIFrame, colorReadText, fontSizeRead;
 
 + (ThemeManager *)sharedManager {
     @synchronized(self) {
@@ -143,16 +136,9 @@ static ThemeManager *sharedThemeManager = nil;
         self.theme.rColorReadText = [[themeDict objectForKey:KeyRColorReadText] floatValue];
         self.theme.gColorReadText = [[themeDict objectForKey:KeyGColorReadText] floatValue];
         self.theme.bColorReadText = [[themeDict objectForKey:KeyBColorReadText] floatValue];
-        self.theme.rColorUIBackground = [[themeDict objectForKey:KeyRColorUIBackground] floatValue];
-        self.theme.gColorUIBackground = [[themeDict objectForKey:KeyGColorUIBackground] floatValue];
-        self.theme.bColorUIBackground = [[themeDict objectForKey:KeyBColorUIBackground] floatValue];
         self.theme.rColorUIFrame = [[themeDict objectForKey:KeyRColorUIFrame] floatValue];
         self.theme.gColorUIFrame = [[themeDict objectForKey:KeyGColorUIFrame] floatValue];
         self.theme.bColorUIFrame = [[themeDict objectForKey:KeyBColorUIFrame] floatValue];
-        self.theme.rColorUIText = [[themeDict objectForKey:KeyRColorUIText] floatValue];
-        self.theme.gColorUIText = [[themeDict objectForKey:KeyGColorUIText] floatValue];
-        self.theme.bColorUIText = [[themeDict objectForKey:KeyBColorUIText] floatValue];
-        self.theme.brightness = [[themeDict objectForKey:KeyBrightness] floatValue];
         self.theme.fontSizeRead = [[themeDict objectForKey:KeyFontSizeRead] floatValue];
     }
 }
@@ -166,23 +152,16 @@ static ThemeManager *sharedThemeManager = nil;
         [fileMgr removeItemAtPath:filePath error:nil];
     }
 
-    NSMutableDictionary *themeDict = [NSMutableDictionary dictionaryWithCapacity:17];
+    NSMutableDictionary *themeDict = [NSMutableDictionary dictionaryWithCapacity:10];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.rColorReadBackground] forKey:KeyRColorReadBackground];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.gColorReadBackground] forKey:KeyGColorReadBackground];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.bColorReadBackground] forKey:KeyBColorReadBackground];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.rColorReadText] forKey:KeyRColorReadText];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.gColorReadText] forKey:KeyGColorReadText];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.bColorReadText] forKey:KeyBColorReadText];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.rColorUIBackground] forKey:KeyRColorUIBackground];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.gColorUIBackground] forKey:KeyGColorUIBackground];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.bColorUIBackground] forKey:KeyBColorUIBackground];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.rColorUIFrame] forKey:KeyRColorUIFrame];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.gColorUIFrame] forKey:KeyGColorUIFrame];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.bColorUIFrame] forKey:KeyBColorUIFrame];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.rColorUIText] forKey:KeyRColorUIText];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.gColorUIText] forKey:KeyGColorUIText];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.bColorUIText] forKey:KeyBColorUIText];
-    [themeDict setObject:[NSNumber numberWithFloat:self.theme.brightness] forKey:KeyBrightness];
     [themeDict setObject:[NSNumber numberWithFloat:self.theme.fontSizeRead] forKey:KeyFontSizeRead];
     [themeDict writeToFile:filePath atomically:YES];
     
@@ -193,34 +172,20 @@ static ThemeManager *sharedThemeManager = nil;
     [self saveThemeWithFileName:@"user.plist"];
 }
 
-- (UIColor *)colorUIText {
-    return [UIColor colorWithRed:theme.rColorUIText green:theme.gColorUIText blue:theme.bColorUIText alpha:1];
-}
-- (UIColor *)colorUIBackground {
-    return [UIColor colorWithRed:theme.rColorUIBackground green:theme.gColorUIBackground blue:theme.bColorUIBackground alpha:1];
-}
 - (UIColor *)colorUIFrame {
-    return [UIColor colorWithRed:theme.rColorUIFrame green:theme.rColorUIFrame blue:theme.bColorUIFrame alpha:1];
+    return [UIColor colorWithRed:theme.rColorUIFrame green:theme.gColorUIFrame blue:theme.bColorUIFrame alpha:1];
 }
 - (UIColor *)colorReadText {
     return [UIColor colorWithRed:theme.rColorReadText green:theme.gColorReadText blue:theme.bColorReadText alpha:1];
 }
 - (UIColor *)colorReadBackground {
-    return [UIColor colorWithRed:theme.rColorReadBackground green:theme.rColorReadBackground blue:theme.bColorReadBackground alpha:1];
+    return [UIColor colorWithRed:theme.rColorReadBackground green:theme.gColorReadBackground blue:theme.bColorReadBackground alpha:1];
 }
-- (CGFloat)brightness {
-    return theme.brightness;
-}
+
 - (CGFloat)fontSizeRead {
     return theme.fontSizeRead;
 }
 
-- (void)setColorUIText:(UIColor *)aColorUIText {
-    const float* colors = CGColorGetComponents(aColorUIText.CGColor);
-    theme.rColorUIText = colors[0];
-    theme.gColorUIText = colors[1];
-    theme.bColorUIText = colors[2];
-}
 
 - (void)setColorReadBackground:(UIColor *)aColorReadBackground {
     const float* colors = CGColorGetComponents(aColorReadBackground.CGColor);
@@ -243,16 +208,6 @@ static ThemeManager *sharedThemeManager = nil;
     theme.bColorReadText = colors[2];
 }
 
-- (void)setColorUIBackground:(UIColor *)aColorUIBackground {
-    const float* colors = CGColorGetComponents(aColorUIBackground.CGColor);
-    theme.rColorUIBackground = colors[0];
-    theme.gColorUIBackground = colors[1];
-    theme.bColorUIBackground = colors[2];
-}
-
-- (void)setBrightness:(CGFloat)aBrightness {
-    theme.brightness = aBrightness;
-}
 
 - (void)setFontSizeRead:(CGFloat)aFontSizeRead {
     theme.fontSizeRead = aFontSizeRead;
@@ -264,7 +219,7 @@ static ThemeManager *sharedThemeManager = nil;
 
 @implementation ThemeObject
 
-@synthesize rColorUIText, gColorUIText, bColorUIText, rColorUIBackground, gColorUIBackground, bColorUIBackground, rColorUIFrame, gColorUIFrame, bColorUIFrame, rColorReadText, gColorReadText, bColorReadText, rColorReadBackground, gColorReadBackground, bColorReadBackground, brightness, fontSizeRead;
+@synthesize rColorUIFrame, gColorUIFrame, bColorUIFrame, rColorReadText, gColorReadText, bColorReadText, rColorReadBackground, gColorReadBackground, bColorReadBackground, fontSizeRead;
 
 
 

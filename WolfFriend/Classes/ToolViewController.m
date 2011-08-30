@@ -64,8 +64,6 @@
 }
 
 - (void)resetUI:(id)arg {
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
@@ -193,7 +191,6 @@
         default:
             break;
     }
-    cell.textLabel.textColor = [[ThemeManager sharedManager] colorUIText];
     
     return cell;
 }
@@ -279,7 +276,6 @@
     UILabel *headerView = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
     [headerView setBackgroundColor:[UIColor clearColor]];
     headerView.text = titleHeader;
-    headerView.textColor = [[ThemeManager sharedManager] colorUIText];
     return headerView;
 }
 
@@ -291,9 +287,10 @@
             switch (indexPath.row) {
                 case 0: {
                     //选择背景颜色、字体颜色、字体大小
+                                         
                     ThemeDIYViewController *themeDIYViewController = [[ThemeDIYViewController alloc] init];
+                    themeDIYViewController.navigationItem.hidesBackButton = YES;
                     [self.navigationController pushViewController:themeDIYViewController animated:YES];
-//                    [self presentModalViewController:themeDIYViewController animated:YES];
                     [themeDIYViewController release];
                 }
                     break;

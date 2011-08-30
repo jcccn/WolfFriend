@@ -146,20 +146,21 @@
 }
 
 + (NSString *)flattenHTML:(NSString *)aHtml withLabel:(NSString *)aLabel {
-    
-    NSScanner *theScanner;
-    NSString *text = nil;
-    
-    theScanner = [NSScanner scannerWithString:aHtml];
-    
-    while ([theScanner isAtEnd] == NO) {
-        [theScanner scanUpToString:[NSString stringWithFormat:@"<%@",aLabel] intoString:NULL] ; 
-        [theScanner scanUpToString:@">" intoString:&text] ;
-        aHtml = [aHtml stringByReplacingOccurrencesOfString:
-                [ NSString stringWithFormat:@"%@>", text]
-                                               withString:@""];
+    if (aLabel && [aLabel length] > 0 && aHtml) {
+        NSScanner *theScanner;
+        NSString *text = nil;
         
-    } // while //
+        theScanner = [NSScanner scannerWithString:aHtml];
+        
+        while ([theScanner isAtEnd] == NO) {
+            [theScanner scanUpToString:[NSString stringWithFormat:@"<%@",aLabel] intoString:NULL] ; 
+            [theScanner scanUpToString:@">" intoString:&text] ;
+            aHtml = [aHtml stringByReplacingOccurrencesOfString:
+                     [ NSString stringWithFormat:@"%@>", text]
+                                                     withString:@""];
+            
+        } // while //
+    }
     
     return aHtml;
     

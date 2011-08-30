@@ -64,8 +64,6 @@
 }
 
 - (void)resetUI:(id)arg {
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 

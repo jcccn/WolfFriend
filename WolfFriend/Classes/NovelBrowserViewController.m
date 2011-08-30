@@ -55,7 +55,7 @@
 {
     [super viewDidLoad];
     UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 460-44-50)];
-    aWebView.scalesPageToFit = YES;
+    aWebView.scalesPageToFit = NO;
     aWebView.delegate = self;
     self.webView = aWebView;
     [self.view addSubview:aWebView];
@@ -155,9 +155,10 @@
 }
 
 - (void)resetUI:(id)arg {
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
-    [self setBrightness:[[ThemeManager sharedManager] brightness]];
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
+    if (self.webView) {
+        [self.webView reload];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

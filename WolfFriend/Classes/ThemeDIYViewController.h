@@ -11,7 +11,7 @@
 
 @class ThemeManager;
 
-@interface ThemeDIYViewController : UIViewController <UIAlertViewDelegate> {
+@interface ThemeDIYViewController : UIViewController <UIAlertViewDelegate, UINavigationBarDelegate> {
     UIScrollView *scrollView;
     
     UILabel *colorHintLabel;
@@ -23,21 +23,25 @@
     UISlider *gSlider;
     UISlider *bSlider;
     
-    UILabel *brightnessHintLabel;
-    UISlider *brightnessSlider;
+    UIColor *frameColor;
     
     UILabel *fontSizeHintLabel;
     UISlider *fontSizeSlider;
-    UILabel *textExampleLabel;
-    
+    UIColor *textBackgroundColor;
+    UIColor *textFontColor;
+    CGFloat textFontSize;
+    UIWebView *textExampleWebView;
     
     UIButton *saveButton;
     UIButton *cancelButton;
 }
 
+@property (nonatomic, retain) UIColor *frameColor, *textBackgroundColor, *textFontColor;
+
 - (void)changeTempColor:(UIColor *)aColor forTypeIndex:(NSInteger)anIndex;
-- (void)changetempBrightness:(CGFloat)floatBrightness; 
 - (void)changeTempFontSize:(CGFloat)floatFontSize;
+- (void)changeTempReadBackgroundColor:(UIColor *)aBackgroundColor fontColor:(UIColor *)aFontColor fontSize:(CGFloat)aFontSize;
+- (void)changeTempRead;
 
 - (void)saveTheme;
 - (void)cancel;

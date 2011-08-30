@@ -9,12 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface ThemeObject : NSObject {
-    CGFloat rColorUIText;
-    CGFloat gColorUIText;
-    CGFloat bColorUIText;
-    CGFloat rColorUIBackground;
-    CGFloat gColorUIBackground;
-    CGFloat bColorUIBackground;
     CGFloat rColorUIFrame;
     CGFloat gColorUIFrame;
     CGFloat bColorUIFrame;
@@ -24,15 +18,8 @@
     CGFloat rColorReadBackground;
     CGFloat gColorReadBackground;
     CGFloat bColorReadBackground;
-    CGFloat brightness;
     CGFloat fontSizeRead;
 }
-@property (nonatomic, assign) CGFloat rColorUIText;
-@property (nonatomic, assign) CGFloat gColorUIText;
-@property (nonatomic, assign) CGFloat bColorUIText;
-@property (nonatomic, assign) CGFloat rColorUIBackground;
-@property (nonatomic, assign) CGFloat gColorUIBackground;
-@property (nonatomic, assign) CGFloat bColorUIBackground;
 @property (nonatomic, assign) CGFloat rColorUIFrame;
 @property (nonatomic, assign) CGFloat gColorUIFrame;
 @property (nonatomic, assign) CGFloat bColorUIFrame;
@@ -42,7 +29,6 @@
 @property (nonatomic, assign) CGFloat rColorReadBackground;
 @property (nonatomic, assign) CGFloat gColorReadBackground;
 @property (nonatomic, assign) CGFloat bColorReadBackground;
-@property (nonatomic, assign) CGFloat brightness;
 @property (nonatomic, assign) CGFloat fontSizeRead;
 
 @end
@@ -52,12 +38,9 @@
     ThemeObject *theme;
 }
 @property (nonatomic, retain) ThemeObject *theme;
-@property (nonatomic, retain) UIColor *colorUIText;
-@property (nonatomic, retain) UIColor *colorUIBackground;
 @property (nonatomic, retain) UIColor *colorUIFrame;
 @property (nonatomic, retain) UIColor *colorReadText;
 @property (nonatomic, retain) UIColor *colorReadBackground;
-@property (nonatomic, assign) CGFloat brightness;
 @property (nonatomic, assign) CGFloat fontSizeRead;
 
 + (ThemeManager *)sharedManager;

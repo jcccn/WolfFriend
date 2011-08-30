@@ -12,14 +12,12 @@
 
 @interface UIViewController (Extension)
 
-- (void)setBrightness:(CGFloat)aBrightness;   //0-1.0
 - (void)setBarBackroundColor:(UIColor *)aColor;
 
 @end
 
 @interface UITableViewController (Extension)
 
-- (void)setBrightness:(CGFloat)aBrightness;
 - (void)setBarBackroundColor:(UIColor *)aColor;
 
 
