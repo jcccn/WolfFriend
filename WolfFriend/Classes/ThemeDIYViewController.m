@@ -50,7 +50,7 @@
 {
     [super viewDidLoad];
     self.title = @"DIY主题";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TableBackground.png"]];
 
     if ( ! scrollView) {
         scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];

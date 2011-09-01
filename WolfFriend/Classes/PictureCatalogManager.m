@@ -8,6 +8,7 @@
 
 #import "PictureCatalogManager.h"
 #import "SectionObject.h"
+#import "CommonModel.h"
 
 static PictureCatalogManager *sharedPictureCatalogManager = nil;
 
@@ -42,7 +43,7 @@ static PictureCatalogManager *sharedPictureCatalogManager = nil;
     NSArray *titles = [NSArray arrayWithObjects:@"偷窥自拍", @"亚洲色图", @"欧美色图", @"明星裸照", @"清纯美女", @"美腿丝袜", @"乱伦熟女", @"情色另类", nil];
     NSArray *urls = [NSArray arrayWithObjects:@"Piclist2", @"Piclist1", @"Piclist3", @"Piclist6", @"Piclist5", @"Piclist7", @"Piclist8",@"Piclist9",  nil];
     for (int index = 0; index < 8; index++) {
-        SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[@"http://www.34eee.com/htm/" stringByAppendingString:[urls objectAtIndex:index]]];
+        SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[[[CommonModel sharedModel] baseUrlString] stringByAppendingFormat:@"/htm/%@",[urls objectAtIndex:index]]];
         [self.sectionList addObject:sectionObject];
         [sectionObject release];
     }

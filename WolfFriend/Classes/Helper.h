@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Helper : NSObject
-
-@end
+// Preference
+id getPref(NSString *aKey, id aDefaultValue);
+void setPref(NSString *aKey, id aValue);
+int getIntPref(NSString *aKey, int aValue);
+void setIntPref(NSString *aKey, int aValue);
+void removePref(NSString *aKey);
+BOOL hasPref(NSString *aKey);

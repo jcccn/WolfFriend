@@ -42,7 +42,7 @@
 {
     [super viewDidLoad];
     self.title = @"免责声明";
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TableBackground.png"]];
     if ( ! disclaimerLabel) {
         disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.view.bounds, 0, -50)];
         disclaimerLabel.numberOfLines = 0;

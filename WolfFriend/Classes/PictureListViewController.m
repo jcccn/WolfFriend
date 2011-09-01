@@ -89,7 +89,7 @@
 }
 
 - (void)startLoadItemList {
-    if ([self.sectionObject pageCount] <= 0) { //内容为空，刷新
+    if ([self.sectionObject pageCount] < 0) { //内容为空，刷新
         [activityIndicator startAnimating];
         self.view.userInteractionEnabled = NO;
         [self.sectionObject refreshDataWithDeledate:self];

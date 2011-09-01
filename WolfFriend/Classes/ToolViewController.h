@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
 
-@interface ToolViewController : UITableViewController {
+@interface ToolViewController : UITableViewController <UIAlertViewDelegate> {
     
 }
 

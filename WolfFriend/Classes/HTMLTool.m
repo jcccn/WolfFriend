@@ -9,6 +9,7 @@
 #import "HTMLTool.h"
 #import "ItemObject.h"
 #import "ThemeManager.h"
+#import "CommonModel.h"
 
 @implementation HTMLTool
 
@@ -26,6 +27,9 @@
 
 
 + (NSInteger)parseSectionPageCountFromHTML:(NSString *)aHtml {
+    if (!aHtml || [aHtml length] == 0) {
+        return 0;
+    }
     NSInteger result = 0;
     NSScanner *aScanner;
     NSString *resultText = @"";
@@ -65,6 +69,9 @@
 
 + (NSMutableArray *)parseItemsArrayCountFromHTML:(NSString *)aHtml {
     NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
+    if (!aHtml || [aHtml length] == 0) {
+        return itemsArray;
+    }
     
     NSString *resourceString = aHtml;
     while (true) {
@@ -79,7 +86,7 @@
             NSArray *resultArray = [resultText componentsSeparatedByString:@"\" target=\"_blank\">"];
             if ([resultArray count] >= 2) {
                 ItemObject *anItem = [[ItemObject alloc] init];
-                anItem.url = [@"http://www.34eee.com" stringByAppendingString:[resultArray objectAtIndex:0]];
+                anItem.url = [[[CommonModel sharedModel] baseUrlString] stringByAppendingString:[resultArray objectAtIndex:0]];
                 anItem.title = [[resultArray objectAtIndex:1] stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
                 [itemsArray addObject:anItem];
             }
@@ -95,6 +102,9 @@
 }
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml {
+    if (!aHtml || [aHtml length] == 0) {
+        return @"";
+    }
     NSScanner *aScanner;
     NSString *resultText = @"";
     aScanner = [NSScanner scannerWithString:aHtml];
@@ -118,6 +128,9 @@
 }
 
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml {
+    if (!aHtml || [aHtml length] == 0) {
+        return @"";
+    }
     NSScanner *aScanner;
     NSString *resultText = @"";
     aScanner = [NSScanner scannerWithString:aHtml];

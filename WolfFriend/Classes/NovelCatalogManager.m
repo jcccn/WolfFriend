@@ -8,6 +8,7 @@
 
 #import "NovelCatalogManager.h"
 #import "SectionObject.h"
+#import "CommonModel.h"
 
 static NovelCatalogManager *sharedNovelCatalogManager = nil;
 
@@ -42,7 +43,7 @@ static NovelCatalogManager *sharedNovelCatalogManager = nil;
     NSArray *titles = [NSArray arrayWithObjects:@"激情文学", @"乱伦文学", @"淫色人妻", @"武侠古典", @"迷情校园", @"黄色笑话", @"意淫强奸", @"交通色狼", nil];
     NSArray *urls = [NSArray arrayWithObjects:@"Novellist1", @"Novellist2", @"Novellist3", @"Novellist6", @"Novellist4", @"Novellist7", @"Novellist5",@"Novellist8",  nil];
     for (int index = 0; index < 8; index++) {
-        SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[@"http://www.34eee.com/htm/" stringByAppendingString:[urls objectAtIndex:index]]];
+        SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[[[CommonModel sharedModel] baseUrlString] stringByAppendingFormat:@"/htm/%@",[urls objectAtIndex:index]]];
         [self.sectionList addObject:sectionObject];
         [sectionObject release];
     }
@@ -53,7 +54,7 @@ static NovelCatalogManager *sharedNovelCatalogManager = nil;
 }
 
 - (NSInteger)pageCountForSection:(SectionObject *)aSection {
-    return 0;
+    return -1;
 }
 
 - (void)dealloc {

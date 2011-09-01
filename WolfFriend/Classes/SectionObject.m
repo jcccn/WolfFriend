@@ -19,7 +19,7 @@
     if (self) {
         // Initialization code here.
 //        pages = [[NSMutableArray alloc] init];
-        pageCount = 0;
+        pageCount = -1;
         currentPageIndex = 0;
         currentPageObject = nil;
     }
@@ -116,6 +116,7 @@
 
 - (void)httpDataFetchedSuccess:(NSData *)theData {
     NSString *resourceText = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
+    NSLog(@"resourceText:\n%@",resourceText);
     pageCount = [HTMLTool parseSectionPageCountFromHTML:resourceText];
     [resourceText release];
     if (delegate) {

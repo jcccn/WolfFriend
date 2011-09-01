@@ -8,8 +8,10 @@
 
 #import "ToolViewController.h"
 #import "ThemeDIYViewController.h"
-#import "ThemeChooseViewController.h"
+#import "SiteDIYViewController.h"
 #import "DisclaimerViewController.h"
+
+#define TagAlertDefaultTheme    1000
 
 
 @implementation ToolViewController
@@ -102,7 +104,7 @@
             numberOfRows = 1;
             break;
         case 2:
-            numberOfRows = 2;
+            numberOfRows = 3;
             break;
         case 3:
             numberOfRows = 1;
@@ -133,8 +135,8 @@
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 case 1:
-                    cell.textLabel.text = @"使用内置主题";
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.text = @"恢复默认主题";
+                    cell.textLabel.textAlignment = UITextAlignmentCenter;
                     break;
                 default:
                     break;
@@ -171,8 +173,11 @@
                 case 1:
                     cell.textLabel.text = @"清除本地文件";
                     cell.textLabel.textAlignment = UITextAlignmentCenter;
-                    //                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;       
+                    break;
+                case 2:
+                    cell.textLabel.text = @"自定义网址";
+                    cell.textLabel.textAlignment = UITextAlignmentCenter;
+                    break;
                 default:
                     break;
             }
@@ -195,23 +200,23 @@
     return cell;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    NSString *titleHeader = @"";
-//    switch (section) {
-//        case 0:
-//            titleHeader = @"主题切换";
-//            break;
-//        case 1:
-//            titleHeader = @"屏幕设置";
-//            break;
-//        case 2:
-//            titleHeader = @"缓存设置";
-//            break;
-//        default:
-//            break;
-//    }
-//    return titleHeader;
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *titleHeader = @"";
+    switch (section) {
+        case 0:
+            titleHeader = @"主题切换";
+            break;
+        case 1:
+            titleHeader = @"屏幕设置";
+            break;
+        case 2:
+            titleHeader = @"内容设置";
+            break;
+        default:
+            break;
+    }
+    return titleHeader;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -258,26 +263,26 @@
     return 30.0f;
 }
 
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSString *titleHeader = @"";
-    switch (section) {
-        case 0:
-            titleHeader = @"  主题切换";
-            break;
-        case 1:
-            titleHeader = @"  屏幕设置";
-            break;
-        case 2:
-            titleHeader = @"  缓存设置";
-            break;
-        default:
-            break;
-    }
-    UILabel *headerView = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    headerView.text = titleHeader;
-    return headerView;
-}
+//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    NSString *titleHeader = @"";
+//    switch (section) {
+//        case 0:
+//            titleHeader = @"  主题切换";
+//            break;
+//        case 1:
+//            titleHeader = @"  屏幕设置";
+//            break;
+//        case 2:
+//            titleHeader = @"  缓存设置";
+//            break;
+//        default:
+//            break;
+//    }
+//    UILabel *headerView = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
+//    [headerView setBackgroundColor:[UIColor clearColor]];
+//    headerView.text = titleHeader;
+//    return headerView;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -296,9 +301,10 @@
                     break;
                 case 1: {
                     //选择内置主题
-                    ThemeChooseViewController *themeChooseViewController = [[ThemeChooseViewController alloc] initWithStyle:UITableViewStyleGrouped];
-                    [self.navigationController pushViewController:themeChooseViewController animated:YES];
-                    [themeChooseViewController release];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定恢复默认？" message:@"恢复默认主题将丢失您的个性化设置" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+                    alert.tag = TagAlertDefaultTheme;
+                    [alert show];
+                    [alert release];
                 }
                     break;
                 default:
@@ -323,7 +329,14 @@
                     [alert show];
                     [alert release];
                 }
-                    break;       
+                    break;
+                case 2: {
+                    //自定义网址
+                    SiteDIYViewController *siteDIYViewController = [[SiteDIYViewController alloc] init];
+                    [self.navigationController pushViewController:siteDIYViewController animated:YES];
+                    [siteDIYViewController release];
+                }
+                    break;
                 default:
                     break;
             }
@@ -342,6 +355,22 @@
             [disclaimerViewController release];
         }
             break;
+        default:
+            break;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (alertView.tag) {
+        case TagAlertDefaultTheme: {
+            if (buttonIndex == 1) {
+                [[ThemeManager sharedManager] loadDefaultTheme];
+                [[ThemeManager sharedManager] saveTheme];
+                [self resetUI:nil];
+            }
+        }
+            break;
+            
         default:
             break;
     }
