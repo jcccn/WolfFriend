@@ -8,9 +8,6 @@
 
 #import "UIViewController+Extension.h"
 
-#define TagTabBarBackground 1505
-
-
 @implementation UIViewController (Extension)
 
 
@@ -32,6 +29,31 @@
         navigationController.navigationBar.tintColor = aColor;
     }
 }
+
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    // Return YES for supported orientations
+//    BOOL shouldAuto = NO;
+//    switch (getIntPref(KeyScreenOrientation, 0)) {
+//        case 0: {
+//            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
+//        }
+//            break;
+//            
+//        case 1: {
+//            shouldAuto = YES;
+//        }
+//            break;
+//        case 2: {
+//            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//    return shouldAuto;
+//}
+
 
 @end
 
@@ -58,5 +80,37 @@
     }
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    BOOL shouldAuto = NO;
+    switch (getIntPref(KeyScreenOrientation, 0)) {
+        case 0: {
+            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
+        }
+            break;
+            
+        case 1: {
+            shouldAuto = YES;
+        }
+            break;
+        case 2: {
+            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+        }
+            break;
+        default:
+            break;
+    }
+    return shouldAuto;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    UITabBarController *tabBarController = self.tabBarController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
+    if (tabBarBackgroundView) {
+        tabBarBackgroundView.frame = tabBar.bounds;
+    }
+}
 
 @end

@@ -67,7 +67,7 @@
         
         if ( ! activityIndicator) {
             activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            activityIndicator.center = CGPointMake(160, 200);
+            activityIndicator.center = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? CGPointMake(160, 200) : CGPointMake(240, 110);
             activityIndicator.hidesWhenStopped = YES;
             [self.view addSubview:activityIndicator];
         }
@@ -98,7 +98,7 @@
     else {
         self.pageObject = [self.sectionObject currentPageObject];
         self.title = [self.sectionObject.title stringByAppendingFormat:@" - %d/%d",[self.sectionObject currentPageIndex], [self.sectionObject pageCount]];
-        self.tableView.tableFooterView.hidden = NO;
+        self.tableView.tableFooterView.hidden = YES;
         if ([[self.pageObject itemsArray] count] <= 0) {
             [activityIndicator startAnimating];
             self.view.userInteractionEnabled = NO;
@@ -175,10 +175,44 @@
     [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    // Return YES for supported orientations
+//    BOOL shouldAuto = NO;
+//    switch (getIntPref(KeyScreenOrientation, 0)) {
+//        case 0: {
+//            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
+//        }
+//            break;
+//            
+//        case 1: {
+//            shouldAuto = YES;
+//        }
+//            break;
+//        case 2: {
+//            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//    return shouldAuto;
+//}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    UITabBarController *tabBarController = self.tabBarController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
+    if (tabBarBackgroundView) {
+        tabBarBackgroundView.frame = tabBar.bounds;
+    }
+    
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        activityIndicator.center = CGPointMake(160, 200);
+    }
+    else {
+        activityIndicator.center = CGPointMake(240, 110);
+    }
 }
 
 - (void)dealloc {

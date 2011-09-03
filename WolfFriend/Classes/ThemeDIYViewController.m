@@ -49,6 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.title = @"DIY主题";
     self.view.backgroundColor = self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TableBackground.png"]];
 
@@ -165,7 +166,6 @@
     [self changeTempColor:[[ThemeManager sharedManager] colorReadBackground] forTypeIndex:2];
     [self changeTempFontSize:[[ThemeManager sharedManager] fontSizeRead]];
     [self performSelector:@selector(segmentedControlValueChanged:) withObject:colorTypeSegmentedControl];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -180,7 +180,9 @@
 }
 
 - (void)resetUI:(id)arg {
+    [self willAnimateRotationToInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation] duration:0];
     [self changeTempColor:self.frameColor forTypeIndex:0];
+
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
@@ -349,7 +351,66 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    BOOL shouldAuto = NO;
+    switch (getIntPref(KeyScreenOrientation, 0)) {
+        case 0: {
+            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
+        }
+            break;
+            
+        case 1: {
+            shouldAuto = YES;
+        }
+            break;
+        case 2: {
+            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+        }
+            break;
+        default:
+            break;
+    }
+    return shouldAuto;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];    
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        //竖屏
+        CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
+        scrollView.frame = CGRectMake(0, 0, screenRect.size.width, contentHeight);
+        colorTypeSegmentedControl.frame = CGRectMake(10, 50, 300, 30);
+        rSlider.frame = CGRectMake(40, rColorLabel.center.y - 15, 270, 30);
+        gSlider.frame = CGRectMake(40, gColorLabel.center.y - 15, 270, 30);
+        bSlider.frame = CGRectMake(40, bColorLabel.center.y - 15, 270, 30);
+        fontSizeSlider.frame = CGRectMake(90, fontSizeHintLabel.center.y - 15, 220, 30);
+        textExampleWebView.frame = CGRectMake(10, 230, 300, 50);
+        saveButton.center = CGPointMake(90, 310);
+        cancelButton.center = CGPointMake(230, 310);
+    }
+    else {
+        //横屏
+        CGFloat contentHeight = screenRect.size.width - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
+        scrollView.frame = CGRectMake(0, 0, screenRect.size.height, contentHeight);
+        colorTypeSegmentedControl.frame = CGRectMake(10, 50, 460, 30);
+        rSlider.frame = CGRectMake(40, rColorLabel.center.y - 15, 430, 30);
+        gSlider.frame = CGRectMake(40, gColorLabel.center.y - 15, 430, 30);
+        bSlider.frame = CGRectMake(40, bColorLabel.center.y - 15, 430, 30);
+        fontSizeSlider.frame = CGRectMake(90, fontSizeHintLabel.center.y - 15, 380, 30);
+        textExampleWebView.frame = CGRectMake(10, 230, 460, 50);
+        saveButton.center = CGPointMake(130, 310);
+        cancelButton.center = CGPointMake(350, 310);
+        
+    }
+    UITabBarController *tabBarController = self.tabBarController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
+    if (tabBarBackgroundView) {
+        tabBarBackgroundView.frame = tabBar.bounds;
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    
 }
 
 @end

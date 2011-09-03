@@ -128,6 +128,7 @@
 }
 
 - (void)resetUI:(id)arg {
+    [self willAnimateRotationToInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation] duration:0];
     if (segmentedControl) {
         segmentedControl.tintColor = [[ThemeManager sharedManager] colorUIFrame];
     }
@@ -142,10 +143,59 @@
     // e.g. self.myOutlet = nil;
 }
 
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    BOOL shouldAuto = NO;
+    switch (getIntPref(KeyScreenOrientation, 0)) {
+        case 0: {
+            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);
+        }
+            break;
+            
+        case 1: {
+            shouldAuto = YES;
+        }
+            break;
+        case 2: {
+            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+        }
+            break;
+        default:
+            break;
+    }
+    return shouldAuto;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        //竖屏
+        CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
+        segmentedControl.frame = CGRectMake(10, 50, 300, 30);
+        urlFieldPartOne.frame = CGRectMake(10, 90, 90, 30);
+        dotLableOne.frame = CGRectMake(100, 90, 10, 30);
+        urlFieldPartTwo.frame = CGRectMake(110, 90, 100, 30);
+        dotLableTwo.frame = CGRectMake(210, 90, 10, 30);
+        urlFieldPartThree.frame = CGRectMake(220, 90, 90, 30);
+    }
+    else {
+        //横屏
+        CGFloat contentHeight = screenRect.size.width - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
+        segmentedControl.frame = CGRectMake(10, 50, 460, 30);
+        urlFieldPartOne.frame = CGRectMake(10, 90, 120, 30);
+        dotLableOne.frame = CGRectMake(130, 90, 10, 30);
+        urlFieldPartTwo.frame = CGRectMake(140, 90, 200, 30);
+        dotLableTwo.frame = CGRectMake(340, 90, 10, 30);
+        urlFieldPartThree.frame = CGRectMake(350, 90, 120, 30);
+    }
+    UITabBarController *tabBarController = self.tabBarController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
+    if (tabBarBackgroundView) {
+        tabBarBackgroundView.frame = tabBar.bounds;
+    }
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {

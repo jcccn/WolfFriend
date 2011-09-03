@@ -77,11 +77,29 @@
     [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    // Return YES for supported orientations
+//    BOOL shouldAuto = NO;
+//    switch (getIntPref(KeyScreenOrientation, 0)) {
+//        case 0: {
+//            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
+//        }
+//            break;
+//            
+//        case 1: {
+//            shouldAuto = YES;
+//        }
+//            break;
+//        case 2: {
+//            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//    return shouldAuto;
+//}
 
 #pragma mark - Table view data source
 

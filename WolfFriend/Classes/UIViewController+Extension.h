@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ThemeManager.h"
 
+#import "Helper.h"
+#define KeyScreenOrientation    @"ScreenOrientation"
+#define TagTabBarBackground 1505
+
+
 
 @interface UIViewController (Extension)
 

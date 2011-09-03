@@ -10,6 +10,7 @@
 #import "ThemeDIYViewController.h"
 #import "SiteDIYViewController.h"
 #import "DisclaimerViewController.h"
+#import "Helper.h"
 
 #define TagAlertDefaultTheme    1000
 
@@ -40,6 +41,7 @@
     [super viewDidLoad];
 
     self.clearsSelectionOnViewWillAppear = NO;
+//    self.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     
     self.title = @"工具箱";
  
@@ -69,6 +71,12 @@
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
+- (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
+    setIntPref(KeyScreenOrientation, sender.selectedSegmentIndex);
+    [self.view setNeedsLayout];
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -79,11 +87,30 @@
     [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    // Return YES for supported orientations
+//    BOOL shouldAuto = NO;
+//    switch (getIntPref(KeyScreenOrientation, 0)) {
+//        case 0: {
+//            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
+//        }
+//            break;
+//            
+//        case 1: {
+//            shouldAuto = YES;
+//        }
+//            break;
+//        case 2: {
+//            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//    return shouldAuto;
+//}
+
 
 #pragma mark - Table view data source
 
@@ -121,10 +148,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CellTool";
+    static NSString *CellIdentifierWithSegment = @"CellToolSeg";
+    static NSString *CellIdentifierWithSwitch = @"CellToolSwitch";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    UITableViewCell *cellSeg = [tableView dequeueReusableCellWithIdentifier:CellIdentifierWithSegment];
+    if (cellSeg == nil) {
+        cellSeg = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierWithSegment] autorelease];
+    }
+    UITableViewCell *cellSwitch = [tableView dequeueReusableCellWithIdentifier:CellIdentifierWithSwitch];
+    if (cellSwitch == nil) {
+        cellSwitch = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierWithSwitch] autorelease];
     }
     // Configure the cell...
     switch (indexPath.section) {
@@ -145,29 +182,38 @@
             break;
             
         case 1: {
-            cell.textLabel.text = @"屏幕方向";
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if ( ! cell.accessoryView) {
-                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"竖屏", @"自动", @"横屏", nil]];
-                segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
-                segmentedControl.selectedSegmentIndex = 0;
-                cell.accessoryView = segmentedControl;
-                [segmentedControl release];
+            if (indexPath.row == 0) {
+                cellSeg.textLabel.text = @"屏幕方向";
+                cellSeg.selectionStyle = UITableViewCellSelectionStyleNone;
+                UISegmentedControl *segmentedControl = nil;
+                if ( ! cellSeg.accessoryView) {
+                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"竖屏", @"自动", @"横屏", nil]];
+                    segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
+                    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+                    cellSeg.accessoryView = segmentedControl;
+                    [segmentedControl release];
+                }
+                segmentedControl = (UISegmentedControl *)cellSeg.accessoryView;
+                segmentedControl.selectedSegmentIndex = getIntPref(KeyScreenOrientation, 0);
+             
+                return cellSeg;
             }
+            
         }
             break;
         case 2: {
             switch (indexPath.row) {
                 case 0: {
-                    cell.textLabel.text = @"本地保存";
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    if ( ! cell.accessoryView) {
+                    cellSwitch.textLabel.text = @"本地保存";
+                    cellSwitch.selectionStyle = UITableViewCellSelectionStyleNone;
+                    if ( ! cellSwitch.accessoryView) {
                         UISwitch *aSwitch = [[UISwitch alloc] init];
                         aSwitch.frame = CGRectInset(aSwitch.frame, 0, 5);
                         [aSwitch setOn:NO];
-                        cell.accessoryView = aSwitch;
+                        cellSwitch.accessoryView = aSwitch;
                         [aSwitch release];
                     }
+                    return cellSwitch;
                 }
                     break;
                 case 1:

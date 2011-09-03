@@ -116,7 +116,7 @@
 
 - (void)httpDataFetchedSuccess:(NSData *)theData {
     NSString *resourceText = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
-    NSLog(@"resourceText:\n%@",resourceText);
+//    NSLog(@"resourceText:\n%@",resourceText);
     pageCount = [HTMLTool parseSectionPageCountFromHTML:resourceText];
     [resourceText release];
     if (delegate) {

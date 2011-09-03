@@ -74,12 +74,51 @@
 
 - (void)resetUI:(id)arg {
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
+    [self willAnimateRotationToInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation] duration:0];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    BOOL shouldAuto = NO;
+    switch (getIntPref(KeyScreenOrientation, 0)) {
+        case 0: {
+            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);
+        }
+            break;
+            
+        case 1: {
+            shouldAuto = YES;
+        }
+            break;
+        case 2: {
+            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+        }
+            break;
+        default:
+            break;
+    }
+    return shouldAuto;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        //竖屏
+        CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
+        disclaimerLabel.frame = CGRectMake(0, 0, screenRect.size.width, contentHeight - 50);
+    }
+    else {
+        //横屏
+        CGFloat contentHeight = screenRect.size.width - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
+        disclaimerLabel.frame = CGRectMake(0, 0, screenRect.size.height, contentHeight - 30);
+    }
+    UITabBarController *tabBarController = self.tabBarController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
+    if (tabBarBackgroundView) {
+        tabBarBackgroundView.frame = tabBar.bounds;
+    }
 }
 
 @end
