@@ -45,7 +45,6 @@ static PictureCatalogManager *sharedPictureCatalogManager = nil;
     for (int index = 0; index < 8; index++) {
         SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[[[CommonModel sharedModel] baseUrlString] stringByAppendingFormat:@"/htm/%@",[urls objectAtIndex:index]]];
         [self.sectionList addObject:sectionObject];
-        [sectionObject release];
     }
 }
 
@@ -57,9 +56,5 @@ static PictureCatalogManager *sharedPictureCatalogManager = nil;
     return 0;
 }
 
-- (void)dealloc {
-    [sectionList release];
-    [super dealloc];
-}
 
 @end

@@ -26,19 +26,19 @@
 {
     // Override point for customization after application launch.
     // Add the tab bar controller's current view as a subview of the window
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController = [[UITabBarController alloc] init];
     
-    UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[PictureSectionListViewController alloc] init] autorelease]];
+    UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:[[PictureSectionListViewController alloc] init]];
     pictureNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-    pictureNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"美图浏览" image:[UIImage imageNamed:@"IconPicture.png"] tag:TagTabBarItemPicture] autorelease];
+    pictureNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"美图浏览" image:[UIImage imageNamed:@"IconPicture.png"] tag:TagTabBarItemPicture];
     
-    UINavigationController *novelNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[NovelSectionListViewController alloc] init] autorelease]];
+    UINavigationController *novelNavigationController = [[UINavigationController alloc] initWithRootViewController:[[NovelSectionListViewController alloc] init]];
     novelNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-    novelNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"小说阅读" image:[UIImage imageNamed:@"IconNovel.png"] tag:TagTabBarItemNovel] autorelease];
+    novelNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"小说阅读" image:[UIImage imageNamed:@"IconNovel.png"] tag:TagTabBarItemNovel];
     
-    UINavigationController *toolNavigationController = [[UINavigationController alloc] initWithRootViewController:[[[ToolViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease]];
+    UINavigationController *toolNavigationController = [[UINavigationController alloc] initWithRootViewController:[[ToolViewController alloc] initWithStyle:UITableViewStyleGrouped]];
     toolNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-    toolNavigationController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"工具箱" image:[UIImage imageNamed:@"IconTool.png"] tag:TagTabBarItemTool] autorelease];
+    toolNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"工具箱" image:[UIImage imageNamed:@"IconTool.png"] tag:TagTabBarItemTool];
     
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:pictureNavigationController, novelNavigationController, toolNavigationController, nil];
 
@@ -86,12 +86,6 @@
      */
 }
 
-- (void)dealloc
-{
-    [_window release];
-    [_tabBarController release];
-    [super dealloc];
-}
 
 /*
 // Optional UITabBarControllerDelegate method.

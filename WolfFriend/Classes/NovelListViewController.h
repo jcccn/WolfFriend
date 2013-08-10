@@ -20,8 +20,8 @@
     UIActivityIndicatorView *activityIndicator;
 }
 
-@property (nonatomic, retain) SectionObject *sectionObject;
-@property (nonatomic, retain) PageObject *pageObject;
+@property (nonatomic, strong) SectionObject *sectionObject;
+@property (nonatomic, strong) PageObject *pageObject;
 
 - (id)initWithSectionObject:(SectionObject *)aSectionObject;
 - (void)startLoadItemList;

@@ -124,7 +124,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -181,7 +181,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
     headerView.backgroundColor = [UIColor clearColor];
     return headerView;
 }
@@ -193,7 +193,6 @@
     
     NovelListViewController *novelListViewController = [[NovelListViewController alloc] initWithSectionObject:(SectionObject *)[(NSArray *)[[NovelCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row]];
     [self.navigationController pushViewController:novelListViewController animated:YES];
-    [novelListViewController release];
 }
 
 @end

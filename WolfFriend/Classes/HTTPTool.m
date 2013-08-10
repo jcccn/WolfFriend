@@ -69,11 +69,5 @@
     }
 }
 
-- (void)dealloc {
-    if (bufferData) {
-        [bufferData release];
-    }
-    [super dealloc];
-}
 
 @end

@@ -10,8 +10,8 @@
 
 @interface WolfFriendAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, strong) IBOutlet UITabBarController *tabBarController;
 
 @end

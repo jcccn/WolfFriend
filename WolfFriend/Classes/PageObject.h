@@ -29,8 +29,8 @@
 }
 
 //@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *url;
-@property (nonatomic, retain) id<PageObjectDelegate> delegate;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) id<PageObjectDelegate> delegate;
 
 //- (id)initWithSection:(SectionObject *)aSection;
 - (id)initWithUrlString:(NSString *)aUrlString;

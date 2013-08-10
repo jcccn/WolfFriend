@@ -20,7 +20,6 @@
             tabBarBackgroundView = [[UIView alloc] initWithFrame:tabBar.bounds];
             tabBarBackgroundView.tag = TagTabBarBackground;
             [tabBar insertSubview:tabBarBackgroundView atIndex:0];
-            [tabBarBackgroundView release];
         }
         tabBarBackgroundView.backgroundColor = aColor;
     }
@@ -70,7 +69,6 @@
             tabBarBackgroundView = [[UIView alloc] initWithFrame:tabBar.bounds];
             tabBarBackgroundView.tag = TagTabBarBackground;
             [tabBar insertSubview:tabBarBackgroundView atIndex:0];
-            [tabBarBackgroundView release];
         }
         tabBarBackgroundView.backgroundColor = aColor;
     }

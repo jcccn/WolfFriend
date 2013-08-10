@@ -38,7 +38,6 @@
     NSString *resourceText = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
     [itemsArray removeAllObjects];
     [itemsArray addObjectsFromArray:[HTMLTool parseItemsArrayCountFromHTML:resourceText]];
-    [resourceText release];
     if (self.delegate) {
         [self.delegate pageDataFectchedSuccess];
     }
@@ -52,7 +51,7 @@
 
 - (void)refreshDataWithDeledate:(id<PageObjectDelegate>)aDelegate {
     self.delegate = aDelegate;
-    httpTool = [[[HTTPTool alloc] initWithDelegate:self] autorelease];
+    httpTool = [[HTTPTool alloc] initWithDelegate:self];
     [httpTool startFetchDataWithURLString:self.url];
 //    NSLog(@"page url:%@",self.url);
 }
@@ -70,8 +69,5 @@
     return itemsArray;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 @end

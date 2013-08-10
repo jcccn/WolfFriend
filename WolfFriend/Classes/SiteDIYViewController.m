@@ -50,7 +50,6 @@
         hintLabel.backgroundColor = [UIColor clearColor];
         hintLabel.text = @"选择或输入内容来源网址";
         [self.view addSubview:hintLabel];
-        [hintLabel release];
     }
     if ( ! segmentedControl) {
         segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"默认网址", @"自动获取", @"手动输入", nil]];
@@ -59,7 +58,6 @@
         segmentedControl.selectedSegmentIndex = 0;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self.view addSubview:segmentedControl];
-        [segmentedControl release];
     }
     
     if ( ! urlFieldPartOne) {
@@ -73,7 +71,6 @@
         urlFieldPartOne.placeholder = @"www";
         urlFieldPartOne.delegate = self;
         [self.view addSubview:urlFieldPartOne];
-        [urlFieldPartOne release];
     }
     
     if ( ! dotLableOne) {
@@ -82,7 +79,6 @@
         dotLableOne.textAlignment = UITextAlignmentCenter;
         dotLableOne.text = @".";
         [self.view addSubview:dotLableOne];
-        [dotLableOne release];
     }
     
     if ( ! urlFieldPartTwo) {
@@ -96,7 +92,6 @@
         urlFieldPartTwo.placeholder = @"34eee";
         urlFieldPartTwo.delegate = self;
         [self.view addSubview:urlFieldPartTwo];
-        [urlFieldPartTwo release];
     }
     
     if ( ! dotLableTwo) {
@@ -105,7 +100,6 @@
         dotLableTwo.textAlignment = UITextAlignmentCenter;
         dotLableTwo.text = @".";
         [self.view addSubview:dotLableTwo];
-        [dotLableTwo release];
     }
     
     if ( ! urlFieldPartThree) {
@@ -119,7 +113,6 @@
         urlFieldPartThree.placeholder = @"com";
         urlFieldPartThree.delegate = self;
         [self.view addSubview:urlFieldPartThree];
-        [urlFieldPartThree release];
     }
     
     [segmentedControl setSelectedSegmentIndex:2];

@@ -16,7 +16,7 @@
     NSInteger currentPageIndex;
 }
 
-@property (nonatomic, retain) NSMutableArray *sectionList;
+@property (nonatomic, strong) NSMutableArray *sectionList;
 
 + (PictureCatalogManager *)sharedManager;
 - (void)refresh;

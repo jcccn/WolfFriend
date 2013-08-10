@@ -153,15 +153,15 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     UITableViewCell *cellSeg = [tableView dequeueReusableCellWithIdentifier:CellIdentifierWithSegment];
     if (cellSeg == nil) {
-        cellSeg = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierWithSegment] autorelease];
+        cellSeg = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierWithSegment];
     }
     UITableViewCell *cellSwitch = [tableView dequeueReusableCellWithIdentifier:CellIdentifierWithSwitch];
     if (cellSwitch == nil) {
-        cellSwitch = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierWithSwitch] autorelease];
+        cellSwitch = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifierWithSwitch];
     }
     // Configure the cell...
     switch (indexPath.section) {
@@ -191,7 +191,6 @@
                     segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
                     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
                     cellSeg.accessoryView = segmentedControl;
-                    [segmentedControl release];
                 }
                 segmentedControl = (UISegmentedControl *)cellSeg.accessoryView;
                 segmentedControl.selectedSegmentIndex = getIntPref(KeyScreenOrientation, 0);
@@ -211,7 +210,6 @@
                         aSwitch.frame = CGRectInset(aSwitch.frame, 0, 5);
                         [aSwitch setOn:NO];
                         cellSwitch.accessoryView = aSwitch;
-                        [aSwitch release];
                     }
                     return cellSwitch;
                 }
@@ -342,7 +340,6 @@
                     ThemeDIYViewController *themeDIYViewController = [[ThemeDIYViewController alloc] init];
                     themeDIYViewController.navigationItem.hidesBackButton = YES;
                     [self.navigationController pushViewController:themeDIYViewController animated:YES];
-                    [themeDIYViewController release];
                 }
                     break;
                 case 1: {
@@ -350,7 +347,6 @@
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定恢复默认？" message:@"恢复默认主题将丢失您的个性化设置" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
                     alert.tag = TagAlertDefaultTheme;
                     [alert show];
-                    [alert release];
                 }
                     break;
                 default:
@@ -373,14 +369,12 @@
                    //清理缓存
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"谢谢惠待" message:@"此版本没有本地文件，无需清除" delegate:self cancelButtonTitle:@"知道啦" otherButtonTitles: nil];
                     [alert show];
-                    [alert release];
                 }
                     break;
                 case 2: {
                     //自定义网址
                     SiteDIYViewController *siteDIYViewController = [[SiteDIYViewController alloc] init];
                     [self.navigationController pushViewController:siteDIYViewController animated:YES];
-                    [siteDIYViewController release];
                 }
                     break;
                 default:
@@ -392,13 +386,11 @@
             //分享
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不能随便传播哟" delegate:self cancelButtonTitle:@"知道啦，我很老实" otherButtonTitles: nil];
             [alert show];
-            [alert release];
         }
             break;
         case 4: {
             DisclaimerViewController *disclaimerViewController = [[DisclaimerViewController alloc] init];
             [self.navigationController pushViewController:disclaimerViewController animated:YES];
-            [disclaimerViewController release];
         }
             break;
         default:

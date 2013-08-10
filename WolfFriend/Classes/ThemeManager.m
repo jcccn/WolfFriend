@@ -51,8 +51,7 @@ static ThemeManager *sharedThemeManager = nil;
 }
 
 - (void)dealloc {
-    [self.theme release];
-    [super dealloc];
+    self.theme;
 }
 
 

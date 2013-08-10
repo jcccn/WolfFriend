@@ -64,7 +64,6 @@
                 nextPageUrlString = [NSString stringWithFormat:@"/index_%d.html",pageCount-currentPageIndex];
             }
             aPageObject= [[PageObject alloc] initWithUrlString:[self.url stringByAppendingString:nextPageUrlString]];
-            [currentPageObject release];
             currentPageObject = aPageObject;
             
             currentPageIndex --;
@@ -93,7 +92,6 @@
                 nextPageUrlString = [NSString stringWithFormat:@"/index_%d.html",pageCount-currentPageIndex];
             }
             aPageObject= [[PageObject alloc] initWithUrlString:[self.url stringByAppendingString:nextPageUrlString]];
-            [currentPageObject release];
             currentPageObject = aPageObject;
             
             currentPageIndex ++;
@@ -111,14 +109,13 @@
 
 - (void)refreshDataWithDeledate:(id<SectionObjectDelegate>)aDelegate {
     self.delegate = aDelegate;
-    [[[[HTTPTool alloc] initWithDelegate:self] autorelease] startFetchDataWithURLString:self.url];
+    [[[HTTPTool alloc] initWithDelegate:self] startFetchDataWithURLString:self.url];
 }
 
 - (void)httpDataFetchedSuccess:(NSData *)theData {
     NSString *resourceText = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
 //    NSLog(@"resourceText:\n%@",resourceText);
     pageCount = [HTMLTool parseSectionPageCountFromHTML:resourceText];
-    [resourceText release];
     if (delegate) {
         [delegate sectionDataFectchedSuccess];
     }
@@ -130,9 +127,5 @@
     }
 }
 
-- (void)dealloc {
-//    [pages release];
-    [super dealloc];
-}
 
 @end

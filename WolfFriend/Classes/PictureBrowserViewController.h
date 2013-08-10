@@ -20,9 +20,9 @@
     UIActivityIndicatorView *activityIndicator;
 
 }
-@property (nonatomic, retain) UIWebView *webView;
-@property (nonatomic, retain) SectionObject *sectionObject;
-@property (nonatomic, retain) ItemObject *itemObject;
+@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) SectionObject *sectionObject;
+@property (nonatomic, strong) ItemObject *itemObject;
 
 - (id)initWithSection:(SectionObject *)section item:(ItemObject *)item;
 - (void)startLoadWebPage;

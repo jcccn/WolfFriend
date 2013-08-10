@@ -36,7 +36,7 @@
     UIButton *cancelButton;
 }
 
-@property (nonatomic, retain) UIColor *frameColor, *textBackgroundColor, *textFontColor;
+@property (nonatomic, strong) UIColor *frameColor, *textBackgroundColor, *textFontColor;
 
 - (void)changeTempColor:(UIColor *)aColor forTypeIndex:(NSInteger)anIndex;
 - (void)changeTempFontSize:(CGFloat)floatFontSize;

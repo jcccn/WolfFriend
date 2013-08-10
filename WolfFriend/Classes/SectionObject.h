@@ -29,9 +29,9 @@
     id<SectionObjectDelegate> delegate;
 }
 
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *url;
-@property (nonatomic, retain) id<SectionObjectDelegate> delegate;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) id<SectionObjectDelegate> delegate;
 
 - (id)initWithTitle:(NSString *)aTitle urlString:(NSString *)aUrlString;
 //- (NSMutableArray *)pages;

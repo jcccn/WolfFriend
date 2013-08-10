@@ -23,8 +23,8 @@
     NSMutableData *bufferData;
 }
 
-@property (nonatomic, retain) id<HTTPToolDelegate> delegate;
-@property (nonatomic, retain) NSMutableData *bufferData;
+@property (nonatomic, strong) id<HTTPToolDelegate> delegate;
+@property (nonatomic, strong) NSMutableData *bufferData;
 
 - (id)initWithDelegate:(id<HTTPToolDelegate>)aDelegate;
 - (void)startFetchDataWithURLString:(NSString *)aString;

@@ -66,7 +66,6 @@
         colorHintLabel.backgroundColor = [UIColor clearColor];
         colorHintLabel.text = @"颜色设置";
         [scrollView addSubview:colorHintLabel];
-        [colorHintLabel release];
         
         colorTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"界面边框", @"阅读文字", @"阅读背景", nil]];
         colorTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
@@ -82,21 +81,18 @@
         rColorLabel.adjustsFontSizeToFitWidth = YES;
         rColorLabel.text = @"R";
         [scrollView addSubview:rColorLabel];
-        [rColorLabel release];
         
         gColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 120, 30, 30)];
         gColorLabel.backgroundColor = [UIColor clearColor];
         gColorLabel.textAlignment = UITextAlignmentCenter;
         gColorLabel.text = @"G";
         [scrollView addSubview:gColorLabel];
-        [gColorLabel release];
         
         bColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, 30, 30)];
         bColorLabel.backgroundColor = [UIColor clearColor];
         bColorLabel.textAlignment = UITextAlignmentCenter;
         bColorLabel.text = @"B";
         [scrollView addSubview:bColorLabel];
-        [bColorLabel release];
         
         rSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, rColorLabel.center.y - 15, 270, 30)];
         rSlider.minimumValue = 0;
@@ -104,7 +100,6 @@
         rSlider.value = 0;
         [rSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:rSlider];
-        [rSlider release];
         
         gSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, gColorLabel.center.y - 15, 270, 30)];
         gSlider.minimumValue = 0;
@@ -112,7 +107,6 @@
         gSlider.value = 0;
         [gSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:gSlider];
-        [gSlider release];
         
         bSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, bColorLabel.center.y - 15, 270, 30)];
         bSlider.minimumValue = 0;
@@ -120,13 +114,11 @@
         bSlider.value = 0;
         [bSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:bSlider];
-        [bSlider release];
         
         fontSizeHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 80, 30)];
         fontSizeHintLabel.backgroundColor = [UIColor clearColor];
         fontSizeHintLabel.text = @"字体大小";
         [scrollView addSubview:fontSizeHintLabel];
-        [fontSizeHintLabel release];
         
         fontSizeSlider = [[UISlider alloc] initWithFrame:CGRectMake(90, fontSizeHintLabel.center.y - 15, 220, 30)];
         fontSizeSlider.minimumValue = 10;
@@ -134,13 +126,11 @@
         fontSizeSlider.value = [[ThemeManager sharedManager] fontSizeRead];
         [fontSizeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:fontSizeSlider];
-        [fontSizeSlider release];
         
         textExampleWebView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 230, 300, 50)];
 //        textExampleWebView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
 //        [textExampleWebView loadHTMLString:@"" baseURL:nil];
         [scrollView addSubview:textExampleWebView];
-        [textExampleWebView release];
         
         saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         saveButton.frame = CGRectMake(50, 300, 80, 30);
@@ -154,7 +144,6 @@
         [cancelButton addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:cancelButton];
         
-        [scrollView release];
     }
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
     CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
@@ -278,7 +267,6 @@
                                                   otherButtonTitles:@"保存", nil];
     alertViewSave.tag = TagAlertViewSave;
     [alertViewSave show];
-    [alertViewSave release];
 }
 
 - (void)cancelClicked:(id)sender {
@@ -289,7 +277,6 @@
                                                   otherButtonTitles:@"继续编辑", nil];
     alertViewCancel.tag = TagAlertViewCacel;
     [alertViewCancel show];
-    [alertViewCancel release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

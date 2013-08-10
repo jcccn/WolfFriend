@@ -1,2 +1,5 @@
-platform :ios
-pod 'BeeFramework', :head
+platform :ios,'5.0'
+
+pod 'BlocksKit', :head
+
+pod 'hpple', :head

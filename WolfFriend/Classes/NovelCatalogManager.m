@@ -45,7 +45,6 @@ static NovelCatalogManager *sharedNovelCatalogManager = nil;
     for (int index = 0; index < 8; index++) {
         SectionObject *sectionObject = [[SectionObject alloc] initWithTitle:[titles objectAtIndex:index] urlString:[[[CommonModel sharedModel] baseUrlString] stringByAppendingFormat:@"/htm/%@",[urls objectAtIndex:index]]];
         [self.sectionList addObject:sectionObject];
-        [sectionObject release];
     }
 }
 
@@ -57,9 +56,5 @@ static NovelCatalogManager *sharedNovelCatalogManager = nil;
     return -1;
 }
 
-- (void)dealloc {
-    [sectionList release];
-    [super dealloc];
-}
 
 @end

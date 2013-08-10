@@ -49,7 +49,6 @@
     if ( ! self.tableView.tableFooterView) {
         UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
         self.tableView.tableFooterView = footView;
-        [footView release];
         UIButton *prePageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         prePageButton.frame = CGRectMake(30, 5, 100, 40 );
         [prePageButton setTitle:@"上一页" forState:UIControlStateNormal];
@@ -79,7 +78,7 @@
     self.tableView.scrollsToTop = YES;
  
     if ( ! self.navigationItem.rightBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     }
 }
 
@@ -219,10 +218,8 @@
 - (void)dealloc {
     if (activityIndicator) {
         [activityIndicator stopAnimating];
-        [activityIndicator release];
         activityIndicator = nil;
     }
-    [super dealloc];
 }
 
 #pragma mark - Table view data source
@@ -252,7 +249,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont systemFontOfSize:12];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -309,7 +306,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
     headerView.backgroundColor = [UIColor clearColor];
     return headerView;
 }
@@ -322,7 +319,6 @@
     PictureBrowserViewController *pictureBrowserViewController = [[PictureBrowserViewController alloc] initWithSection:self.sectionObject item:(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row]];
     pictureBrowserViewController.title = [NSString stringWithString:[(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title]];
     [self.navigationController pushViewController:pictureBrowserViewController animated:YES];
-    [pictureBrowserViewController release];
      
 }
 
@@ -371,7 +367,6 @@
                                           cancelButtonTitle:@"取消"
                                           otherButtonTitles:@"重试", nil];
     [alert show];
-    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

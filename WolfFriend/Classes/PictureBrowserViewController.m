@@ -59,7 +59,6 @@
     aWebView.delegate = self;
     self.webView = aWebView;
     [self.view addSubview:aWebView];
-    [webView release];
     
     if ( ! activityIndicator) {
         activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -72,7 +71,7 @@
     [self performSelectorInBackground:@selector(startLoadWebPage) withObject:nil];
     
     if ( ! self.navigationItem.rightBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     }
 }
 
@@ -84,33 +83,33 @@
 }
 
 - (void)startLoadWebPage {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     
-    if (activityIndicator) {
-        [activityIndicator startAnimating];
-    }
-    NSString *urlString = self.itemObject.url;
-    NSString *baseUrlString = self.sectionObject.url;    
-    //截取网页部分
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    if ([data length] == 0) {
+        if (activityIndicator) {
+            [activityIndicator startAnimating];
+        }
+        NSString *urlString = self.itemObject.url;
+        NSString *baseUrlString = self.sectionObject.url;    
+        //截取网页部分
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        if ([data length] == 0) {
+            if (activityIndicator) {
+                [activityIndicator stopAnimating];
+            }
+            [self showAlert];
+            return;
+        }
+        NSString *resourceText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        //    NSLog(@"resourceText:%@",resourceText);
+        NSString *bodyString = [HTMLTool parseImageBodyFromHtml:resourceText];
+        //    NSLog(@"bodyString:%@",bodyString);
+        [self.webView loadHTMLString:bodyString baseURL:[NSURL URLWithString:baseUrlString]];
         if (activityIndicator) {
             [activityIndicator stopAnimating];
         }
-        [self showAlert];
-        return;
-    }
-    NSString *resourceText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    //    NSLog(@"resourceText:%@",resourceText);
-    NSString *bodyString = [HTMLTool parseImageBodyFromHtml:resourceText];
-    //    NSLog(@"bodyString:%@",bodyString);
-    [self.webView loadHTMLString:bodyString baseURL:[NSURL URLWithString:baseUrlString]];
-    if (activityIndicator) {
-        [activityIndicator stopAnimating];
-    }
     
-    [pool release];
+    }
 }
 
 - (void)showAlert {
@@ -120,7 +119,6 @@
                                           cancelButtonTitle:@"取消"
                                           otherButtonTitles:@"重试", nil];
     [alert show];
-    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -198,9 +196,6 @@
     }
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

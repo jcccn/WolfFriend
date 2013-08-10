@@ -37,10 +37,10 @@
     NSString *themeFileName;
     ThemeObject *theme;
 }
-@property (nonatomic, retain) ThemeObject *theme;
-@property (nonatomic, retain) UIColor *colorUIFrame;
-@property (nonatomic, retain) UIColor *colorReadText;
-@property (nonatomic, retain) UIColor *colorReadBackground;
+@property (nonatomic, strong) ThemeObject *theme;
+@property (nonatomic, strong) UIColor *colorUIFrame;
+@property (nonatomic, strong) UIColor *colorReadText;
+@property (nonatomic, strong) UIColor *colorReadBackground;
 @property (nonatomic, assign) CGFloat fontSizeRead;
 
 + (ThemeManager *)sharedManager;
