@@ -9,6 +9,14 @@
 #import "PictureSectionListViewController.h"
 #import "PictureListViewController.h"
 #import "PictureCatalogManager.h"
+#import "CategoryDataCenter.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
+@interface PictureSectionListViewController ()
+
+- (void)dataCenterUpdated:(NSNotification *)notification;
+
+@end
 
 
 @implementation PictureSectionListViewController
@@ -39,9 +47,15 @@
     self.title = @"激情图区";
     
     self.clearsSelectionOnViewWillAppear = NO;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"DataCenterUpdated" object:nil];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+    [[CategoryDataCenter sharedInstance] loadAllImageCategories];
 }
 
 - (void)viewDidUnload
@@ -65,6 +79,11 @@
 
 - (void)resetUI:(id)arg {
     [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
+}
+
+- (void)dataCenterUpdated:(NSNotification *)notification {
+    [self.tableView reloadData];
+    [[MBProgressHUD HUDForView:self.view] hide:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -105,8 +124,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+    return [[[CategoryDataCenter sharedInstance] imageCategories] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,76 +133,35 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [[PictureCatalogManager sharedManager] sectionCount];
+    return [[[[CategoryDataCenter sharedInstance] imageCategories][section] subCategories] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CellPictureSection";
+    static NSString *CellIdentifier = @"CellPictureCategory";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.textAlignment = UITextAlignmentLeft;
+        cell.textLabel.font = [UIFont systemFontOfSize:20];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = [(SectionObject *)[(NSArray *)[[PictureCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row] title];
+    cell.textLabel.text = [(SubCategoryModel *)[[[CategoryDataCenter sharedInstance] imageCategories][indexPath.section] subCategories][indexPath.row] categoryTitle];
 
-    // Configure the cell...
     
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 1;
+    return 20;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    headerView.backgroundColor = [UIColor clearColor];
-    return headerView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [NSString stringWithFormat:@"%d", [(CategoryModel *)[[CategoryDataCenter sharedInstance] imageCategories][section] categoryId]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -192,8 +169,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
     
-    PictureListViewController *pictureListViewController = [[PictureListViewController alloc] initWithSectionObject:(SectionObject *)[(NSArray *)[[PictureCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:pictureListViewController animated:YES];
+//    PictureListViewController *pictureListViewController = [[PictureListViewController alloc] initWithSectionObject:(SectionObject *)[(NSArray *)[[PictureCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row]];
+//    [self.navigationController pushViewController:pictureListViewController animated:YES];
     
 }
 
