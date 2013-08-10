@@ -58,6 +58,10 @@
     [[CategoryDataCenter sharedInstance] loadAllImageCategories];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -169,8 +173,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
     
-//    PictureListViewController *pictureListViewController = [[PictureListViewController alloc] initWithSectionObject:(SectionObject *)[(NSArray *)[[PictureCatalogManager sharedManager] sectionList] objectAtIndex:indexPath.row]];
-//    [self.navigationController pushViewController:pictureListViewController animated:YES];
+    PictureListViewController *pictureListViewController = [[PictureListViewController alloc] initWithSectionObject:(SubCategoryModel *)[[[CategoryDataCenter sharedInstance] imageCategories][indexPath.section] subCategories][indexPath.row]];
+    [self.navigationController pushViewController:pictureListViewController animated:YES];
     
 }
 

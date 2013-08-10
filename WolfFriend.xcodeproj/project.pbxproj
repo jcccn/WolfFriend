@@ -42,6 +42,7 @@
 		90F242911401167A00E1B284 /* HTMLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242901401167A00E1B284 /* HTMLTool.m */; };
 		90F242941401169100E1B284 /* HTTPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242931401169000E1B284 /* HTTPTool.m */; };
 		90F242A314012FF700E1B284 /* PictureSectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242A214012FF600E1B284 /* PictureSectionListViewController.m */; };
+		90F7801417B6E19B00E081ED /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7801317B6E19B00E081ED /* ArticleModel.m */; };
 		90FD7C3C1400B56F00D33B25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3B1400B56F00D33B25 /* UIKit.framework */; };
 		90FD7C3E1400B56F00D33B25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3D1400B56F00D33B25 /* Foundation.framework */; };
 		90FD7C401400B56F00D33B25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3F1400B56F00D33B25 /* CoreGraphics.framework */; };
@@ -110,6 +111,8 @@
 		90F242931401169000E1B284 /* HTTPTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPTool.m; sourceTree = "<group>"; };
 		90F242A114012FF600E1B284 /* PictureSectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureSectionListViewController.h; sourceTree = "<group>"; };
 		90F242A214012FF600E1B284 /* PictureSectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureSectionListViewController.m; sourceTree = "<group>"; };
+		90F7801217B6E19B00E081ED /* ArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
+		90F7801317B6E19B00E081ED /* ArticleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
 		90FD7C371400B56F00D33B25 /* WolfFriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WolfFriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90FD7C3B1400B56F00D33B25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90FD7C3D1400B56F00D33B25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -230,6 +233,8 @@
 				905ACDE017B6C8E5001B8F51 /* CategoryModel.m */,
 				905ACDE217B6C942001B8F51 /* SubCategoryModel.h */,
 				905ACDE317B6C942001B8F51 /* SubCategoryModel.m */,
+				90F7801217B6E19B00E081ED /* ArticleModel.h */,
+				90F7801317B6E19B00E081ED /* ArticleModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				90B2CCFA17B6A9E9007FBD0B /* CategoryDataCenter.m in Sources */,
 				905ACDE117B6C8E5001B8F51 /* CategoryModel.m in Sources */,
 				905ACDE417B6C942001B8F51 /* SubCategoryModel.m in Sources */,
+				90F7801417B6E19B00E081ED /* ArticleModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

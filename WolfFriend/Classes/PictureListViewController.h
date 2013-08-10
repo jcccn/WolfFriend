@@ -10,6 +10,7 @@
 #import "UIViewController+Extension.h"
 #import "SectionObject.h"
 #import "PageObject.h"
+#import "CategoryDataCenter.h"
 
 @class ItemObject;
 @class SectionObject;
@@ -23,7 +24,9 @@
 @property (nonatomic, strong) SectionObject *sectionObject;
 @property (nonatomic, strong) PageObject *pageObject;
 
-- (id)initWithSectionObject:(SectionObject *)aSectionObject;
+@property (nonatomic, strong) SubCategoryModel *categoryModel;
+
+- (id)initWithSectionObject:(SubCategoryModel *)categoryModel;
 - (void)startLoadItemList;
 - (void)showAlert;
 

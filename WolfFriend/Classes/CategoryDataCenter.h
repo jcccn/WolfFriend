@@ -17,4 +17,6 @@
 
 - (void)loadAllImageCategories;
 
+- (void)parseImageCategory:(SubCategoryModel *)category;
+
 @end

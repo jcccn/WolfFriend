@@ -88,4 +88,47 @@
                                  }];
 }
 
+- (void)parseImageCategory:(SubCategoryModel *)category {
+    NSString *categoryUrl = [NSString stringWithFormat:@"http://cnsina8.com/thread-htm-fid-%d-page-2.html", category.categoryId];
+    __weak CategoryDataCenter *blockSelf = self;
+    [NSURLConnection startConnectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:categoryUrl]]
+                                 successHandler:^(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data) {
+                                     TFHpple *doc = [TFHpple hppleWithData:data encoding:@"utf-8" isXML:NO];
+                                     NSArray *objects = [doc searchWithXPathQuery:@"//tr[@class='tr3 t_one']"];
+                                     NSMutableArray *articles = [NSMutableArray arrayWithCapacity:[objects count]];
+                                     for (TFHppleElement *object in objects) {
+                                         TFHpple *subDoc = [TFHpple hppleWithHTMLData:[[object raw] dataUsingEncoding:NSUTF8StringEncoding]];
+                                         TFHppleElement *articleElement = [[subDoc searchWithXPathQuery:@"//a[@class='subject']"] lastObject];
+                                         
+                                         TFHppleElement *titleElement = [articleElement firstChildWithTagName:@"b"];
+                                         if ( ! titleElement) {
+                                             titleElement = articleElement;
+                                         }
+                                         
+                                         titleElement = [titleElement firstChildWithTagName:@"font"];
+                                         if ( ! titleElement) {
+                                             titleElement = articleElement;
+                                         }
+                                         
+                                         NSString *title = [[titleElement firstTextChild] content];
+                                         
+                                         if (title) {
+                                             ArticleModel *articleModel = [[ArticleModel alloc] init];
+                                             articleModel.articleId = [[[articleElement objectForKey:@"id"] stringByReplacingOccurrencesOfString:@"a_ajax_" withString:@""] integerValue];
+                                             articleModel.articleTitle = title;
+                                             articleModel.articleUrl = [articleElement objectForKey:@"href"];
+                                             [articles addObject:articleModel];
+                                         }
+                                         else {
+                                             
+                                         }
+                                     }
+                                     category.articles = articles;
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryDataUpdated" object:blockSelf];
+                                 }
+                                 failureHandler:^(NSURLConnection *urlConnection, NSError *error) {
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryDataUpdated" object:blockSelf];
+                                 }];
+}
+
 @end

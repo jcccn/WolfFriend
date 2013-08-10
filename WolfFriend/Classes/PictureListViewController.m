@@ -11,6 +11,13 @@
 #import "PictureCatalogManager.h"
 #import "SectionObject.h"
 #import "ItemObject.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
+@interface PictureListViewController ()
+
+- (void)dataCenterUpdated:(NSNotification *)notification;
+
+@end
 
 @implementation PictureListViewController
 
@@ -25,10 +32,10 @@
     return self;
 }
 
-- (id)initWithSectionObject:(SectionObject *)aSectionObject {
+- (id)initWithSectionObject:(SubCategoryModel *)categoryModel {
     self = [super init];
     if (self) {
-        self.sectionObject = aSectionObject;
+        self.categoryModel = categoryModel;
     }
     return self;
 }
@@ -46,6 +53,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = self.categoryModel.categoryTitle;
+    
     if ( ! self.tableView.tableFooterView) {
         UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
         self.tableView.tableFooterView = footView;
@@ -80,6 +90,16 @@
     if ( ! self.navigationItem.rightBarButtonItem) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"CategoryDataUpdated" object:nil];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+    [[CategoryDataCenter sharedInstance] parseImageCategory:self.categoryModel];
+}
+
+- (void)dataCenterUpdated:(NSNotification *)notification {
+    [self.tableView reloadData];
+    [[MBProgressHUD HUDForView:self.view] hide:YES];
 }
 
 - (void)refresh:(id)sender {
@@ -235,12 +255,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = 0;
-    if (self.pageObject) {
-        //        count = [[self.sectionObject pages] count];
-        count = [[self.pageObject itemsArray] count];
-    }
-    return count;
+    return [self.categoryModel.articles count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -250,10 +265,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:12];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = [(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title];
+    cell.textLabel.text = [(ArticleModel *)self.categoryModel.articles[indexPath.row] articleTitle];
     
     // Configure the cell...
     
@@ -316,10 +331,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
     
-    PictureBrowserViewController *pictureBrowserViewController = [[PictureBrowserViewController alloc] initWithSection:self.sectionObject item:(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row]];
-    pictureBrowserViewController.title = [NSString stringWithString:[(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title]];
-    [self.navigationController pushViewController:pictureBrowserViewController animated:YES];
-     
+//    PictureBrowserViewController *pictureBrowserViewController = [[PictureBrowserViewController alloc] initWithSection:self.sectionObject item:(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row]];
+//    pictureBrowserViewController.title = [NSString stringWithString:[(ItemObject *)[[self.pageObject itemsArray] objectAtIndex:indexPath.row] title]];
+//    [self.navigationController pushViewController:pictureBrowserViewController animated:YES];
+    
 }
 
 #pragma mark - SectionObjectDelegate

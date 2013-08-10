@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ArticleModel.h"
 
 @interface SubCategoryModel : NSObject
 
 @property (nonatomic, assign) NSInteger categoryId;
 @property (nonatomic, copy) NSString *categoryTitle;
+
+@property (nonatomic, strong) NSMutableArray *articles;
 
 @end
