@@ -12,6 +12,7 @@
 @interface CategoryModel : NSObject
 
 @property (nonatomic, assign) NSInteger categoryId;
+@property (nonatomic, copy) NSString *categoryTitle;
 @property (nonatomic, strong) NSMutableArray *subCategories;
 
 @end

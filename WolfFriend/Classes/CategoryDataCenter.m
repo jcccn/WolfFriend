@@ -58,13 +58,16 @@
                                          categoryModel.categoryId = [[[columnElement objectForKey:@"id"] stringByReplacingOccurrencesOfString:@"t_" withString:@""] integerValue];
                                          categoryModel.subCategories = [NSMutableArray array];
                                          
-//                                         TFHppleElement *columnTitleElement = [[[[[[columnElement firstChildWithTagName:@"table"] firstChildWithTagName:@"tbody"] firstChildWithTagName:@"tr"] firstChild] firstChildWithTagName:@"h2"] firstChildWithTagName:@"a"];
+                                         TFHpple *columnTitleDoc = [TFHpple hppleWithHTMLData:[[columnElement raw] dataUsingEncoding:NSUTF8StringEncoding]];
+                                         TFHppleElement *columnTitleElement = [[[columnTitleDoc searchWithXPathQuery:@"//h2"] lastObject] firstChildWithTagName:@"a"];
+                                         NSString *columnTitle = [[columnTitleElement firstTextChild] content];
+                                         categoryModel.categoryTitle = columnTitle;
+                                         NSLog(@"版块:%@:%@", [columnElement objectForKey:@"id"], columnTitle);
                                          
                                          TFHppleElement *subColumn = [[[columnElement firstChildWithTagName:@"table"] childrenWithTagName:@"tbody"] lastObject];
                                          TFHpple *subDoc = [TFHpple hppleWithHTMLData:[[subColumn raw] dataUsingEncoding:NSUTF8StringEncoding]];
                                          NSArray *subColumnElements = [subDoc searchWithXPathQuery:@"//a[@class='fnamecolor b']"];
                                          
-                                         NSLog(@"版块:%@", [columnElement objectForKey:@"id"]);
                                          for (TFHppleElement *subColumnElement in subColumnElements) {
                                              NSLog(@"\t子版块:%@:%@", [subColumnElement objectForKey:@"id"], [[subColumnElement firstTextChild] content]);
                                              

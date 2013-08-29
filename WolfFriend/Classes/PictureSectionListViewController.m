@@ -165,7 +165,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [NSString stringWithFormat:@"%d", [(CategoryModel *)[[CategoryDataCenter sharedInstance] imageCategories][section] categoryId]];
+    return [(CategoryModel *)[[CategoryDataCenter sharedInstance] imageCategories][section] categoryTitle];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
