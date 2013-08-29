@@ -8,25 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
-@class SectionObject;
-@class ItemObject;
+#import "ArticleModel.h"
 
-@interface PictureBrowserViewController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate> {
-    
-    UIWebView *webView;
-    
-    SectionObject *sectionObject;
-    ItemObject *itemObject;
-    UIActivityIndicatorView *activityIndicator;
+@interface PictureBrowserViewController : UIViewController {
 
 }
-@property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) SectionObject *sectionObject;
-@property (nonatomic, strong) ItemObject *itemObject;
 
-- (id)initWithSection:(SectionObject *)section item:(ItemObject *)item;
-- (void)startLoadWebPage;
-- (void)showAlert;
+- (id)initWithArticle:(ArticleModel *)articleModel;
 
 - (void)resetUI:(id)arg;
 

@@ -10,6 +10,7 @@
 #import "ItemObject.h"
 #import "ThemeManager.h"
 #import "CommonModel.h"
+#import <hpple/TFHpple.h>
 
 @implementation HTMLTool
 
@@ -102,27 +103,27 @@
 }
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml {
-    if (!aHtml || [aHtml length] == 0) {
+    if ( ! [aHtml length]) {
         return @"";
     }
-    NSScanner *aScanner;
-    NSString *resultText = @"";
-    aScanner = [NSScanner scannerWithString:aHtml];
-    [aScanner scanUpToString:@"<td id=" intoString:NULL]; //你要找的起始字串
-    [aScanner scanUpToString:@"</td>" intoString:&resultText]; //你要找的束结字串，中间的文字会放到text中
-    if ([resultText length] > 0) {
-        resultText = [resultText stringByAppendingString:@"</td>"];
-        
+    
+    TFHpple *hpple = [TFHpple hppleWithHTMLData:[aHtml dataUsingEncoding:NSUTF8StringEncoding]];
+    NSArray *picturesElements = [[[hpple searchWithXPathQuery:@"//div[@id='read_tpc']"] lastObject] childrenWithTagName:@"img"];
+    
+    if ( ! [picturesElements count]) {
+        return @"";
     }
-    else {
-        aScanner = [NSScanner scannerWithString:aHtml];
-        [aScanner scanUpToString:@"<div id=\"MyContent\">" intoString:NULL];
-        [aScanner scanUpToString:@"</div>" intoString:&resultText];
-        if ([resultText length] > 0) {
-            resultText = [resultText stringByAppendingString:@"</div>"];
-        }
+    
+    NSMutableString *picturesString = [NSMutableString string];
+    
+    [picturesString appendString:@"<div>"];
+    for (TFHppleElement *pictureElement in picturesElements) {
+        NSString *pictureUrl = [pictureElement objectForKey:@"src"];
+        [picturesString appendFormat:@"<img src=\"%@\"/><br /><br />", pictureUrl];
     }
-    return [self formatHTML:resultText 
+    [picturesString appendString:@"</div>"];
+    
+    return [self formatHTML:picturesString
               withFontColor:[[ThemeManager sharedManager] webColorWithUIColor:[[ThemeManager sharedManager] colorReadText]]
             backgroundColor:[[ThemeManager sharedManager] webColorWithUIColor:[[ThemeManager sharedManager] colorReadBackground]] fontSize:[[ThemeManager sharedManager] fontSizeRead]];
 }

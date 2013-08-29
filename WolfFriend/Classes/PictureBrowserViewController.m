@@ -7,27 +7,26 @@
 //
 
 #import "PictureBrowserViewController.h"
-#import "ItemObject.h"
-#import "SectionObject.h"
+#import "HTMLTool.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
+@interface PictureBrowserViewController () <UIWebViewDelegate, UIAlertViewDelegate>
+
+@property (nonatomic, strong) UIWebView *webView;
+
+@property (nonatomic, strong) ArticleModel *articleModel;
+
+- (void)startLoadWebPage;
+- (void)showAlert;
+
+@end
 
 @implementation PictureBrowserViewController
 
-@synthesize webView, sectionObject, itemObject;
-
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
-
-- (id)initWithSection:(SectionObject *)section item:(ItemObject *)item {
+- (id)initWithArticle:(ArticleModel *)articleModel {
     self = [super init];
     if (self) {
-        self.sectionObject = section;
-        self.itemObject = item;
+        self.articleModel = articleModel;
     }
     return self;
 }
@@ -42,74 +41,56 @@
 
 #pragma mark - View lifecycle
 
-
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-//- (void)loadView
-//{
-//}
-
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 460-44-50)];
+    
+    self.title = self.articleModel.articleTitle;
+    
+    UIWebView *aWebView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    aWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     aWebView.scalesPageToFit = YES;
     aWebView.delegate = self;
     self.webView = aWebView;
     [self.view addSubview:aWebView];
     
-    if ( ! activityIndicator) {
-        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        //                activityIndicator.center = self.view.center;
-        activityIndicator.center = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ? CGPointMake(160, 200) : CGPointMake(240, 110);
-        activityIndicator.hidesWhenStopped = YES;
-        [self.view addSubview:activityIndicator];
-    }
-    
-    [self performSelectorInBackground:@selector(startLoadWebPage) withObject:nil];
-    
     if ( ! self.navigationItem.rightBarButtonItem) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     }
+    
+    [self refresh:nil];
 }
 
 - (void)refresh:(id)sender {
-    if (activityIndicator && ![activityIndicator isAnimating]) {
-        [self.webView stopLoading];
-        [self performSelectorInBackground:@selector(startLoadWebPage) withObject:nil];
+    if ([MBProgressHUD HUDForView:self.view]) {
+        return;
     }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.removeFromSuperViewOnHide = YES;
+    [hud showAnimated:YES whileExecutingBlock:^{
+        [self startLoadWebPage];
+    }];
 }
 
 - (void)startLoadWebPage {
-    @autoreleasepool {
-    
-        if (activityIndicator) {
-            [activityIndicator startAnimating];
-        }
-        NSString *urlString = self.itemObject.url;
-        NSString *baseUrlString = self.sectionObject.url;    
-        //截取网页部分
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        if ([data length] == 0) {
-            if (activityIndicator) {
-                [activityIndicator stopAnimating];
-            }
-            [self showAlert];
-            return;
-        }
-        NSString *resourceText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        //    NSLog(@"resourceText:%@",resourceText);
-        NSString *bodyString = [HTMLTool parseImageBodyFromHtml:resourceText];
-        //    NSLog(@"bodyString:%@",bodyString);
-        [self.webView loadHTMLString:bodyString baseURL:[NSURL URLWithString:baseUrlString]];
-        if (activityIndicator) {
-            [activityIndicator stopAnimating];
-        }
-    
+    NSString *baseUrlString = @"http://cnsina8.com";
+    NSString *urlString = [baseUrlString stringByAppendingPathComponent:self.articleModel.articleUrl];
+    //截取网页部分
+    NSString *htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:NULL];
+    NSString *clearString = [HTMLTool parseImageBodyFromHtml:htmlString];
+    if ([clearString length]) {
+        [self.webView loadHTMLString:clearString baseURL:[NSURL URLWithString:baseUrlString]];
     }
+    else {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    }
+}
+
+- (void)resetUI:(id)arg {
+    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
 }
 
 - (void)showAlert {
@@ -152,58 +133,11 @@
     [super viewDidAppear:animated];
 }
 
-- (void)resetUI:(id)arg {
-    [self setBarBackroundColor:[[ThemeManager sharedManager] colorUIFrame]];
-}
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    BOOL shouldAuto = NO;
-    switch (getIntPref(KeyScreenOrientation, 0)) {
-        case 0: {
-            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
-        }
-            break;
-            
-        case 1: {
-            shouldAuto = YES;
-        }
-            break;
-        case 2: {
-            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
-        }
-            break;
-        default:
-            break;
-    }
-    return shouldAuto;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    UITabBarController *tabBarController = self.tabBarController;
-    UITabBar *tabBar = tabBarController.tabBar;
-    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
-    if (tabBarBackgroundView) {
-        tabBarBackgroundView.frame = tabBar.bounds;
-    }
-    
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        activityIndicator.center = CGPointMake(160, 200);
-    }
-    else {
-        activityIndicator.center = CGPointMake(240, 110);
-    }
-}
-
-
+#pragma mark - UIWebView Delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     BOOL shouldStart = YES;
-//    if (([request.URL.absoluteString isEqualToString:@"http://www.64aaa.com"]) || ([request.URL.absoluteString isEqualToString:@"http://www.64aaa.com/"])) {
-    if ([request.URL.path isEqualToString:@"/"]) {
-        shouldStart = NO;
-    }
     return shouldStart;
 }
 
@@ -216,8 +150,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;  
-    [self showAlert];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 @end
