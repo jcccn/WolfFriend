@@ -7,100 +7,10 @@
 //
 
 #import "HTMLTool.h"
-#import "ItemObject.h"
 #import "ThemeManager.h"
-#import "CommonModel.h"
 #import <hpple/TFHpple.h>
 
 @implementation HTMLTool
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-        
-    }
-    
-    return self;
-}
-
-
-
-+ (NSInteger)parseSectionPageCountFromHTML:(NSString *)aHtml {
-    if (!aHtml || [aHtml length] == 0) {
-        return 0;
-    }
-    NSInteger result = 0;
-    NSScanner *aScanner;
-    NSString *resultText = @"";
-    aScanner = [NSScanner scannerWithString:aHtml];
-    NSString *beginString = @"<strong>1</strong>&nbsp; <a href=\"index_";
-    [aScanner scanUpToString:beginString intoString:NULL]; //你要找的起始字串
-    [aScanner scanUpToString:@".html" intoString:&resultText]; //你要找的束结字串，中间的文字会放到text中
-    if ([resultText length] > 0) {
-        result = [[resultText substringFromIndex:[beginString length]] intValue] + 1;
-    }
-//    NSString *beginString = @"<a href=\"index_";
-//    NSString *valueString = @"";
-//    [aScanner scanUpToString:beginString intoString:NULL]; //你要找的起始字串
-//    [aScanner scanUpToString:@"</a>" intoString:&resultText]; //你要找的束结字串，中间的文字会放到text中
-//    if ([resultText length] > 0) {
-//        valueString = [resultText substringFromIndex:[beginString length]];
-//        if ([valueString length] <= 0) {
-//            result = 1;
-//        }
-//        else {
-//            if ([valueString intValue] == 0) {  //判断逻辑有误
-//                beginString = resultText;
-//                [aScanner scanUpToString:beginString intoString:NULL];
-//                [aScanner scanUpToString:@".html" intoString:&resultText];
-//                NSString *resultText2 = @"";
-//                [aScanner scanUpToString:beginString intoString:NULL];
-//                [aScanner scanUpToString:@"</a>" intoString:&resultText2];
-//                result = [[resultText substringFromIndex:[beginString length]] intValue] + [[resultText2 substringFromIndex:[resultText2 length]-1] intValue];
-//            }
-//            else {
-//                result = [valueString intValue] + 1;
-//            }
-//        }
-//    }
-    return result;
-}
-
-+ (NSMutableArray *)parseItemsArrayCountFromHTML:(NSString *)aHtml {
-    NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
-    if (!aHtml || [aHtml length] == 0) {
-        return itemsArray;
-    }
-    
-    NSString *resourceString = aHtml;
-    while (true) {
-        NSScanner *aScanner;
-        NSString *resultText = @"";
-        aScanner = [NSScanner scannerWithString:resourceString];
-        NSString *beginString = @"<img src=\"/templets/default/neisan.gif\"> <a href=\"";
-        [aScanner scanUpToString:beginString intoString:NULL]; //你要找的起始字串
-        [aScanner scanUpToString:@"</a>" intoString:&resultText]; //你要找的束结字串，中间的文字会放到text中
-        if ([resultText length] > 0) {
-            resultText = [resultText substringFromIndex:[beginString length]];
-            NSArray *resultArray = [resultText componentsSeparatedByString:@"\" target=\"_blank\">"];
-            if ([resultArray count] >= 2) {
-                ItemObject *anItem = [[ItemObject alloc] init];
-                anItem.url = [[[CommonModel sharedModel] baseUrlString] stringByAppendingString:[resultArray objectAtIndex:0]];
-                anItem.title = [[resultArray objectAtIndex:1] stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
-                [itemsArray addObject:anItem];
-            }
-            
-            resourceString = [[resourceString componentsSeparatedByString:resultText] objectAtIndex:1];
-        }
-        else {
-            break;
-        }
-    }
-        
-    return  itemsArray;
-}
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml {
     if ( ! [aHtml length]) {

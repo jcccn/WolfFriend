@@ -12,8 +12,6 @@
     
 }
 
-+ (NSInteger)parseSectionPageCountFromHTML:(NSString *)aHtml;
-+ (NSMutableArray *)parseItemsArrayCountFromHTML:(NSString *)aHtml;
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml;
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml;
 

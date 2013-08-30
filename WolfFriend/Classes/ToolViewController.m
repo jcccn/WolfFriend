@@ -128,15 +128,12 @@
             numberOfRows = 2;
             break;
         case 1:
-            numberOfRows = 1;
-            break;
-        case 2:
             numberOfRows = 3;
             break;
-        case 3:
+        case 2:
             numberOfRows = 1;
             break;
-        case 4:
+        case 3:
             numberOfRows = 1;
             break;
         default:
@@ -182,25 +179,6 @@
             break;
             
         case 1: {
-            if (indexPath.row == 0) {
-                cellSeg.textLabel.text = @"屏幕方向";
-                cellSeg.selectionStyle = UITableViewCellSelectionStyleNone;
-                UISegmentedControl *segmentedControl = nil;
-                if ( ! cellSeg.accessoryView) {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"竖屏", @"自动", @"横屏", nil]];
-                    segmentedControl.frame = CGRectInset(segmentedControl.frame, 0, 5);
-                    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-                    cellSeg.accessoryView = segmentedControl;
-                }
-                segmentedControl = (UISegmentedControl *)cellSeg.accessoryView;
-                segmentedControl.selectedSegmentIndex = getIntPref(KeyScreenOrientation, 0);
-             
-                return cellSeg;
-            }
-            
-        }
-            break;
-        case 2: {
             switch (indexPath.row) {
                 case 0: {
                     cellSwitch.textLabel.text = @"本地保存";
@@ -227,12 +205,12 @@
             }
         }
             break; 
-        case 3: {
+        case 2: {
             cell.textLabel.text = @"分享";
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
             break;
-        case 4: {
+        case 3: {
             cell.textLabel.text = @"免责声明";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -251,9 +229,6 @@
             titleHeader = @"主题切换";
             break;
         case 1:
-            titleHeader = @"屏幕设置";
-            break;
-        case 2:
             titleHeader = @"内容设置";
             break;
         default:
@@ -262,71 +237,11 @@
     return titleHeader;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30.0f;
 }
-
-//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    NSString *titleHeader = @"";
-//    switch (section) {
-//        case 0:
-//            titleHeader = @"  主题切换";
-//            break;
-//        case 1:
-//            titleHeader = @"  屏幕设置";
-//            break;
-//        case 2:
-//            titleHeader = @"  缓存设置";
-//            break;
-//        default:
-//            break;
-//    }
-//    UILabel *headerView = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)] autorelease];
-//    [headerView setBackgroundColor:[UIColor clearColor]];
-//    headerView.text = titleHeader;
-//    return headerView;
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -356,10 +271,6 @@
             break;
             
         case 1: {
-            //屏幕方向
-        }
-            break;
-        case 2: {
             switch (indexPath.row) {
                 case 0: {
                     //本地保存开关
@@ -382,13 +293,13 @@
             }
         }
             break;
-        case 3: {
+        case 2: {
             //分享
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不能随便传播哟" delegate:self cancelButtonTitle:@"知道啦，我很老实" otherButtonTitles: nil];
             [alert show];
         }
             break;
-        case 4: {
+        case 3: {
             DisclaimerViewController *disclaimerViewController = [[DisclaimerViewController alloc] init];
             [self.navigationController pushViewController:disclaimerViewController animated:YES];
         }

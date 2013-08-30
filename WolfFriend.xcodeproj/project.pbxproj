@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1681A41048CD4AB09236C5FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B01B977DF2549E1B2C1EA51 /* libPods.a */; };
 		900F618F1407E38200874A68 /* default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 900F618E1407E38200874A68 /* default.plist */; };
-		9035F2A81403D79200007A5A /* NovelCatalogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2A71403D79100007A5A /* NovelCatalogManager.m */; };
 		9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2AB1403DF1B00007A5A /* NovelListViewController.m */; };
 		9035F3241403F29C00007A5A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9035F3231403F29C00007A5A /* MainWindow.xib */; };
 		9048D88814055A9A0011013C /* DisclaimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9048D88714055A9A0011013C /* DisclaimerViewController.m */; };
@@ -33,14 +32,9 @@
 		90F242681401041800E1B284 /* IconPicture.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F242611401041800E1B284 /* IconPicture.png */; };
 		90F242691401041800E1B284 /* IconTool.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F242621401041800E1B284 /* IconTool.png */; };
 		90F2426C1401045700E1B284 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F2426B1401045700E1B284 /* ToolViewController.m */; };
-		90F242771401155D00E1B284 /* PictureCatalogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242761401155D00E1B284 /* PictureCatalogManager.m */; };
-		90F24282140115FC00E1B284 /* SectionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F24281140115FC00E1B284 /* SectionObject.m */; };
-		90F242851401160800E1B284 /* PageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242841401160700E1B284 /* PageObject.m */; };
-		90F242881401161400E1B284 /* ItemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242871401161400E1B284 /* ItemObject.m */; };
 		90F2428B1401164F00E1B284 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F2428A1401164F00E1B284 /* Helper.m */; };
 		90F2428E1401166500E1B284 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F2428D1401166500E1B284 /* ThemeManager.m */; };
 		90F242911401167A00E1B284 /* HTMLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242901401167A00E1B284 /* HTMLTool.m */; };
-		90F242941401169100E1B284 /* HTTPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242931401169000E1B284 /* HTTPTool.m */; };
 		90F242A314012FF700E1B284 /* PictureSectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F242A214012FF600E1B284 /* PictureSectionListViewController.m */; };
 		90F7801417B6E19B00E081ED /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7801317B6E19B00E081ED /* ArticleModel.m */; };
 		90FD7C3C1400B56F00D33B25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FD7C3B1400B56F00D33B25 /* UIKit.framework */; };
@@ -55,8 +49,6 @@
 /* Begin PBXFileReference section */
 		2B01B977DF2549E1B2C1EA51 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		900F618E1407E38200874A68 /* default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = default.plist; sourceTree = "<group>"; };
-		9035F2A61403D79100007A5A /* NovelCatalogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelCatalogManager.h; sourceTree = "<group>"; };
-		9035F2A71403D79100007A5A /* NovelCatalogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelCatalogManager.m; sourceTree = "<group>"; };
 		9035F2AA1403DF1B00007A5A /* NovelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelListViewController.h; sourceTree = "<group>"; };
 		9035F2AB1403DF1B00007A5A /* NovelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelListViewController.m; sourceTree = "<group>"; };
 		9035F3231403F29C00007A5A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -93,22 +85,12 @@
 		90F242621401041800E1B284 /* IconTool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconTool.png; sourceTree = "<group>"; };
 		90F2426A1401045600E1B284 /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
 		90F2426B1401045700E1B284 /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
-		90F242751401155D00E1B284 /* PictureCatalogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureCatalogManager.h; sourceTree = "<group>"; };
-		90F242761401155D00E1B284 /* PictureCatalogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureCatalogManager.m; sourceTree = "<group>"; };
-		90F24280140115FC00E1B284 /* SectionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionObject.h; sourceTree = "<group>"; };
-		90F24281140115FC00E1B284 /* SectionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionObject.m; sourceTree = "<group>"; };
-		90F242831401160700E1B284 /* PageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageObject.h; sourceTree = "<group>"; };
-		90F242841401160700E1B284 /* PageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageObject.m; sourceTree = "<group>"; };
-		90F242861401161400E1B284 /* ItemObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemObject.h; sourceTree = "<group>"; };
-		90F242871401161400E1B284 /* ItemObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemObject.m; sourceTree = "<group>"; };
 		90F242891401164F00E1B284 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		90F2428A1401164F00E1B284 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		90F2428C1401166500E1B284 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		90F2428D1401166500E1B284 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
 		90F2428F1401167900E1B284 /* HTMLTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTool.h; sourceTree = "<group>"; };
 		90F242901401167A00E1B284 /* HTMLTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTool.m; sourceTree = "<group>"; };
-		90F242921401169000E1B284 /* HTTPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPTool.h; sourceTree = "<group>"; };
-		90F242931401169000E1B284 /* HTTPTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPTool.m; sourceTree = "<group>"; };
 		90F242A114012FF600E1B284 /* PictureSectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureSectionListViewController.h; sourceTree = "<group>"; };
 		90F242A214012FF600E1B284 /* PictureSectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureSectionListViewController.m; sourceTree = "<group>"; };
 		90F7801217B6E19B00E081ED /* ArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
@@ -207,22 +189,10 @@
 		90F242731401143A00E1B284 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				90F242751401155D00E1B284 /* PictureCatalogManager.h */,
-				90F242761401155D00E1B284 /* PictureCatalogManager.m */,
-				9035F2A61403D79100007A5A /* NovelCatalogManager.h */,
-				9035F2A71403D79100007A5A /* NovelCatalogManager.m */,
-				90F24280140115FC00E1B284 /* SectionObject.h */,
-				90F24281140115FC00E1B284 /* SectionObject.m */,
-				90F242831401160700E1B284 /* PageObject.h */,
-				90F242841401160700E1B284 /* PageObject.m */,
-				90F242861401161400E1B284 /* ItemObject.h */,
-				90F242871401161400E1B284 /* ItemObject.m */,
 				90F242891401164F00E1B284 /* Helper.h */,
 				90F2428A1401164F00E1B284 /* Helper.m */,
 				90F2428F1401167900E1B284 /* HTMLTool.h */,
 				90F242901401167A00E1B284 /* HTMLTool.m */,
-				90F242921401169000E1B284 /* HTTPTool.h */,
-				90F242931401169000E1B284 /* HTTPTool.m */,
 				90F2428C1401166500E1B284 /* ThemeManager.h */,
 				90F2428D1401166500E1B284 /* ThemeManager.m */,
 				90AD7FBA140FE1DD0087F910 /* CommonModel.h */,
@@ -409,16 +379,10 @@
 				90F24255140103B000E1B284 /* NovelSectionListViewController.m in Sources */,
 				90F24258140103C400E1B284 /* NovelBrowserViewController.m in Sources */,
 				90F2426C1401045700E1B284 /* ToolViewController.m in Sources */,
-				90F242771401155D00E1B284 /* PictureCatalogManager.m in Sources */,
-				90F24282140115FC00E1B284 /* SectionObject.m in Sources */,
-				90F242851401160800E1B284 /* PageObject.m in Sources */,
-				90F242881401161400E1B284 /* ItemObject.m in Sources */,
 				90F2428B1401164F00E1B284 /* Helper.m in Sources */,
 				90F2428E1401166500E1B284 /* ThemeManager.m in Sources */,
 				90F242911401167A00E1B284 /* HTMLTool.m in Sources */,
-				90F242941401169100E1B284 /* HTTPTool.m in Sources */,
 				90F242A314012FF700E1B284 /* PictureSectionListViewController.m in Sources */,
-				9035F2A81403D79200007A5A /* NovelCatalogManager.m in Sources */,
 				9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */,
 				9048D88814055A9A0011013C /* DisclaimerViewController.m in Sources */,
 				9048D88C14056CCA0011013C /* ThemeDIYViewController.m in Sources */,

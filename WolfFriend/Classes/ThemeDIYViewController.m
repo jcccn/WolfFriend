@@ -120,26 +120,25 @@
         fontSizeHintLabel.text = @"字体大小";
         [scrollView addSubview:fontSizeHintLabel];
         
-        fontSizeSlider = [[UISlider alloc] initWithFrame:CGRectMake(90, fontSizeHintLabel.center.y - 15, 220, 30)];
+        fontSizeSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 210, 300, 30)];
         fontSizeSlider.minimumValue = 10;
         fontSizeSlider.maximumValue = 30;
         fontSizeSlider.value = [[ThemeManager sharedManager] fontSizeRead];
         [fontSizeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:fontSizeSlider];
         
-        textExampleWebView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 230, 300, 50)];
-//        textExampleWebView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-//        [textExampleWebView loadHTMLString:@"" baseURL:nil];
+        textExampleWebView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 240, 300, 50)];
+        textExampleWebView.scrollView.scrollEnabled = NO;
         [scrollView addSubview:textExampleWebView];
         
         saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        saveButton.frame = CGRectMake(50, 300, 80, 30);
+        saveButton.frame = CGRectMake(50, 310, 80, 40);
         [saveButton setTitle:@"保存" forState:UIControlStateNormal];
         [saveButton addTarget:self action:@selector(saveClicked:) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveButton];
         
         cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        cancelButton.frame = CGRectMake(190, 300, 80, 30);
+        cancelButton.frame = CGRectMake(190, 310, 80, 40);
         [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [cancelButton addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:cancelButton];
@@ -325,78 +324,6 @@
 }
 
 - (void)cancel {
-    
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    BOOL shouldAuto = NO;
-    switch (getIntPref(KeyScreenOrientation, 0)) {
-        case 0: {
-            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
-        }
-            break;
-            
-        case 1: {
-            shouldAuto = YES;
-        }
-            break;
-        case 2: {
-            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
-        }
-            break;
-        default:
-            break;
-    }
-    return shouldAuto;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];    
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        //竖屏
-        CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
-        scrollView.frame = CGRectMake(0, 0, screenRect.size.width, contentHeight);
-        colorTypeSegmentedControl.frame = CGRectMake(10, 50, 300, 30);
-        rSlider.frame = CGRectMake(40, rColorLabel.center.y - 15, 270, 30);
-        gSlider.frame = CGRectMake(40, gColorLabel.center.y - 15, 270, 30);
-        bSlider.frame = CGRectMake(40, bColorLabel.center.y - 15, 270, 30);
-        fontSizeSlider.frame = CGRectMake(90, fontSizeHintLabel.center.y - 15, 220, 30);
-        textExampleWebView.frame = CGRectMake(10, 230, 300, 50);
-        saveButton.center = CGPointMake(90, 310);
-        cancelButton.center = CGPointMake(230, 310);
-    }
-    else {
-        //横屏
-        CGFloat contentHeight = screenRect.size.width - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
-        scrollView.frame = CGRectMake(0, 0, screenRect.size.height, contentHeight);
-        colorTypeSegmentedControl.frame = CGRectMake(10, 50, 460, 30);
-        rSlider.frame = CGRectMake(40, rColorLabel.center.y - 15, 430, 30);
-        gSlider.frame = CGRectMake(40, gColorLabel.center.y - 15, 430, 30);
-        bSlider.frame = CGRectMake(40, bColorLabel.center.y - 15, 430, 30);
-        fontSizeSlider.frame = CGRectMake(90, fontSizeHintLabel.center.y - 15, 380, 30);
-        textExampleWebView.frame = CGRectMake(10, 230, 460, 50);
-        saveButton.center = CGPointMake(130, 310);
-        cancelButton.center = CGPointMake(350, 310);
-        
-    }
-    UITabBarController *tabBarController = self.tabBarController;
-    UITabBar *tabBar = tabBarController.tabBar;
-    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
-    if (tabBarBackgroundView) {
-        tabBarBackgroundView.frame = tabBar.bounds;
-    }
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
 }
 
