@@ -8,7 +8,6 @@
 
 #import "PictureSectionListViewController.h"
 #import "PictureListViewController.h"
-#import "PictureCatalogManager.h"
 #import "CategoryDataCenter.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
@@ -52,7 +51,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"DataCenterUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"DataCenterPictureCategoryUpdated" object:nil];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
     [[CategoryDataCenter sharedInstance] loadAllImageCategories];
@@ -99,30 +98,6 @@
 {
     [super viewDidDisappear:animated];
 }
-
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    // Return YES for supported orientations
-//    BOOL shouldAuto = NO;
-//    switch (getIntPref(KeyScreenOrientation, 0)) {
-//        case 0: {
-//            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
-//        }
-//            break;
-//            
-//        case 1: {
-//            shouldAuto = YES;
-//        }
-//            break;
-//        case 2: {
-//            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    return shouldAuto;
-//}
 
 #pragma mark - Table view data source
 

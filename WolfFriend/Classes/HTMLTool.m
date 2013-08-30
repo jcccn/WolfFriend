@@ -129,28 +129,21 @@
 }
 
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml {
-    if (!aHtml || [aHtml length] == 0) {
+    if ( ! [aHtml length]) {
         return @"";
     }
-    NSScanner *aScanner;
-    NSString *resultText = @"";
-    aScanner = [NSScanner scannerWithString:aHtml];
-    [aScanner scanUpToString:@"<div id=\"MyContent\">" intoString:NULL];
-    [aScanner scanUpToString:@"</div>" intoString:&resultText];
-    if ([resultText length] > 0) {
-        resultText = [resultText stringByAppendingString:@"</div>"];
-        
-    }
-    else {
-        aScanner = [NSScanner scannerWithString:aHtml];
-        [aScanner scanUpToString:@"<td id=" intoString:NULL];
-        [aScanner scanUpToString:@"</td>" intoString:&resultText];
-        if ([resultText length] > 0) {
-            resultText = [resultText stringByAppendingString:@"</td>"];
-        }
+    
+    TFHpple *hpple = [TFHpple hppleWithHTMLData:[aHtml dataUsingEncoding:NSUTF8StringEncoding]];
+    TFHppleElement *bookElements = [[hpple searchWithXPathQuery:@"//div[@id='read_tpc']"] lastObject];
+    
+    
+    NSString *bookString = [bookElements raw];
+    
+    if ( ! [bookString length]) {
+        return @"";
     }
     
-    return [self formatHTML:resultText 
+    return [self formatHTML:bookString
               withFontColor:[[ThemeManager sharedManager] webColorWithUIColor:[[ThemeManager sharedManager] colorReadText]]
             backgroundColor:[[ThemeManager sharedManager] webColorWithUIColor:[[ThemeManager sharedManager] colorReadBackground]] fontSize:[[ThemeManager sharedManager] fontSizeRead]];
 }

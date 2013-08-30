@@ -50,11 +50,6 @@ static ThemeManager *sharedThemeManager = nil;
     return self;
 }
 
-- (void)dealloc {
-    self.theme;
-}
-
-
 - (UIColor *)uiColorWithWebColor:(NSString *)aWebColor {
     NSString *cString = [[aWebColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     

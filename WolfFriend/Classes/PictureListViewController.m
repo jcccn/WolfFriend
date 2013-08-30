@@ -8,7 +8,6 @@
 
 #import "PictureListViewController.h"
 #import "PictureBrowserViewController.h"
-#import "PictureCatalogManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PictureListViewController ()
@@ -83,7 +82,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"CategoryDataUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"DataCenterPictureSubCategoryUpdated" object:nil];
     [self refresh:nil];
 }
 

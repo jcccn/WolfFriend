@@ -12,11 +12,16 @@
 @interface CategoryDataCenter : NSObject
 
 @property (nonatomic, strong) NSMutableArray *imageCategories;
+@property (nonatomic, strong) NSMutableArray *bookCategories;
 
 + (instancetype)sharedInstance;
 
 - (void)loadAllImageCategories;
 
 - (void)parseImageCategory:(SubCategoryModel *)category atPage:(NSInteger)pageIndex;
+
+- (void)loadAllBookCategories;
+
+- (void)parseBookCategory:(SubCategoryModel *)category atPage:(NSInteger)pageIndex;
 
 @end

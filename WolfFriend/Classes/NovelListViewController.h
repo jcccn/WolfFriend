@@ -8,23 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController+Extension.h"
-#import "SectionObject.h"
-#import "PageObject.h"
+#import "CategoryDataCenter.h"
 
-@class ItemObject;
-@class SectionObject;
+@interface NovelListViewController : UITableViewController <UIAlertViewDelegate> {
 
-@interface NovelListViewController : UITableViewController <SectionObjectDelegate, PageObjectDelegate, UIAlertViewDelegate> {
-    SectionObject *sectionObject;
-    PageObject *pageObject;
-    UIActivityIndicatorView *activityIndicator;
 }
 
-@property (nonatomic, strong) SectionObject *sectionObject;
-@property (nonatomic, strong) PageObject *pageObject;
-
-- (id)initWithSectionObject:(SectionObject *)aSectionObject;
-- (void)startLoadItemList;
+- (id)initWithSubCategory:(SubCategoryModel *)categoryModel;
 - (void)showAlert;
 
 - (void)resetUI:(id)arg;
