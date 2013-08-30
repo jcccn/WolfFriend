@@ -17,6 +17,6 @@
 
 - (void)loadAllImageCategories;
 
-- (void)parseImageCategory:(SubCategoryModel *)category;
+- (void)parseImageCategory:(SubCategoryModel *)category atPage:(NSInteger)pageIndex;
 
 @end

@@ -14,7 +14,10 @@
 @interface PictureListViewController ()
 
 @property (nonatomic, strong) SubCategoryModel *categoryModel;
+@property (nonatomic, assign) NSInteger pageDisplaying;
+@property (nonatomic, assign) NSInteger pageFetching;
 
+- (void)loadDataAtPage:(NSInteger)page;
 - (void)dataCenterUpdated:(NSNotification *)notification;
 
 @end
@@ -53,10 +56,13 @@
     [super viewDidLoad];
     
     self.title = self.categoryModel.categoryTitle;
+    self.pageDisplaying = 1;
+    self.pageFetching = 1;
     
     if ( ! self.tableView.tableFooterView) {
         UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
         self.tableView.tableFooterView = footView;
+        
         UIButton *prePageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         prePageButton.frame = CGRectMake(30, 5, 100, 40 );
         [prePageButton setTitle:@"上一页" forState:UIControlStateNormal];
@@ -67,6 +73,7 @@
         [nextPageButton setTitle:@"下一页" forState:UIControlStateNormal];
         [nextPageButton addTarget:self action:@selector(nextButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.tableView.tableFooterView addSubview:nextPageButton];
+        
         self.tableView.tableFooterView.hidden = YES;
     }
     
@@ -81,30 +88,38 @@
 }
 
 - (void)refresh:(id)sender {
+    [self loadDataAtPage:1];
+}
+
+- (void)loadDataAtPage:(NSInteger)page {
     if ([MBProgressHUD HUDForView:self.view]) {
         return;
     }
     [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
-    self.tableView.tableFooterView.hidden = YES;
-    [[CategoryDataCenter sharedInstance] parseImageCategory:self.categoryModel];
+    self.pageFetching = page;
+    [[CategoryDataCenter sharedInstance] parseImageCategory:self.categoryModel atPage:page];
 }
 
 - (void)dataCenterUpdated:(NSNotification *)notification {
     [self.tableView reloadData];
-    self.tableView.tableFooterView.hidden = YES;
+    self.tableView.tableFooterView.hidden = NO;
     [[MBProgressHUD HUDForView:self.view] hide:YES];
-}
-
-- (void)startLoadNextItemList {
     
+    BOOL isSuccessful = [[notification userInfo][@"success"] boolValue];
+    if (isSuccessful) {
+        self.pageDisplaying = self.pageFetching;
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+    }
 }
 
 - (void)nextButtonClicked:(id)sender {
-    
+    [self loadDataAtPage:self.pageDisplaying + 1];
 }
 
 - (void)preButtonClicked:(id)sender {
-    
+    [self loadDataAtPage:self.pageDisplaying - 1];
 }
 
 - (void)viewDidUnload

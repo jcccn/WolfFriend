@@ -91,8 +91,8 @@
                                  }];
 }
 
-- (void)parseImageCategory:(SubCategoryModel *)category {
-    NSString *categoryUrl = [NSString stringWithFormat:@"http://cnsina8.com/thread-htm-fid-%d-page-2.html", category.categoryId];
+- (void)parseImageCategory:(SubCategoryModel *)category atPage:(NSInteger)pageIndex {
+    NSString *categoryUrl = [NSString stringWithFormat:@"http://cnsina8.com/thread-htm-fid-%d-page-%d.html", category.categoryId, pageIndex];
     __weak CategoryDataCenter *blockSelf = self;
     [NSURLConnection startConnectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:categoryUrl]]
                                  successHandler:^(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data) {
@@ -126,11 +126,15 @@
                                              
                                          }
                                      }
-                                     category.articles = articles;
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryDataUpdated" object:blockSelf];
+                                     
+                                     if ([articles count]) {
+                                         category.articles = articles;
+                                     }
+                                     
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryDataUpdated" object:blockSelf userInfo:@{@"success": @([articles count])}];
                                  }
                                  failureHandler:^(NSURLConnection *urlConnection, NSError *error) {
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryDataUpdated" object:blockSelf];
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryDataUpdated" object:blockSelf userInfo:@{@"success": @(NO)}];
                                  }];
 }
 

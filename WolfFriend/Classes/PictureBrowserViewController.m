@@ -133,6 +133,10 @@
     [super viewDidAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [super viewWillDisappear:animated];
+}
 
 #pragma mark - UIWebView Delegate
 
