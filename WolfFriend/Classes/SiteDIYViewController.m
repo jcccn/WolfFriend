@@ -45,73 +45,84 @@
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TableBackground.png"]];
     
+    CGFloat commonWidth = self.view.bounds.size.width - 20;
+    
     if ( ! hintLabel) {
-        hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
+        hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, commonWidth, 30)];
         hintLabel.backgroundColor = [UIColor clearColor];
         hintLabel.text = @"选择或输入内容来源网址";
+        hintLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:hintLabel];
     }
     if ( ! segmentedControl) {
         segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"默认网址", @"自动获取", @"手动输入", nil]];
-        segmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
-        segmentedControl.frame = CGRectMake(10, 50, 300, 30);
+        segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+        segmentedControl.frame = CGRectMake(10, 50, commonWidth, 30);
         segmentedControl.selectedSegmentIndex = 0;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+        segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:segmentedControl];
     }
     
+    CGFloat inputWidth = commonWidth / 3.0f;
+    
     if ( ! urlFieldPartOne) {
-        urlFieldPartOne = [[UITextField alloc] initWithFrame:CGRectMake(10, 90, 90, 30)];
+        urlFieldPartOne = [[UITextField alloc] initWithFrame:CGRectMake(15, 90, inputWidth - 10, 30)];
         urlFieldPartOne.borderStyle = UITextBorderStyleRoundedRect;
-        urlFieldPartOne.textAlignment = UITextAlignmentRight;
+        urlFieldPartOne.textAlignment = NSTextAlignmentRight;
         urlFieldPartOne.keyboardType = UIKeyboardTypeASCIICapable;
         urlFieldPartOne.autocorrectionType = UITextAutocorrectionTypeNo;
         urlFieldPartOne.returnKeyType = UIReturnKeyDone;
         urlFieldPartOne.autocapitalizationType = UITextAutocapitalizationTypeNone;
         urlFieldPartOne.placeholder = @"www";
         urlFieldPartOne.delegate = self;
+        urlFieldPartOne.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:urlFieldPartOne];
     }
     
     if ( ! dotLableOne) {
-        dotLableOne = [[UILabel alloc] initWithFrame:CGRectMake(100, 90, 10, 30)];
+        dotLableOne = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(urlFieldPartOne.frame), 90, 10, 30)];
         dotLableOne.backgroundColor = [UIColor clearColor];
-        dotLableOne.textAlignment = UITextAlignmentCenter;
+        dotLableOne.textAlignment = NSTextAlignmentCenter;
         dotLableOne.text = @".";
+        dotLableOne.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:dotLableOne];
     }
     
     if ( ! urlFieldPartTwo) {
-        urlFieldPartTwo = [[UITextField alloc] initWithFrame:CGRectMake(110, 90, 100, 30)];
+        urlFieldPartTwo = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(dotLableOne.frame), 90, inputWidth - 10, 30)];
         urlFieldPartTwo.borderStyle = UITextBorderStyleRoundedRect;
-        urlFieldPartTwo.textAlignment = UITextAlignmentCenter;
+        urlFieldPartTwo.textAlignment = NSTextAlignmentCenter;
         urlFieldPartTwo.keyboardType = UIKeyboardTypeASCIICapable;
         urlFieldPartTwo.autocorrectionType = UITextAutocorrectionTypeNo;
         urlFieldPartTwo.returnKeyType = UIReturnKeyDone;
         urlFieldPartTwo.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        urlFieldPartTwo.placeholder = @"34eee";
+        urlFieldPartTwo.placeholder = @"cnsina8";
         urlFieldPartTwo.delegate = self;
+        urlFieldPartTwo.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:urlFieldPartTwo];
     }
     
     if ( ! dotLableTwo) {
-        dotLableTwo = [[UILabel alloc] initWithFrame:CGRectMake(210, 90, 10, 30)];
+        dotLableTwo = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(urlFieldPartTwo.frame), 90, 10, 30)];
         dotLableTwo.backgroundColor = [UIColor clearColor];
-        dotLableTwo.textAlignment = UITextAlignmentCenter;
+        dotLableTwo.textAlignment = NSTextAlignmentCenter;
         dotLableTwo.text = @".";
+        dotLableTwo.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:dotLableTwo];
     }
     
     if ( ! urlFieldPartThree) {
-        urlFieldPartThree = [[UITextField alloc] initWithFrame:CGRectMake(220, 90, 90, 30)];
+        urlFieldPartThree = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(dotLableTwo.frame), 90, inputWidth - 10, 30)];
         urlFieldPartThree.borderStyle = UITextBorderStyleRoundedRect;
-        urlFieldPartThree.textAlignment = UITextAlignmentLeft;
+        urlFieldPartThree.textAlignment = NSTextAlignmentLeft;
         urlFieldPartThree.keyboardType = UIKeyboardTypeASCIICapable;
         urlFieldPartThree.autocorrectionType = UITextAutocorrectionTypeNo;
         urlFieldPartThree.returnKeyType = UIReturnKeyDone;
         urlFieldPartThree.autocapitalizationType = UITextAutocapitalizationTypeNone;
         urlFieldPartThree.placeholder = @"com";
         urlFieldPartThree.delegate = self;
+        urlFieldPartThree.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:urlFieldPartThree];
     }
     
@@ -134,61 +145,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    BOOL shouldAuto = NO;
-    switch (getIntPref(KeyScreenOrientation, 0)) {
-        case 0: {
-            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);
-        }
-            break;
-            
-        case 1: {
-            shouldAuto = YES;
-        }
-            break;
-        case 2: {
-            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
-        }
-            break;
-        default:
-            break;
-    }
-    return shouldAuto;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        //竖屏
-        CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
-        segmentedControl.frame = CGRectMake(10, 50, 300, 30);
-        urlFieldPartOne.frame = CGRectMake(10, 90, 90, 30);
-        dotLableOne.frame = CGRectMake(100, 90, 10, 30);
-        urlFieldPartTwo.frame = CGRectMake(110, 90, 100, 30);
-        dotLableTwo.frame = CGRectMake(210, 90, 10, 30);
-        urlFieldPartThree.frame = CGRectMake(220, 90, 90, 30);
-    }
-    else {
-        //横屏
-        CGFloat contentHeight = screenRect.size.width - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
-        segmentedControl.frame = CGRectMake(10, 50, 460, 30);
-        urlFieldPartOne.frame = CGRectMake(10, 90, 120, 30);
-        dotLableOne.frame = CGRectMake(130, 90, 10, 30);
-        urlFieldPartTwo.frame = CGRectMake(140, 90, 200, 30);
-        dotLableTwo.frame = CGRectMake(340, 90, 10, 30);
-        urlFieldPartThree.frame = CGRectMake(350, 90, 120, 30);
-    }
-    UITabBarController *tabBarController = self.tabBarController;
-    UITabBar *tabBar = tabBarController.tabBar;
-    UIView *tabBarBackgroundView = [tabBar viewWithTag:TagTabBarBackground];
-    if (tabBarBackgroundView) {
-        tabBarBackgroundView.frame = tabBar.bounds;
-    }
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {

@@ -59,16 +59,19 @@
     self.pageFetching = 1;
     
     if ( ! self.tableView.tableFooterView) {
-        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
         self.tableView.tableFooterView = footView;
         
         UIButton *prePageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        prePageButton.frame = CGRectMake(30, 5, 100, 40 );
+        prePageButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        prePageButton.frame = CGRectMake(40, 5, 100, 40 );
         [prePageButton setTitle:@"上一页" forState:UIControlStateNormal];
         [prePageButton addTarget:self action:@selector(preButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.tableView.tableFooterView addSubview:prePageButton];
+        
         UIButton *nextPageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        nextPageButton.frame = CGRectMake(190, 5, 100, 40 );
+        nextPageButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        nextPageButton.frame = CGRectMake(self.tableView.bounds.size.width - 140, 5, 100, 40 );
         [nextPageButton setTitle:@"下一页" forState:UIControlStateNormal];
         [nextPageButton addTarget:self action:@selector(nextButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.tableView.tableFooterView addSubview:nextPageButton];

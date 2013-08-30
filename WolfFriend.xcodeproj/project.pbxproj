@@ -10,7 +10,6 @@
 		1681A41048CD4AB09236C5FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B01B977DF2549E1B2C1EA51 /* libPods.a */; };
 		900F618F1407E38200874A68 /* default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 900F618E1407E38200874A68 /* default.plist */; };
 		9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2AB1403DF1B00007A5A /* NovelListViewController.m */; };
-		9035F3241403F29C00007A5A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9035F3231403F29C00007A5A /* MainWindow.xib */; };
 		9048D88814055A9A0011013C /* DisclaimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9048D88714055A9A0011013C /* DisclaimerViewController.m */; };
 		9048D88C14056CCA0011013C /* ThemeDIYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9048D88B14056CC90011013C /* ThemeDIYViewController.m */; };
 		905ACDE117B6C8E5001B8F51 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 905ACDE017B6C8E5001B8F51 /* CategoryModel.m */; };
@@ -51,7 +50,6 @@
 		900F618E1407E38200874A68 /* default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = default.plist; sourceTree = "<group>"; };
 		9035F2AA1403DF1B00007A5A /* NovelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelListViewController.h; sourceTree = "<group>"; };
 		9035F2AB1403DF1B00007A5A /* NovelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelListViewController.m; sourceTree = "<group>"; };
-		9035F3231403F29C00007A5A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9048D88614055A9A0011013C /* DisclaimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclaimerViewController.h; sourceTree = "<group>"; };
 		9048D88714055A9A0011013C /* DisclaimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclaimerViewController.m; sourceTree = "<group>"; };
 		9048D88A14056CC90011013C /* ThemeDIYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeDIYViewController.h; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 		90FD7C421400B56F00D33B25 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9035F3231403F29C00007A5A /* MainWindow.xib */,
 				90FD7C431400B56F00D33B25 /* WolfFriend-Info.plist */,
 				90FD7C441400B56F00D33B25 /* InfoPlist.strings */,
 				90FD7C471400B56F00D33B25 /* main.m */,
@@ -342,7 +339,6 @@
 				90F242671401041800E1B284 /* IconNovel.png in Resources */,
 				90F242681401041800E1B284 /* IconPicture.png in Resources */,
 				90F242691401041800E1B284 /* IconTool.png in Resources */,
-				9035F3241403F29C00007A5A /* MainWindow.xib in Resources */,
 				900F618F1407E38200874A68 /* default.plist in Resources */,
 				90AD7FB9140FD05F0087F910 /* TableBackground.png in Resources */,
 			);
@@ -464,8 +460,9 @@
 				GCC_PREFIX_HEADER = "WolfFriend/WolfFriend-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "WolfFriend/WolfFriend-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -479,8 +476,9 @@
 				GCC_PREFIX_HEADER = "WolfFriend/WolfFriend-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "WolfFriend/WolfFriend-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

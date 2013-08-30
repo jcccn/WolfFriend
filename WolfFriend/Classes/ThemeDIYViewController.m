@@ -54,100 +54,114 @@
     self.view.backgroundColor = self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TableBackground.png"]];
 
     if ( ! scrollView) {
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+        scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.view addSubview:scrollView];
+        
+        CGFloat commonWidth = self.view.bounds.size.width - 20;
         
         self.textBackgroundColor = [[ThemeManager sharedManager] colorReadBackground];
         self.textFontColor = [[ThemeManager sharedManager] colorReadText];
         self.frameColor = [[ThemeManager sharedManager] colorUIFrame];
         textFontSize = [[ThemeManager sharedManager] fontSizeRead];
         
-        colorHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 30)];
+        colorHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, commonWidth, 30)];
         colorHintLabel.backgroundColor = [UIColor clearColor];
         colorHintLabel.text = @"颜色设置";
+        colorHintLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:colorHintLabel];
         
         colorTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"界面边框", @"阅读文字", @"阅读背景", nil]];
-        colorTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
-        colorTypeSegmentedControl.frame = CGRectMake(10, 50, 300, 30);
+        colorTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+        colorTypeSegmentedControl.frame = CGRectMake(10, 50, commonWidth, 30);
         colorTypeSegmentedControl.tintColor = [[ThemeManager sharedManager] colorUIFrame];
         colorTypeSegmentedControl.selectedSegmentIndex = 0;
         [colorTypeSegmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+        colorTypeSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:colorTypeSegmentedControl];
         
         rColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 90, 30, 30)];
         rColorLabel.backgroundColor = [UIColor clearColor];
-        rColorLabel.textAlignment = UITextAlignmentCenter;
+        rColorLabel.textAlignment = NSTextAlignmentCenter;
         rColorLabel.adjustsFontSizeToFitWidth = YES;
         rColorLabel.text = @"R";
+        rColorLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:rColorLabel];
         
         gColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 120, 30, 30)];
         gColorLabel.backgroundColor = [UIColor clearColor];
-        gColorLabel.textAlignment = UITextAlignmentCenter;
+        gColorLabel.textAlignment = NSTextAlignmentCenter;
         gColorLabel.text = @"G";
+        gColorLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:gColorLabel];
         
         bColorLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, 30, 30)];
         bColorLabel.backgroundColor = [UIColor clearColor];
-        bColorLabel.textAlignment = UITextAlignmentCenter;
+        bColorLabel.textAlignment = NSTextAlignmentCenter;
         bColorLabel.text = @"B";
+        bColorLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:bColorLabel];
         
-        rSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, rColorLabel.center.y - 15, 270, 30)];
+        rSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, rColorLabel.center.y - 15, commonWidth - 30, 30)];
         rSlider.minimumValue = 0;
         rSlider.maximumValue = 1;
         rSlider.value = 0;
         [rSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        rSlider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:rSlider];
         
-        gSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, gColorLabel.center.y - 15, 270, 30)];
+        gSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, gColorLabel.center.y - 15, commonWidth - 30, 30)];
         gSlider.minimumValue = 0;
         gSlider.maximumValue = 1;
         gSlider.value = 0;
         [gSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        gSlider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:gSlider];
         
-        bSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, bColorLabel.center.y - 15, 270, 30)];
+        bSlider = [[UISlider alloc] initWithFrame:CGRectMake(40, bColorLabel.center.y - 15, commonWidth - 30, 30)];
         bSlider.minimumValue = 0;
         bSlider.maximumValue = 1;
         bSlider.value = 0;
         [bSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        bSlider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:bSlider];
         
-        fontSizeHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 80, 30)];
+        fontSizeHintLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, commonWidth, 30)];
         fontSizeHintLabel.backgroundColor = [UIColor clearColor];
         fontSizeHintLabel.text = @"字体大小";
+        fontSizeHintLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:fontSizeHintLabel];
         
-        fontSizeSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 210, 300, 30)];
+        fontSizeSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 210, commonWidth, 30)];
         fontSizeSlider.minimumValue = 10;
         fontSizeSlider.maximumValue = 30;
         fontSizeSlider.value = [[ThemeManager sharedManager] fontSizeRead];
         [fontSizeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        fontSizeSlider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:fontSizeSlider];
         
-        textExampleWebView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 240, 300, 50)];
+        textExampleWebView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 240, commonWidth, 50)];
         textExampleWebView.scrollView.scrollEnabled = NO;
+        textExampleWebView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [scrollView addSubview:textExampleWebView];
         
         saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         saveButton.frame = CGRectMake(50, 310, 80, 40);
         [saveButton setTitle:@"保存" forState:UIControlStateNormal];
         [saveButton addTarget:self action:@selector(saveClicked:) forControlEvents:UIControlEventTouchUpInside];
+        saveButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [scrollView addSubview:saveButton];
         
         cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        cancelButton.frame = CGRectMake(190, 310, 80, 40);
+        cancelButton.frame = CGRectMake(commonWidth - 180, 310, 80, 40);
         [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [cancelButton addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
+        cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [scrollView addSubview:cancelButton];
         
     }
-    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-    CGFloat contentHeight = screenRect.size.height - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height;
-    scrollView.frame = CGRectMake(0, 0, screenRect.size.width, contentHeight);
-    scrollView.contentSize = CGSizeMake(screenRect.size.width, 360);  //a test value
+    
+    scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, CGRectGetMaxY(cancelButton.frame) + 10);
     
     [self changeTempColor:[[ThemeManager sharedManager] colorUIFrame] forTypeIndex:0];
     [self changeTempColor:[[ThemeManager sharedManager] colorReadText] forTypeIndex:1];

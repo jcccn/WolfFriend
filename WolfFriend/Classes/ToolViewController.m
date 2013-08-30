@@ -87,31 +87,6 @@
     [super viewDidDisappear:animated];
 }
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    // Return YES for supported orientations
-//    BOOL shouldAuto = NO;
-//    switch (getIntPref(KeyScreenOrientation, 0)) {
-//        case 0: {
-//            shouldAuto = UIInterfaceOrientationIsPortrait(interfaceOrientation);;
-//        }
-//            break;
-//            
-//        case 1: {
-//            shouldAuto = YES;
-//        }
-//            break;
-//        case 2: {
-//            shouldAuto = UIInterfaceOrientationIsLandscape(interfaceOrientation);
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    return shouldAuto;
-//}
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -170,7 +145,7 @@
                     break;
                 case 1:
                     cell.textLabel.text = @"恢复默认主题";
-                    cell.textLabel.textAlignment = UITextAlignmentCenter;
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 default:
                     break;
@@ -194,11 +169,11 @@
                     break;
                 case 1:
                     cell.textLabel.text = @"清除本地文件";
-                    cell.textLabel.textAlignment = UITextAlignmentCenter;
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 case 2:
                     cell.textLabel.text = @"自定义网址";
-                    cell.textLabel.textAlignment = UITextAlignmentCenter;
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 default:
                     break;
@@ -207,7 +182,7 @@
             break; 
         case 2: {
             cell.textLabel.text = @"分享";
-            cell.textLabel.textAlignment = UITextAlignmentCenter;
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
             break;
         case 3: {
