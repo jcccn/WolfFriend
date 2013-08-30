@@ -12,10 +12,21 @@
 #import "NovelSectionListViewController.h"
 #import "NovelBrowserViewController.h"
 #import "ToolViewController.h"
+#import <KKPasscodeLock/KKPasscodeLock.h>
 
 #define TagTabBarItemPicture    10001
 #define TagTabBarItemNovel      10002
 #define TagTabBarItemTool       10003
+
+@interface WolfFriendAppDelegate () <KKPasscodeViewControllerDelegate>
+
+@property (nonatomic, strong) KKPasscodeViewController *passcodeViewController;
+@property (nonatomic, strong) UINavigationController *passcodeNavigationController;
+
+- (void)showPasscodeViewWhenNeeded;
+- (void)createPasscodeViewWhenNeeded;
+
+@end
 
 @implementation WolfFriendAppDelegate
 
@@ -25,8 +36,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    // Add the tab bar controller's current view as a subview of the window
+    
+    [[KKPasscodeLock sharedLock] setDefaultSettings];
+    [KKPasscodeLock sharedLock].eraseOption = NO;
+    
     self.tabBarController = [[UITabBarController alloc] init];
     
     UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:[[PictureSectionListViewController alloc] init]];
@@ -39,18 +52,15 @@
     toolNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"工具箱" image:[UIImage imageNamed:@"IconTool.png"] tag:TagTabBarItemTool];
     
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:pictureNavigationController, novelNavigationController, toolNavigationController, nil];
-
-    self.window.rootViewController = self.tabBarController;
+    
+    [self showPasscodeViewWhenNeeded];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    /*
-     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-     */
+    [self showPasscodeViewWhenNeeded];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -70,9 +80,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+//    [self showPasscodeViewWhenNeeded];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -82,6 +90,54 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+#pragma mark - KKPasscodeViewControllerDelegate
+
+- (void)didPasscodeEnteredCorrectly:(KKPasscodeViewController*)viewController {
+    self.window.rootViewController = self.tabBarController;
+}
+
+- (void)didPasscodeEnteredIncorrectly:(KKPasscodeViewController*)viewController {
+    
+}
+
+- (void)shouldLockApplication:(KKPasscodeViewController*)viewController {
+    
+}
+
+- (void)shouldEraseApplicationData:(KKPasscodeViewController*)viewController {
+    
+}
+
+- (void)didSettingsChanged:(KKPasscodeViewController*)viewController {
+    
+}
+
+- (void)showPasscodeViewWhenNeeded {
+    [self createPasscodeViewWhenNeeded];
+    
+    if ([[KKPasscodeLock sharedLock] isPasscodeRequired]) {
+        self.window.rootViewController = self.passcodeNavigationController;
+    }
+    else {
+        self.window.rootViewController = self.tabBarController;
+    }
+}
+
+- (void)createPasscodeViewWhenNeeded {
+    if ( ! (self.passcodeViewController && self.passcodeNavigationController)) {
+        self.passcodeViewController = [[KKPasscodeViewController alloc] initWithNibName:nil bundle:nil];
+        self.passcodeViewController.mode = KKPasscodeModeEnter;
+        self.passcodeViewController.delegate = self;
+        
+        self.passcodeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.passcodeViewController];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            self.passcodeNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+            self.passcodeNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+            self.passcodeNavigationController.navigationBar.opaque = NO;
+        }
+    }
 }
 
 

@@ -11,9 +11,14 @@
 #import "SiteDIYViewController.h"
 #import "DisclaimerViewController.h"
 #import "Helper.h"
+#import <KKPasscodeLock/KKPasscodeLock.h>
+#import <KKPasscodeLock/KKPasscodeSettingsViewController.h>
 
 #define TagAlertDefaultTheme    1000
 
+@interface ToolViewController () <KKPasscodeSettingsViewControllerDelegate>
+
+@end
 
 @implementation ToolViewController
 
@@ -103,12 +108,15 @@
             numberOfRows = 2;
             break;
         case 1:
-            numberOfRows = 3;
-            break;
-        case 2:
             numberOfRows = 1;
             break;
+        case 2:
+            numberOfRows = 3;
+            break;
         case 3:
+            numberOfRows = 1;
+            break;
+        case 4:
             numberOfRows = 1;
             break;
         default:
@@ -125,7 +133,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     UITableViewCell *cellSeg = [tableView dequeueReusableCellWithIdentifier:CellIdentifierWithSegment];
     if (cellSeg == nil) {
@@ -154,6 +162,13 @@
             break;
             
         case 1: {
+            cell.textLabel.text = @"密码锁定";
+            cell.detailTextLabel.text = ([[KKPasscodeLock sharedLock] isPasscodeRequired] ? @"开启" : @"关闭");
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+            break;
+            
+        case 2: {
             switch (indexPath.row) {
                 case 0: {
                     cellSwitch.textLabel.text = @"本地保存";
@@ -180,12 +195,12 @@
             }
         }
             break; 
-        case 2: {
+        case 3: {
             cell.textLabel.text = @"分享";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
             break;
-        case 3: {
+        case 4: {
             cell.textLabel.text = @"免责声明";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -204,6 +219,9 @@
             titleHeader = @"主题切换";
             break;
         case 1:
+            titleHeader = @"隐私设置";
+            break;
+        case 2:
             titleHeader = @"内容设置";
             break;
         default:
@@ -246,6 +264,13 @@
             break;
             
         case 1: {
+            KKPasscodeSettingsViewController *viewController = [[KKPasscodeSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            viewController.delegate = self;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+            
+        case 2: {
             switch (indexPath.row) {
                 case 0: {
                     //本地保存开关
@@ -268,13 +293,13 @@
             }
         }
             break;
-        case 2: {
+        case 3: {
             //分享
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不能随便传播哟" delegate:self cancelButtonTitle:@"知道啦，我很老实" otherButtonTitles: nil];
             [alert show];
         }
             break;
-        case 3: {
+        case 4: {
             DisclaimerViewController *disclaimerViewController = [[DisclaimerViewController alloc] init];
             [self.navigationController pushViewController:disclaimerViewController animated:YES];
         }
@@ -282,6 +307,12 @@
         default:
             break;
     }
+}
+
+#pragma mark - KKPasscodeSettingsViewControllerDelegate
+
+- (void)didSettingsChanged:(KKPasscodeSettingsViewController*)viewController {
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
