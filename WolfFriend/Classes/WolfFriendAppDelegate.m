@@ -20,11 +20,7 @@
 
 @interface WolfFriendAppDelegate () <KKPasscodeViewControllerDelegate>
 
-@property (nonatomic, strong) KKPasscodeViewController *passcodeViewController;
-@property (nonatomic, strong) UINavigationController *passcodeNavigationController;
-
-- (void)showPasscodeViewWhenNeeded;
-- (void)createPasscodeViewWhenNeeded;
+- (void)showPasscodeViewIfNeeded;
 
 @end
 
@@ -53,14 +49,15 @@
     
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:pictureNavigationController, novelNavigationController, toolNavigationController, nil];
     
-    [self showPasscodeViewWhenNeeded];
+    self.window.rootViewController = self.tabBarController;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    [self showPasscodeViewWhenNeeded];
+    [self showPasscodeViewIfNeeded];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -80,7 +77,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-//    [self showPasscodeViewWhenNeeded];
+    [self showPasscodeViewIfNeeded];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -95,7 +92,7 @@
 #pragma mark - KKPasscodeViewControllerDelegate
 
 - (void)didPasscodeEnteredCorrectly:(KKPasscodeViewController*)viewController {
-    self.window.rootViewController = self.tabBarController;
+    
 }
 
 - (void)didPasscodeEnteredIncorrectly:(KKPasscodeViewController*)viewController {
@@ -114,29 +111,33 @@
     
 }
 
-- (void)showPasscodeViewWhenNeeded {
-    [self createPasscodeViewWhenNeeded];
-    
+- (void)showPasscodeViewIfNeeded {
     if ([[KKPasscodeLock sharedLock] isPasscodeRequired]) {
-        self.window.rootViewController = self.passcodeNavigationController;
-    }
-    else {
-        self.window.rootViewController = self.tabBarController;
-    }
-}
-
-- (void)createPasscodeViewWhenNeeded {
-    if ( ! (self.passcodeViewController && self.passcodeNavigationController)) {
-        self.passcodeViewController = [[KKPasscodeViewController alloc] initWithNibName:nil bundle:nil];
-        self.passcodeViewController.mode = KKPasscodeModeEnter;
-        self.passcodeViewController.delegate = self;
-        
-        self.passcodeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.passcodeViewController];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            self.passcodeNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-            self.passcodeNavigationController.navigationBar.barStyle = UIBarStyleBlack;
-            self.passcodeNavigationController.navigationBar.opaque = NO;
+        UIViewController *presentedPasscodeViewController;
+        UIViewController *presentedViewController = [self.tabBarController presentedViewController];
+        if ([presentedViewController isKindOfClass:[UINavigationController class]]) {
+            presentedPasscodeViewController = [(UINavigationController *)presentedViewController topViewController];
         }
+        else {
+            presentedPasscodeViewController = presentedViewController;
+        }
+        if ([presentedPasscodeViewController isKindOfClass:[KKPasscodeViewController class]]) {
+            return;
+        }
+        
+        KKPasscodeViewController *passcodeViewController = [[KKPasscodeViewController alloc] initWithNibName:nil bundle:nil];
+        passcodeViewController.mode = KKPasscodeModeEnter;
+        passcodeViewController.delegate = self;
+        
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:passcodeViewController];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+            navigationController.navigationBar.barStyle = UIBarStyleBlack;
+            navigationController.navigationBar.opaque = NO;
+        }
+        
+        [self.tabBarController presentModalViewController:navigationController animated:NO];
     }
 }
 
