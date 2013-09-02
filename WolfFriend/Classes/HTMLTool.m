@@ -13,22 +13,14 @@
 @implementation HTMLTool
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml {
-    if ( ! [aHtml length]) {
-        return @"";
-    }
-    
-    TFHpple *hpple = [TFHpple hppleWithHTMLData:[aHtml dataUsingEncoding:NSUTF8StringEncoding]];
-    NSArray *picturesElements = [[[hpple searchWithXPathQuery:@"//div[@id='read_tpc']"] lastObject] childrenWithTagName:@"img"];
-    
-    if ( ! [picturesElements count]) {
+    NSArray *imageUrls = [self parseImagesFromHtml:aHtml];
+    if ( ! [imageUrls count]) {
         return @"";
     }
     
     NSMutableString *picturesString = [NSMutableString string];
-    
     [picturesString appendString:@"<div>"];
-    for (TFHppleElement *pictureElement in picturesElements) {
-        NSString *pictureUrl = [pictureElement objectForKey:@"src"];
+    for (NSString *pictureUrl in imageUrls) {
         [picturesString appendFormat:@"<img src=\"%@\"/><br /><br />", pictureUrl];
     }
     [picturesString appendString:@"</div>"];
@@ -36,6 +28,28 @@
     return [self formatHTML:picturesString
               withFontColor:[[ThemeManager sharedManager] webColorWithUIColor:[[ThemeManager sharedManager] colorReadText]]
             backgroundColor:[[ThemeManager sharedManager] webColorWithUIColor:[[ThemeManager sharedManager] colorReadBackground]] fontSize:[[ThemeManager sharedManager] fontSizeRead]];
+}
+
++ (NSArray *)parseImagesFromHtml:(NSString *)aHtml {
+    NSMutableArray *imageUrls = [NSMutableArray array];
+    
+    if ( ! [aHtml length]) {
+        return [NSArray array];
+    }
+    
+    TFHpple *hpple = [TFHpple hppleWithHTMLData:[aHtml dataUsingEncoding:NSUTF8StringEncoding]];
+    NSArray *picturesElements = [[[hpple searchWithXPathQuery:@"//div[@id='read_tpc']"] lastObject] childrenWithTagName:@"img"];
+    
+    if ( ! [picturesElements count]) {
+        return [NSArray array];
+    }
+        
+    for (TFHppleElement *pictureElement in picturesElements) {
+        NSString *pictureUrl = [pictureElement objectForKey:@"src"];
+        [imageUrls addObject:pictureUrl];
+    }
+    
+    return [NSArray arrayWithArray:imageUrls];
 }
 
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml {

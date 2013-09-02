@@ -13,6 +13,7 @@
 }
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml;
++ (NSArray *)parseImagesFromHtml:(NSString *)aHtml;
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml;
 
 + (NSString *)flattenHTML:(NSString *)aHtml withLabel:(NSString *)aLabel;

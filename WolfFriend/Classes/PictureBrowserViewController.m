@@ -9,15 +9,23 @@
 #import "PictureBrowserViewController.h"
 #import "HTMLTool.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BDMultiDownloader/BDMultiDownloader.h>
+#import <ALAssetsLibrary-CustomPhotoAlbum/ALAssetsLibrary+CustomPhotoAlbum.h>
 
 @interface PictureBrowserViewController () <UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIBarButtonItem *refreshButton;
+@property (nonatomic, strong) UIBarButtonItem *downloadButton;
 
 @property (nonatomic, strong) ArticleModel *articleModel;
+@property (nonatomic, strong) NSArray *pictureUrls;
 
 - (void)startLoadWebPage;
 - (void)showAlert;
+- (void)refreshRightBarButtons;
+- (void)saveImages;
 
 @end
 
@@ -55,9 +63,8 @@
     self.webView = aWebView;
     [self.view addSubview:aWebView];
     
-    if ( ! self.navigationItem.rightBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-    }
+    self.refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+    self.navigationItem.rightBarButtonItem = self.refreshButton;
     
     [self refresh:nil];
 }
@@ -80,6 +87,7 @@
     NSString *htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]
                                                     encoding:NSUTF8StringEncoding
                                                        error:NULL];
+    self.pictureUrls = [HTMLTool parseImagesFromHtml:htmlString];
     NSString *clearString = [HTMLTool parseImageBodyFromHtml:htmlString];
     if ([clearString length]) {
         [self.webView loadHTMLString:clearString baseURL:[NSURL URLWithString:baseUrlString]];
@@ -87,6 +95,45 @@
     else {
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     }
+    
+    [self performSelectorOnMainThread:@selector(refreshRightBarButtons) withObject:nil waitUntilDone:NO];
+}
+
+- (void)refreshRightBarButtons {
+    NSArray *rightBarButtons;
+    if ([self.pictureUrls count]) {
+        if ( ! self.downloadButton) {
+            __weak __typeof(&*self)weakSelf = self;
+            self.downloadButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                               handler:^(id sender) {
+                                                                                   [weakSelf saveImages];
+                                                                               }];
+        }
+        rightBarButtons = @[self.refreshButton, self.downloadButton];
+    }
+    else {
+        rightBarButtons = @[self.refreshButton];
+    }
+    self.navigationItem.rightBarButtonItems = rightBarButtons;
+}
+
+- (void)saveImages {
+    for (NSString *pictureUrl in self.pictureUrls) {
+        [[BDMultiDownloader shared] imageWithPath:pictureUrl
+                                       completion:^(UIImage *image, BOOL fromCache) {
+                                           ALAssetsLibrary *assertsLibrary = [[ALAssetsLibrary alloc] init];
+                                           [assertsLibrary saveImage:image
+                                                             toAlbum:@"春暖花开"
+                                                          completion:^(NSURL *assetURL, NSError *error) {
+                                                              
+                                                          }
+                                                             failure:^(NSError *error) {
+                                                                 
+                                                             }];
+                                       }];
+    }
+    
+    self.navigationItem.rightBarButtonItems = @[self.refreshButton];
 }
 
 - (void)resetUI:(id)arg {
