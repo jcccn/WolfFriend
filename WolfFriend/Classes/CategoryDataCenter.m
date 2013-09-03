@@ -9,6 +9,7 @@
 #import "CategoryDataCenter.h"
 #import <BlocksKit/NSURLConnection+BlocksKit.h>
 #import <hpple/TFHpple.h>
+#import "CommonModel.h"
 
 @interface CategoryDataCenter () {
     NSString *baseUrl;
@@ -32,7 +33,7 @@
     if (self) {
         self.imageCategories = [NSMutableArray array];
         self.bookCategories = [NSMutableArray array];
-        baseUrl = @"http://cnsina8.com/";
+        baseUrl = [[CommonModel sharedModel] baseUrlString];
     }
     return self;
 }

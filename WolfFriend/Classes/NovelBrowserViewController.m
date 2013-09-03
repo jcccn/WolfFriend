@@ -8,6 +8,7 @@
 
 #import "NovelBrowserViewController.h"
 #import "HTMLTool.h"
+#import "CommonModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface NovelBrowserViewController () <UIWebViewDelegate, UIAlertViewDelegate>
@@ -74,7 +75,7 @@
 }
 
 - (void)startLoadWebPage {
-    NSString *baseUrlString = @"http://cnsina8.com";
+    NSString *baseUrlString = [[CommonModel sharedModel] baseUrlString];
     NSString *urlString = [baseUrlString stringByAppendingPathComponent:self.articleModel.articleUrl];
     //截取网页部分
     NSString *htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]

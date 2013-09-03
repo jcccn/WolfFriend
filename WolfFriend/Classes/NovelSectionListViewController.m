@@ -52,9 +52,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"DataCenterBookCategoryUpdated" object:nil];
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
-    [[CategoryDataCenter sharedInstance] loadAllBookCategories];
 }
 
 - (void)dealloc {
@@ -77,7 +74,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    if ( ! [[[CategoryDataCenter sharedInstance] bookCategories] count]) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+        [[CategoryDataCenter sharedInstance] loadAllBookCategories];
+    }
 }
 
 - (void)resetUI:(id)arg {

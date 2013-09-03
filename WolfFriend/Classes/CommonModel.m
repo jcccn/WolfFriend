@@ -29,11 +29,11 @@ static CommonModel *sharedModel = nil;
     self = [super init];
     if (self) {
         // Initialization code here.
-        self.defaultBaseUrlString = @"http://www.34eee.com";
-        self.autoBaseUrlString = @"http://www.34eee.com";
-        self.userBaseUrlString = [NSString stringWithFormat:@"%@.%@.%@",
+        self.defaultBaseUrlString = @"http://cnsina8.com";
+        self.autoBaseUrlString = @"http://cnsina8.com";
+        self.userBaseUrlString = [NSString stringWithFormat:@"http://%@.%@.%@",
                                   getPref(@"UserUrlPart1", @"www"),
-                                  getPref(@"UserUrlPart2", @"34eee"),
+                                  getPref(@"UserUrlPart2", @"cnsina8"),
                                   getPref(@"UserUrlPart3", @"com")];
         self.urlType = getIntPref(@"UrlType", 0);
     }
@@ -62,7 +62,7 @@ static CommonModel *sharedModel = nil;
         default:
             break;
     }
-    return theBaseUrl;
+    return [theBaseUrl copy];
 }
 
 @end

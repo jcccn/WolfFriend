@@ -53,8 +53,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataCenterUpdated:) name:@"DataCenterPictureCategoryUpdated" object:nil];
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
-    [[CategoryDataCenter sharedInstance] loadAllImageCategories];
 }
 
 - (void)dealloc {
@@ -77,7 +75,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    if ( ! [[[CategoryDataCenter sharedInstance] imageCategories] count]) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+        [[CategoryDataCenter sharedInstance] loadAllImageCategories];
+    }
 }
 
 - (void)resetUI:(id)arg {

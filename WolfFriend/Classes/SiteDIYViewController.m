@@ -128,6 +128,7 @@
     }
     
     [segmentedControl setSelectedSegmentIndex:2];
+    [self segmentedControlValueChanged:segmentedControl];
     
     [self resetUI:nil];
 }
@@ -217,13 +218,6 @@
         result = YES;
     }
     return result;
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [urlFieldPartOne resignFirstResponder];
-    [urlFieldPartTwo resignFirstResponder];
-    [urlFieldPartThree resignFirstResponder];
-    [self saveUserUrl];
 }
 
 - (void)saveUserUrl {
