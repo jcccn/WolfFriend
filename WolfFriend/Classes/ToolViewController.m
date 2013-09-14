@@ -13,10 +13,14 @@
 #import "Helper.h"
 #import <KKPasscodeLock/KKPasscodeLock.h>
 #import <KKPasscodeLock/KKPasscodeSettingsViewController.h>
+#import <BlocksKit/BlocksKit.h>
+#import <SDWebImage/SDImageCache.h>
 
 #define TagAlertDefaultTheme    1000
 
 @interface ToolViewController () <KKPasscodeSettingsViewControllerDelegate>
+
+- (IBAction)switchDidChanged:(id)sender;
 
 @end
 
@@ -90,6 +94,12 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+}
+
+- (IBAction)switchDidChanged:(id)sender {
+    if ([sender isKindOfClass:[UISwitch class]]) {
+        setIntPref(@"usePhotoBrowser", [(UISwitch *)sender isOn]);
+    }
 }
 
 #pragma mark - Table view data source
@@ -171,19 +181,20 @@
         case 2: {
             switch (indexPath.row) {
                 case 0: {
-                    cellSwitch.textLabel.text = @"本地保存";
+                    cellSwitch.textLabel.text = @"使用照片浏览器查看图片";
                     cellSwitch.selectionStyle = UITableViewCellSelectionStyleNone;
                     if ( ! cellSwitch.accessoryView) {
                         UISwitch *aSwitch = [[UISwitch alloc] init];
+                        [aSwitch addTarget:self action:@selector(switchDidChanged:) forControlEvents:UIControlEventValueChanged];
                         aSwitch.frame = CGRectInset(aSwitch.frame, 0, 5);
-                        [aSwitch setOn:NO];
+                        [aSwitch setOn:getIntPref(@"usePhotoBrowser", NO)];
                         cellSwitch.accessoryView = aSwitch;
                     }
                     return cellSwitch;
                 }
                     break;
                 case 1:
-                    cell.textLabel.text = @"清除本地文件";
+                    cell.textLabel.text = @"清除缓存";
                     cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 case 2:
@@ -278,8 +289,15 @@
                     break;
                 case 1: {
                    //清理缓存
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"谢谢惠待" message:@"此版本没有本地文件，无需清除" delegate:self cancelButtonTitle:@"知道啦" otherButtonTitles: nil];
-                    [alert show];
+                    [UIAlertView showAlertViewWithTitle:@"您确定要清除缓存"
+                                                message:@"保留缓存可以更快地浏览历史图片"
+                                      cancelButtonTitle:@"取消"
+                                      otherButtonTitles:@[@"确定"]
+                                                handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                                    if (buttonIndex == 1) {
+                                                        [[SDImageCache sharedImageCache] clearDisk];
+                                                    }
+                                                }];
                 }
                     break;
                 case 2: {

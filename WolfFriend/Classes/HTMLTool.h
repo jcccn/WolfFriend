@@ -13,6 +13,7 @@
 }
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml;
++ (NSString *)generateImageBodyFromUrls:(NSArray *)imageUrls;
 + (NSArray *)parseImagesFromHtml:(NSString *)aHtml;
 + (NSString *)parseNovelBodyFromHtml:(NSString *)aHtml;
 

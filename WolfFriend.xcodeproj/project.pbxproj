@@ -10,6 +10,7 @@
 		1681A41048CD4AB09236C5FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B01B977DF2549E1B2C1EA51 /* libPods.a */; };
 		900F618F1407E38200874A68 /* default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 900F618E1407E38200874A68 /* default.plist */; };
 		9035F2AC1403DF1B00007A5A /* NovelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9035F2AB1403DF1B00007A5A /* NovelListViewController.m */; };
+		903BFE0B17E3F28F001ADD31 /* PictureNativeBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903BFE0A17E3F28F001ADD31 /* PictureNativeBrowserViewController.m */; };
 		903F2A4717D110A8005BC143 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 903F2A4017D110A6005BC143 /* Icon-72.png */; };
 		903F2A4817D110A8005BC143 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 903F2A4117D110A7005BC143 /* Icon-72@2x.png */; };
 		903F2A4917D110A8005BC143 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 903F2A4217D110A7005BC143 /* Icon@2x.png */; };
@@ -59,6 +60,8 @@
 		900F618E1407E38200874A68 /* default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = default.plist; sourceTree = "<group>"; };
 		9035F2AA1403DF1B00007A5A /* NovelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NovelListViewController.h; sourceTree = "<group>"; };
 		9035F2AB1403DF1B00007A5A /* NovelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NovelListViewController.m; sourceTree = "<group>"; };
+		903BFE0917E3F28F001ADD31 /* PictureNativeBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureNativeBrowserViewController.h; sourceTree = "<group>"; };
+		903BFE0A17E3F28F001ADD31 /* PictureNativeBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureNativeBrowserViewController.m; sourceTree = "<group>"; };
 		903F2A4017D110A6005BC143 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		903F2A4117D110A7005BC143 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		903F2A4217D110A7005BC143 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				90F2424C1401032A00E1B284 /* PictureListViewController.m */,
 				90F242501401038300E1B284 /* PictureBrowserViewController.h */,
 				90F242511401038300E1B284 /* PictureBrowserViewController.m */,
+				903BFE0917E3F28F001ADD31 /* PictureNativeBrowserViewController.h */,
+				903BFE0A17E3F28F001ADD31 /* PictureNativeBrowserViewController.m */,
 				90F24253140103B000E1B284 /* NovelSectionListViewController.h */,
 				90F24254140103B000E1B284 /* NovelSectionListViewController.m */,
 				9035F2AA1403DF1B00007A5A /* NovelListViewController.h */,
@@ -425,6 +430,7 @@
 				905ACDE117B6C8E5001B8F51 /* CategoryModel.m in Sources */,
 				905ACDE417B6C942001B8F51 /* SubCategoryModel.m in Sources */,
 				90F7801417B6E19B00E081ED /* ArticleModel.m in Sources */,
+				903BFE0B17E3F28F001ADD31 /* PictureNativeBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

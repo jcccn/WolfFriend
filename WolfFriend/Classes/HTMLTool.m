@@ -14,6 +14,10 @@
 
 + (NSString *)parseImageBodyFromHtml:(NSString *)aHtml {
     NSArray *imageUrls = [self parseImagesFromHtml:aHtml];
+    return [self generateImageBodyFromUrls:imageUrls];
+}
+
++ (NSString *)generateImageBodyFromUrls:(NSArray *)imageUrls {
     if ( ! [imageUrls count]) {
         return @"";
     }

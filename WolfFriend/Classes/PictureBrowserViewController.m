@@ -13,6 +13,7 @@
 #import <BlocksKit/BlocksKit.h>
 #import <BDMultiDownloader/BDMultiDownloader.h>
 #import <ALAssetsLibrary-CustomPhotoAlbum/ALAssetsLibrary+CustomPhotoAlbum.h>
+#import "PictureNativeBrowserViewController.h"
 
 @interface PictureBrowserViewController () <UIWebViewDelegate, UIAlertViewDelegate>
 
@@ -27,6 +28,7 @@
 - (void)showAlert;
 - (void)refreshRightBarButtons;
 - (void)saveImages;
+- (void)showPhotoBrowser;
 
 @end
 
@@ -89,6 +91,26 @@
                                                     encoding:NSUTF8StringEncoding
                                                        error:NULL];
     self.pictureUrls = [HTMLTool parseImagesFromHtml:htmlString];
+    if ([self.pictureUrls count]) {
+        if (getIntPref(@"usePhotoBrowser", NO)) {
+            [self performSelectorOnMainThread:@selector(showPhotoBrowser) withObject:nil waitUntilDone:NO];
+        }
+        else {
+            NSString *clearString = [HTMLTool generateImageBodyFromUrls:self.pictureUrls];
+            if ([clearString length]) {
+                [self.webView loadHTMLString:clearString baseURL:[NSURL URLWithString:baseUrlString]];
+            }
+            else {
+                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+            }
+            [self performSelectorOnMainThread:@selector(refreshRightBarButtons) withObject:nil waitUntilDone:NO];
+        }
+    }
+    else {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+        [self performSelectorOnMainThread:@selector(refreshRightBarButtons) withObject:nil waitUntilDone:NO];
+    }
+    /*
     NSString *clearString = [HTMLTool parseImageBodyFromHtml:htmlString];
     if ([clearString length]) {
         [self.webView loadHTMLString:clearString baseURL:[NSURL URLWithString:baseUrlString]];
@@ -98,6 +120,7 @@
     }
     
     [self performSelectorOnMainThread:@selector(refreshRightBarButtons) withObject:nil waitUntilDone:NO];
+     */
 }
 
 - (void)refreshRightBarButtons {
@@ -135,6 +158,13 @@
     }
     
     self.navigationItem.rightBarButtonItems = @[self.refreshButton];
+}
+
+- (void)showPhotoBrowser {
+    PictureNativeBrowserViewController *photoBrowser = [[PictureNativeBrowserViewController alloc] initWithPictureUrls:self.pictureUrls];
+    NSMutableArray *viewControllers = [[self.navigationController viewControllers] mutableCopy];
+    [viewControllers replaceObjectAtIndex:[viewControllers indexOfObject:self] withObject:photoBrowser];
+    [self.navigationController setViewControllers:viewControllers animated:YES];
 }
 
 - (void)resetUI:(id)arg {

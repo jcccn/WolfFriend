@@ -13,3 +13,5 @@ pod 'MBProgressHUD', :head
 pod 'BDMultiDownloader', :head
 
 pod 'ALAssetsLibrary-CustomPhotoAlbum', :head
+
+pod 'MWPhotoBrowser', :head
