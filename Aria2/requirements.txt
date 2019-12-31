@@ -1,0 +1,2 @@
+requests==2.22.0
+addict==2.2.1
