@@ -1,0 +1,46 @@
+# The front repo is prior if conflicted
+# CocoaPods master repo
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios,'10.0'
+
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
+pre_install do
+    system("sed -i '' '/UITextField/d' Pods/BlocksKit/BlocksKit/BlocksKit+UIKit.h")
+    system('rm Pods/BlocksKit/BlocksKit/UIKit/UITextField+BlocksKit.h')
+    system('rm Pods/BlocksKit/BlocksKit/UIKit/UITextField+BlocksKit.m')
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['ENABLE_BITCODE'] = 'NO'
+        end
+    end
+end
+
+def shared_pods
+
+	pod 'BlocksKit'
+
+	pod 'hpple'
+	
+	pod 'AFNetworking'
+	
+	pod 'KKPasscodeLock'
+	
+	pod 'MBProgressHUD'
+	
+	pod 'BDMultiDownloader'
+	
+	pod 'ALAssetsLibrary-CustomPhotoAlbum'
+	
+	pod 'MWPhotoBrowser'
+
+end
+
+target 'WolfFriend' do
+    shared_pods
+end
